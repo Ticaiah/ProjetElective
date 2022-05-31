@@ -2,6 +2,7 @@ version: '3'
 
 volumes:
   local_postgres_data: {}
+  local_mongo_data: {}
   local_postgres_data_backups: {}
   node_modules: {}
 
@@ -28,6 +29,19 @@ services:
     command: npm run dev
     ports:
       - "3000:3000"
+
+  mongo:
+    container_name: mongo-dev
+    image: mongo:latest
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_DATABASE=auth
+      - MONGO_INITDB_ROOT_PASSWORD=pass
+    ports:
+      - '60017:27017'
+    volumes: 
+      - local_mongo_data:/data/db
+  
     
   # backend:
   #   build:
