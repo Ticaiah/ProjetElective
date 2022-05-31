@@ -1,2 +1,2 @@
 # ProjetElective
-Projet éléctive dev 2022
+Projet élective dev 2022
