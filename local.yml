@@ -1,0 +1,44 @@
+version: '3'
+
+volumes:
+  local_postgres_data: {}
+  local_postgres_data_backups: {}
+  node_modules: {}
+
+services:
+  postgres:
+    image: postgres
+    container_name: cesiPostgres
+    volumes:
+      - local_postgres_data:/var/lib/postgresql/data
+      - local_postgres_data_backups:/backups
+    env_file:
+      - ./envs/local/.postgres
+
+  frontend:
+    build:
+      context: .
+      dockerfile: ./Docker/local/frontend/Dockerfile
+    image: cesi_logiciel_local_frontend
+    container_name: frontend
+    volumes:
+      - ./frontend:/app:z
+      # http://jdlm.info/articles/2016/03/06/lessons-building-node-app-docker.html
+      - ./frontend/node_modules:/app/node_modules
+    command: npm run dev
+    ports:
+      - "3000:3000"
+    
+  # backend:
+  #   build:
+  #     context: .
+  #     dockerfile: ./Docker/local/frontend/Dockerfile
+  #   image: cesi_logiciel_local_frontend
+  #   container_name: frontend
+  #   volumes:
+  #     - ./frontend:/app:z
+  #     # http://jdlm.info/articles/2016/03/06/lessons-building-node-app-docker.html
+  #     - ./frontend/node_modules:/app/node_modules
+  #   command: npm run dev
+  #   ports:
+  #     - "8000:8000"
