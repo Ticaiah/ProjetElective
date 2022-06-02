@@ -43,16 +43,16 @@ services:
       - local_mongo_data:/data/db
   
     
-  # backend:
-  #   build:
-  #     context: .
-  #     dockerfile: ./Docker/local/backend/Dockerfile
-  #   image: cesi_logiciel_local_backend
-  #   container_name: backend
-  #   volumes:
-  #     - ./backend:/app:z
-  #     # http://jdlm.info/articles/2016/03/06/lessons-building-node-app-docker.html
-  #     - ./backend/node_modules:/app/node_modules
-  #   command: npm run dev
-  #   ports:
-  #     - "8000:8000"
+  backend:
+    build:
+      context: .
+      dockerfile: ./Docker/local/backend/Dockerfile
+    image: cesi_logiciel_local_backend
+    container_name: backend
+    volumes:
+      - ./backend:/app:z
+      # http://jdlm.info/articles/2016/03/06/lessons-building-node-app-docker.html
+      - ./backend/node_modules:/app/node_modules
+    command: npm run dev
+    ports:
+      - "6060:6060"
