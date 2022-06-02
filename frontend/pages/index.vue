@@ -21,6 +21,15 @@
             </a>.
           </p>
           <p>
+            Maintenant on va voir si l'API marche<a
+              href="http://localhost:6060/users"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              documentation
+            </a>.
+          </p>
+          <p>
             If you have questions, please join the official <a
               href="https://chat.vuetifyjs.com/"
               target="_blank"
