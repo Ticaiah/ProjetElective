@@ -38,7 +38,7 @@ services:
       - MONGO_INITDB_DATABASE=auth
       - MONGO_INITDB_ROOT_PASSWORD=pass
     ports:
-      - '60017:27017'
+      - '48151:27017'
     volumes: 
       - local_mongo_data:/data/db
   
@@ -46,13 +46,13 @@ services:
   # backend:
   #   build:
   #     context: .
-  #     dockerfile: ./Docker/local/frontend/Dockerfile
-  #   image: cesi_logiciel_local_frontend
-  #   container_name: frontend
+  #     dockerfile: ./Docker/local/backend/Dockerfile
+  #   image: cesi_logiciel_local_backend
+  #   container_name: backend
   #   volumes:
-  #     - ./frontend:/app:z
+  #     - ./backend:/app:z
   #     # http://jdlm.info/articles/2016/03/06/lessons-building-node-app-docker.html
-  #     - ./frontend/node_modules:/app/node_modules
+  #     - ./backend/node_modules:/app/node_modules
   #   command: npm run dev
   #   ports:
   #     - "8000:8000"
