@@ -2,9 +2,9 @@
   "name": "new-folder",
   "version": "1.0.0",
   "description": "",
-  "main": "backend/source/server.ts",
+  "main": "source/server.ts",
   "scripts": {
-    "dev": "nodemon backend/source/server.ts",
+    "dev": "nodemon source/server.ts",
     "build": "rm -rf build/ && prettier --write source/ && tsc"
   },
   "keywords": [],
