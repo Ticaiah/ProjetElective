@@ -2,6 +2,8 @@
 import { Request, Response, NextFunction } from 'express';
 import axios, { AxiosResponse } from 'axios';
 
+//TODO Passer en OOP : Regarder nodes.controller.ts
+
 interface Command {
     userId: Number;
     id: Number;
