@@ -15,6 +15,9 @@ services:
       - local_postgres_data_backups:/backups
     env_file:
       - ./envs/local/.postgres
+    ports:
+      - "5432:5432"
+
 
   frontend:
     build:
@@ -49,6 +52,9 @@ services:
       dockerfile: ./Docker/local/backend/Dockerfile
     image: cesi_logiciel_local_backend
     container_name: backend
+    depends_on:
+      - mongo
+      - postgres
     volumes:
       - ./backend:/app:z
       # http://jdlm.info/articles/2016/03/06/lessons-building-node-app-docker.html
