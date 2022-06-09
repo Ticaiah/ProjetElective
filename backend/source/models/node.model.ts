@@ -31,4 +31,4 @@ Node.init(
   }
 );
 
-Node.sync({alter: true}).then(() => console.log("Node table created"));
+// Node.sync({alter: true}).then(() => console.log("Node table created"));

@@ -1,13 +1,19 @@
 // lib/config/routes.ts
-import {Request, Response} from "express";
-import {Express} from "express";
-import {NodesController} from "../controllers/nodes.controller";
-
-import controller from '../controllers/commandController';
-import userController from '../controllers/userController';
+import {Request, Response}  from "express";
+import {Express}            from "express";
+import {NodesController}    from "../controllers/nodes.controller";
+import {WS3Controller}      from '../controllers/ws3Controller';
+import controller           from '../controllers/commandController';
+import userController       from '../controllers/userController';
 
 export class Routes {
-  public nodesController: NodesController = new NodesController();
+  public nodesController: NodesController;
+  public ws3Controller: WS3Controller;
+
+  constructor(){
+    this.nodesController = new NodesController();
+    this.ws3Controller   = new WS3Controller();
+  }
 
   public routes(app:Express): void {
     app.route("/").get(this.nodesController.index);
@@ -30,5 +36,12 @@ export class Routes {
     app.put('/users/:id', controller.updateCommand);
     app.delete('/users/:id', controller.deleteCommand);
     app.post('/users', controller.addCommand);
+
+    app.get('/sensors', this.ws3Controller.test);
+    app.get('/allsensors', this.ws3Controller.getAllSensors);
+    app.get('/sensors/:id', this.ws3Controller.getSensorByID);
+
+    app.post('/addSensor', this.ws3Controller.addSensor);
+
   }
 }

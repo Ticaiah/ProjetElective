@@ -6,11 +6,12 @@ import {Routes} from "./config/routes";
 
 class App {
   public app: Express;
-  public routePrv: Routes = new Routes();
+  public routePrv: Routes;
 
   constructor() {
     this.app = express();
     this.config();
+    this.routePrv = new Routes();
     this.routePrv.routes(this.app);
   }
 
