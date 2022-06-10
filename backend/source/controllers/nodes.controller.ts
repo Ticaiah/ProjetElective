@@ -1,6 +1,6 @@
 // lib/controllers/nodes.controller.ts
 import {Request, Response} from "express";
-import {Node, NodeInterface} from "../models/node.model";
+import {Node, NodeInterface} from "../models/postgres/node.model";
 
 export class NodesController {
   public index(req: Request, res: Response) {

@@ -1,6 +1,7 @@
 // lib/controllers/nodes.controller.ts
 import { Request, Response } from "express";
 import { json } from "stream/consumers";
+import { Sensor } from "../models/mongo/sensors.model";
 
 export class WS3Controller {
     static sensors = [
@@ -18,16 +19,18 @@ export class WS3Controller {
     /**
      * getAllSensors
      */
-    public getAllSensors(req: Request, res: Response) {
+    public getAllSensors(req: Request, res: Response) { 
         res.json(WS3Controller.sensors);
     }
 
     /**
      * getSensorByID
      */
-    public getSensorByID(req: Request, res: Response) {
+    public async getSensorByID(req: Request, res: Response) {
         const id: number = parseInt(req.params.id);
-        const sensor = WS3Controller.sensors.find(sensor => sensor.id === id);
+        const sensor = await Sensor.findOne({id: id});
+
+        // const sensor = WS3Controller.sensors.find(sensor => sensor.id === id);
 
         return sensor   ? res.json(sensor)
                         : res.json({ found: false });
@@ -36,8 +39,10 @@ export class WS3Controller {
     /**
      * addSensor
      */
-    public addSensor(req: Request, res: Response) {
-        WS3Controller.sensors.push(req.body)
+    public async addSensor(req: Request, res: Response) {
+        const newSensor = new Sensor(req.body);
+        // WS3Controller.sensors.push(req.body);
+        await newSensor.save();
         res.json({ok : true})
     }
 

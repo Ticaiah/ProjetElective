@@ -1,7 +1,7 @@
 // lib/config/database.ts
-import {Sequelize} from "sequelize";
+import { Sequelize } from "sequelize";
 
-export const database = new Sequelize({
+export const postgres = new Sequelize({
   dialect: "postgres",
   host: "postgres",
   username: "cesi",
