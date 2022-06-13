@@ -1,6 +1,6 @@
 // lib/models/node.model.ts
 import {Sequelize, Model, DataTypes, BuildOptions} from "sequelize";
-import {database} from "../config/database";
+import {postgres} from "../../config/postgres";
 
 export class Node extends Model {
   public id!: number;
@@ -27,8 +27,8 @@ Node.init(
   },
   {
     tableName: "nodes",
-    sequelize: database, // this bit is important
+    sequelize: postgres, // this bit is important
   }
 );
 
-Node.sync({alter: true}).then(() => console.log("Node table created"));
+// Node.sync({alter: true}).then(() => console.log("Node table created"));
