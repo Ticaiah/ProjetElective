@@ -45,6 +45,15 @@ services:
       - "traefik.http.routers.http-catchall.middlewares=redirect-to-https"
       # middleware redirect
       - "traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https"
+      # middleware api protect
+        # auth middleware
+      - "traefik.http.middlewares.auth-middleware.forwardauth.address=http://backend:6060/auth"
+        # Here, an average of 100 requests per second is allowed.
+        # In addition, a burst of 50 requests is allowed.
+      - "traefik.http.middlewares.ratelimit-middleware.ratelimit.average=100"
+      - "traefik.http.middlewares.ratelimit-middleware.ratelimit.burst=50"
+        # we chain rate limit with auth middleware
+      - "traefik.http.middlewares.apiprotect.chain.middlewares=ratelimit-middleware,auth-middleware"
 
   postgres:
     image: postgres
@@ -128,13 +137,12 @@ services:
     #   - 8000:80
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.protected.rule=Host(`appli.docker.localhost`) && PathPrefix(`/protected`)"
+      - "traefik.http.routers.protected.rule=Host(`appli.docker.localhost`) && PathPrefix(`/api/protected`)"
       - "traefik.http.routers.protected.service=protected"
       - "traefik.http.routers.protected.tls=true"
       - "traefik.http.routers.protected.entrypoints=websecure"
       - "traefik.http.services.protected.loadbalancer.server.port=80"
 
       # Middleware to authenticate
-      - "traefik.http.middlewares.auth-middleware.forwardauth.address=http://backend:6060/auth"
-      - "traefik.http.routers.protected.middlewares=auth-middleware"
+      - "traefik.http.routers.protected.middlewares=apiprotect"
 
