@@ -1,20 +1,12 @@
 // lib/config/routes.ts
-import {Request, Response} from "express";
 import {Express} from "express";
-import {NodesController} from "../controllers/nodes.controller";
 
 import controller from '../controllers/commandController';
 import userController from '../controllers/userController';
 
 export class Routes {
-  public nodesController: NodesController = new NodesController();
 
   public routes(app:Express): void {
-    app.route("/").get(this.nodesController.index);
-
-    app.route("/nodes")
-      .get(this.nodesController.index)
-      .post(this.nodesController.create);
 
     app.get('/commands', controller.getCommands);
     app.get('/commands/:id', controller.getCommand);

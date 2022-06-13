@@ -46,19 +46,36 @@ services:
       - local_mongo_data:/data/db
   
     
-  backend:
+  Microservices:
     build:
       context: .
-      dockerfile: ./Docker/local/backend/Dockerfile
-    image: cesi_logiciel_local_backend
-    container_name: backend
+      dockerfile: ./Docker/local/backend/Microservices/Dockerfile
+    image: cesi_logiciel_local_backend_microservices
+    container_name: microservices
     depends_on:
       - mongo
       - postgres
     volumes:
-      - ./backend:/app:z
+      - ./backend/microservices:/app:z
       # http://jdlm.info/articles/2016/03/06/lessons-building-node-app-docker.html
-      - ./backend/node_modules:/app/node_modules
+      - ./backend/Microservices/node_modules:/app/node_modules
     command: npm run dev
     ports:
       - "6060:6060"
+
+  API:
+    build:
+      context: .
+      dockerfile: ./Docker/local/backend/API/Dockerfile
+    image: cesi_logiciel_local_backend_api
+    container_name: API
+    depends_on:
+      - mongo
+      - postgres
+    volumes:
+      - ./backend/api:/app:z
+      # http://jdlm.info/articles/2016/03/06/lessons-building-node-app-docker.html
+      - ./backend/API/node_modules:/app/node_modules
+    command: npm run dev
+    ports:
+      - "8080:8080"
