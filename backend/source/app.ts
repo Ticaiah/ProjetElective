@@ -3,7 +3,6 @@ import morgan from 'morgan';
 import helmet from 'helmet';
 import express, { Express } from 'express';
 import { Routes } from "./config/routes";
-import mongoose from "mongoose";
 
 class App {
   public app: Express;
@@ -23,17 +22,6 @@ class App {
     this.app.use(helmet({
       crossOriginResourcePolicy: false,
     }));
-
-    mongoose.connect(
-      'mongodb://admin:pass@mongo-dev:27017/'
-    )
-    .then(() => {
-      console.log("Connecté à mongodb !");
-    })
-    .catch((reason) => { 
-      console.log("Erreur de connection à la base mongodb :");
-      console.log(reason);
-  });
   }
 }
 

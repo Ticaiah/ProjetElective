@@ -1,4 +1,6 @@
-import { Schema, model, connect } from 'mongoose';
+import { Schema } from 'mongoose';
+import { mongo } from "../../config/mongo"
+
 
 export interface ISensor {
     id: number;
@@ -14,5 +16,4 @@ export const sensorSchema = new Schema<ISensor>({
     metrics: Boolean
 });
 
-
-export const Sensor = model<ISensor>('Sensor', sensorSchema);
+export const Sensor = mongo.model<ISensor>('Sensor', sensorSchema);

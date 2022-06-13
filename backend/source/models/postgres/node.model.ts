@@ -1,6 +1,6 @@
 // lib/models/node.model.ts
 import {Sequelize, Model, DataTypes, BuildOptions} from "sequelize";
-import {postgres} from "../../config/database";
+import {postgres} from "../../config/postgres";
 
 export class Node extends Model {
   public id!: number;
