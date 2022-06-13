@@ -1,26 +1,33 @@
-// lib/config/routes.ts
 import {Express} from "express";
+import {NodesController} from "../controllers/nodes.controller";
+import {CommandsController} from '../controllers/commands.controller';
+import {UsersController} from '../controllers/users.controller';
 
-import controller from '../controllers/commandController';
-import userController from '../controllers/userController';
 
 export class Routes {
+  public nodesController: NodesController = new NodesController();
+  public usersController: UsersController = new UsersController();
+  public commandsController: CommandsController = new CommandsController();
 
   public routes(app:Express): void {
+    app.route("/").get(this.nodesController.index);
 
-    app.get('/commands', controller.getCommands);
-    app.get('/commands/:id', controller.getCommand);
-    app.put('/commands/:id', controller.updateCommand);
-    app.delete('/commands/:id', controller.deleteCommand);
-    app.post('/commands', controller.addCommand);
+    app.route("/nodes")
+      .get(this.nodesController.index)
+      .post(this.nodesController.create);
 
+    app.route("/commands")
+      .get(this.commandsController.getCommands)
+      .post(this.commandsController.addCommand)
+
+    app.route("/commands/:id")
+      .get(this.commandsController.getCommand)
+      .put(this.commandsController.updateCommand)
+      .delete(this.commandsController.deleteCommand)
 
 //Routes users
 
-    app.get('/users', userController.getUsers);
-    app.get('/users/:id', controller.getCommand);
-    app.put('/users/:id', controller.updateCommand);
-    app.delete('/users/:id', controller.deleteCommand);
-    app.post('/users', controller.addCommand);
+    app.route('/users')
+      .get(this.usersController.getUsers)
   }
 }
