@@ -21,12 +21,21 @@
             </a>.
           </p>
           <p>
+            Bienvenue sur le shop! <a
+              href="https://vuetifyjs.com"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Shop
+            </a>.
+          </p>
+          <p>
             Maintenant on va voir si l'API marche<a
               href="http://localhost:6060/users"
               target="_blank"
               rel="noopener noreferrer"
             >
-              documentation
+              Users
             </a>.
           </p>
           <p>
