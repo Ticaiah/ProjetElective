@@ -1,5 +1,8 @@
 <template>
   <div id="app">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@mdi/font@6.x/css/materialdesignicons.min.css" rel="stylesheet">
+
     <nav>
       <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link> |

@@ -5,6 +5,9 @@
         <h2>Quantité : {{article.Quantité}} 
         <br>Prix : {{article.Prix}}</h2>
         <button type="button" class="btn btn-primary" v-on:click="ajouterArticle(article)">Ajouter cet article</button>
+        <v-btn
+  elevation="2"
+></v-btn>
     </div>
 </template>
 <script lang="ts">
