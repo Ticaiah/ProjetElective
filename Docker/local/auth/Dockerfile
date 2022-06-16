@@ -2,7 +2,7 @@ FROM node:lts
 
 WORKDIR /app
 
-COPY ./backend/package.json /app
+COPY ./backend/auth/package.json /app
 
 RUN npm install && npm cache clean --force
 
