@@ -1,4 +1,4 @@
-version: '3'
+version: "3"
 
 volumes:
   local_postgres_data: {}
@@ -7,6 +7,58 @@ volumes:
   node_modules: {}
 
 services:
+  traefik:
+    image: "traefik:latest"
+    container_name: traefik
+    hostname: traefik
+    command:
+      #     - "--log.level=DEBUG"
+      - --entrypoints.web.address=:80
+      - --entrypoints.websecure.address=:443
+      - --providers.docker
+      - --providers.docker.exposedByDefault=false
+      - --api
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+      - "./letsencrypt:/letsencrypt"
+    labels:
+      - "traefik.enable=true"
+      # Dashboard
+      # - "traefik.docker.network=proxy"
+      - "traefik.http.routers.traefik.rule=Host(`traefik.docker.localhost`)"
+      - "traefik.http.routers.traefik.priority=255"
+      - "traefik.http.routers.traefik.service=api@internal"
+      - "traefik.http.routers.traefik.tls=true"
+      - "traefik.http.routers.traefik.entrypoints=websecure"
+      - "traefik.http.routers.traefik.middlewares=authtraefik"
+      # - "traefik.http.middlewares.test-stripprefix.stripprefix.prefixes=/"
+      - "traefik.http.middlewares.authtraefik.basicauth.users=admin:$$apr1$$xPj12WiM$$hYFwvN4aD9A4sPD8ofcyv0" # user:admin, password:admin
+      # # Dashboard private
+      # - "traefik.http.routers.dashtr.service=api@internal"
+      # - "traefik.http.routers.dashtr.entrypoints=metrics"
+      # global redirect to https
+      - "traefik.http.routers.http-catchall.rule=hostregexp(`{host:.+}`)"
+      - "traefik.http.routers.http-catchall.entrypoints=web"
+      - "traefik.http.routers.http-catchall.middlewares=redirect-to-https"
+      # middleware redirect
+      - "traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https"
+
+      # middleware api protect
+      # auth middleware
+      - "traefik.http.middlewares.auth-middleware.forwardauth.address=http://auth:6060/auth"
+      - "traefik.http.middlewares.auth-middleware.forwardauth.authResponseHeaders=X-Connected"
+        # Here, an average of 100 requests per second is allowed.
+        # In addition, a burst of 50 requests is allowed.
+      - "traefik.http.middlewares.ratelimit-middleware.ratelimit.average=100"
+      - "traefik.http.middlewares.ratelimit-middleware.ratelimit.burst=50"
+        # Middleware strip prefix for /api
+      - "traefik.http.middlewares.stripprefix.stripprefix.prefixes=/api"
+        # we chain rate limit with auth middleware
+      - "traefik.http.middlewares.apiprotect.chain.middlewares=ratelimit-middleware,auth-middleware,stripprefix"
+
   postgres:
     image: postgres
     container_name: cesiPostgres
@@ -18,7 +70,6 @@ services:
     ports:
       - "5432:5432"
 
-
   frontend:
     build:
       context: .
@@ -29,36 +80,101 @@ services:
       - ./frontend:/app:z
       # http://jdlm.info/articles/2016/03/06/lessons-building-node-app-docker.html
       - ./frontend/node_modules:/app/node_modules
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.frontend.rule=Host(`appli.docker.localhost`)"
+      - "traefik.http.routers.frontend.service=frontend"
+      - "traefik.http.routers.frontend.tls=true"
+      - "traefik.http.routers.frontend.entrypoints=websecure"
+      - "traefik.http.services.frontend.loadbalancer.server.port=3000"
+
     command: npm run dev
-    ports:
-      - "3000:3000"
 
   mongo:
     container_name: mongo-dev
     image: mongo:latest
-    environment:
-      - MONGO_INITDB_ROOT_USERNAME=admin
-      - MONGO_INITDB_DATABASE=auth
-      - MONGO_INITDB_ROOT_PASSWORD=pass
+    env_file:
+      - ./envs/local/.mongodb
+      # Aujourd'hui nous n'avons qu'une seule database,
+      # si nous en voulons plusieurs nous devons réaliser un script d'initialisation
+      # Lien : https://onexlab-io.medium.com/docker-mongodb-multiple-databases-62a685c4352a
     ports:
-      - '48151:27017'
-    volumes: 
+      - "48151:27017"
+    volumes:
       - local_mongo_data:/data/db
-  
-    
-  backend:
+
+  auth:
     build:
       context: .
-      dockerfile: ./Docker/local/backend/Dockerfile
-    image: cesi_logiciel_local_backend
-    container_name: backend
+      dockerfile: ./Docker/local/auth/Dockerfile
+    image: cesi_logiciel_local_auth
+    container_name: auth
     depends_on:
       - mongo
       - postgres
     volumes:
-      - ./backend:/app:z
+      - ./backend/auth:/app:z
       # http://jdlm.info/articles/2016/03/06/lessons-building-node-app-docker.html
-      - ./backend/node_modules:/app/node_modules
+      - ./backend/auth/node_modules:/app/node_modules
+    env_file:
+      - ./envs/local/.mongodb
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.auth.rule=Host(`appli.docker.localhost`) && PathPrefix(`/auth`)"
+      - "traefik.http.routers.auth.service=auth"
+      - "traefik.http.routers.auth.tls=true"
+      - "traefik.http.routers.auth.entrypoints=websecure"
+      - "traefik.http.services.auth.loadbalancer.server.port=6060"
+
+      # # Middleware to remore /api
+      # - "traefik.http.routers.auth.middlewares=stripprefix"
+
     command: npm run dev
-    ports:
-      - "6060:6060"
+    # ports:
+    #   - "6060:6060"
+
+  microservice:
+    build:
+      context: .
+      dockerfile: ./Docker/local/microservice/Dockerfile
+    image: cesi_logiciel_local_microservice
+    container_name: microservice
+    depends_on:
+      - mongo
+      - postgres
+    volumes:
+      - ./backend/microservice:/app:z
+      # http://jdlm.info/articles/2016/03/06/lessons-building-node-app-docker.html
+      - ./backend/microservice/node_modules:/app/node_modules
+    env_file:
+      - ./envs/local/.mongodb
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.microservice.rule=Host(`appli.docker.localhost`) && PathPrefix(`/api`)"
+      - "traefik.http.routers.microservice.service=microservice"
+      - "traefik.http.routers.microservice.tls=true"
+      - "traefik.http.routers.microservice.entrypoints=websecure"
+      - "traefik.http.services.microservice.loadbalancer.server.port=6060"
+
+      # Authentication middleware
+      - "traefik.http.routers.microservice.middlewares=apiprotect"
+
+    command: npm run dev
+    # ports:
+    #   - "6060:6060"
+
+  # TODO Conteneur sécurisé par le middleware -> ici que pour le test
+  whoami:
+    image: containous/whoami:latest
+    # ports:
+    #   - 8000:80
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.protected.rule=Host(`appli.docker.localhost`) && PathPrefix(`/api/protected`)"
+      - "traefik.http.routers.protected.service=protected"
+      - "traefik.http.routers.protected.tls=true"
+      - "traefik.http.routers.protected.entrypoints=websecure"
+      - "traefik.http.services.protected.loadbalancer.server.port=80"
+
+      # Authentication middleware
+      - "traefik.http.routers.protected.middlewares=apiprotect"

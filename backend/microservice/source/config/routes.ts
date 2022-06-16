@@ -17,7 +17,10 @@ export class Routes {
 
   public routes(app:Express): void {
     app.route("/").get(this.nodesController.index);
+    // Test avec la route auth pour le middleware traefik
+    // app.route("/auth").get(this.nodesController.index);
 
+    app.route("/overview").get(this.nodesController.index);
     app.route("/nodes")
       .get(this.nodesController.index)
       .post(this.nodesController.create);
