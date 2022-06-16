@@ -1,10 +1,3 @@
-export interface article {
-    titreArticle: string
-    Prix: Number
-    Quantité: Number
-    Couleur: string
-    img: string
-}
 export class articlesModel {
     
     public titreArticle: string
@@ -12,6 +5,7 @@ export class articlesModel {
     public Quantité: string | Number
     public Couleur: string
     public img: string
+    public Compteur : Number
 
     public constructor (titreArticle:string, Prix:Number, Quantité:Number, Couleur:string, img:string) {
         this.titreArticle= titreArticle
@@ -19,5 +13,6 @@ export class articlesModel {
         this.Quantité=Quantité
         this.Couleur=Couleur
         this.img=img
+        this.Compteur=0;
     }
 }
