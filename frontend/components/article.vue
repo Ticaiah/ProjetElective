@@ -1,7 +1,7 @@
 <template>
     <div>
         <h1>{{ article.titreArticle }}</h1>
-        <img v-bind:src="article.img">
+        <img v-bind:src="article.img" class="vuetify-logo" alt="Vuetify Logo">
         <h2>Quantité : {{article.Quantité}} 
         <br>Prix : {{article.Prix}}</h2>
         <button type="button" class="btn btn-primary" v-on:click="ajouterArticle(article)">Ajouter cet article</button>

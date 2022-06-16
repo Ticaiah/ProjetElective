@@ -108,7 +108,7 @@ export default {
           to: '/inspire'
         },
         {
-          icon: 'mdi-chart-bubble',
+          icon: 'mdi-shopping',
           title: 'Shop',
           to: '/shopView'
         }

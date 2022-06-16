@@ -15,6 +15,6 @@ import { articlesModel, article } from '@/model/articlesModel';
   },
 })
 export default class shopView extends Vue {
-  public articles: articlesModel[] = [new articlesModel("Test1",50,80,"Bleu",'@/assets/Hamburger_(black_bg).jpg'), new articlesModel("Test2",50,80,"rouge","./assets/IMG_20200721_170836_727.jpg")]
+  public articles: articlesModel[] = [new articlesModel("Test1",50,80,"Bleu",'/Hamburger_(black_bg).jpg'), new articlesModel("Test2",50,80,"rouge","./IMG_20200721_170836_727.jpg")]
  }
 </script>
