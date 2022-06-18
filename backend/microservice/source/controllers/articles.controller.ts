@@ -6,13 +6,13 @@ export class ArticlesController {
 
 /* get all objects with mongoose */
 public async getAllArticles(req: Request, res: Response) {
-    const Articles = await Article.find();
+    const Articles = await Article.find().populate("restaurant_id");
     res.json(Articles);
   }
 
 /* get single Article mongo*/
 public async getArticle(req : Request, res: Response) {
-    const ord = await Article.findOne({"_id": req.params._id})
+    const ord = await Article.findOne({"_id": req.params._id}).populate("restaurant_id")
       if (ord) {
         res.json(ord)}
       else res.status(404).send({ error: 'Something failed!' });

@@ -6,13 +6,13 @@ export class MenusController {
 
 /* get all objects with mongoose */
 public async getAllMenus(req: Request, res: Response) {
-    const Menus = await Menu.find();
+    const Menus = await Menu.find().populate("restaurant_id").populate("article_list");
     res.json(Menus);
   }
 
 /* get single Menu mongo*/
 public async getMenu(req : Request, res: Response) {
-    const men = await Menu.findOne({"_id": req.params._id})
+    const men = await Menu.findOne({"_id": req.params._id}).populate("restaurant_id","article_list")
       if (men) {
         res.json(men)}
       else res.status(404).send({ error: 'Something failed!' });
@@ -38,7 +38,7 @@ public async addMenu(req: Request, res: Response) {
     }
   
 public async deleteMenu(req: Request, res: Response) {
-  const men = await Menu.findOne({"_id": req.params._id})
+  const men = await Menu.findOne({"_id": req.params._id}).populate("restaurant_id","article_list")
   if (men) {
       men.delete();
       res.status(201).json({men});

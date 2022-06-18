@@ -8,6 +8,7 @@ export interface IAddress {
    city: String;
 }
 
+//Addresse venant de l'annuaire français ?
 export const addressSchema = new Schema<IAddress>({
     address:{type: String, required: true},
     cp:{type: Number, required: true},
