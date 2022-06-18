@@ -14,10 +14,8 @@ export const menuSchema = new Schema<IMenu>({
     name:{type: String, required: true},
     article_list:{type: String, required: true}, //TODO: une liste d'objet de type article? changer le type mis de bas qui est string
     description:{type: String},
-    price: {type: Number, required: true}, //TODO: type number prend bien les float??
+    price: {type: Number, required: true},
     restaurant_id:{type: Number, required: true}, //TODO: lien avec un restaurant pour savoir d'ou vient le menu en question
-
-    
 });
 
-export const Menu = mongo.model<IMenu>('Article', menuSchema);
+export const Menu = mongo.model<IMenu>('Menu', menuSchema);

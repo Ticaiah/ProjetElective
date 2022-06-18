@@ -15,15 +15,13 @@ export interface IOrder {
 
 export const orderSchema = new Schema<IOrder>({
     menus_list: {type: Number, required: true}, //TODO: liste des meuns/produits
-    total_price: {type: Number, required: true}, //TODO: voir si number prend float
-    delivery_price: {type: Number, required: true},//TODO: voir si number prend float
+    total_price: {type: Number, required: true}, 
+    delivery_price: {type: Number, required: true},
     delivery_user_id: {type: Number, required: true}, //TODO: id de l'utilisateur de type livreur qui a pris en charge la commande
     user_id: {type: Number, required: true}, //TODO: id de l'utilisateur qui a effectué la commande
     is_validated: {type: Boolean, required: true},
     payment_type_id: {type: Number, required: true}, //TODO: A voir
     transaction_id: {type: Number, required: true}, //TODO: A voir
-  
-    
 });
 
 export const Order = mongo.model<IOrder>('Order', orderSchema);

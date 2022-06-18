@@ -1,50 +1,74 @@
 // lib/config/routes.ts
-import {Request, Response}  from "express";
 import {Express}            from "express";
-import {NodesController}    from "../controllers/nodes.controller";
-import {WS3Controller}      from '../controllers/ws3Controller';
-import controller           from '../controllers/commandController';
+import {OrdersController}   from '../controllers/orders.controller';
+import {ArticlesController}   from '../controllers/articles.controller';
+import {AddressesController}   from '../controllers/addresses.Controller';
+import {MenusController}   from '../controllers/menus.controller';
+import {RestaurantsController}   from '../controllers/restaurants.Controller';
 import userController       from '../controllers/userController';
 
 export class Routes {
-  public nodesController: NodesController;
-  public ws3Controller: WS3Controller;
+  public ordersController: OrdersController;
+  public restaurantsController: RestaurantsController;
+  public articlesController: ArticlesController;
+  public addressesController: AddressesController;
+  public menusController: MenusController;
 
   constructor(){
-    this.nodesController = new NodesController();
-    this.ws3Controller   = new WS3Controller();
+    this.ordersController = new OrdersController();
+    this.articlesController = new ArticlesController();
+    this.restaurantsController = new RestaurantsController();
+    this.addressesController = new AddressesController();
+    this.menusController = new MenusController();
   }
 
   public routes(app:Express): void {
-    app.route("/").get(this.nodesController.index);
-    // Test avec la route auth pour le middleware traefik
-    // app.route("/auth").get(this.nodesController.index);
 
-    app.route("/overview").get(this.nodesController.index);
-    app.route("/nodes")
-      .get(this.nodesController.index)
-      .post(this.nodesController.create);
-
-    app.get('/commands', controller.getCommands);
-    app.get('/commands/:id', controller.getCommand);
-    app.put('/commands/:id', controller.updateCommand);
-    app.delete('/commands/:id', controller.deleteCommand);
-    app.post('/commands', controller.addCommand);
+//Routes orders
+    app.route('/orders')
+      .get(this.ordersController.getAllOrders)
+      .post(this.ordersController.addOrder);
+    app.route('/orders/:_id')
+      .get(this.ordersController.getOrder)
+      .put(this.ordersController.updateOrder)
+      .delete(this.ordersController.deleteOrder);
 
 
-//Routes users
+//Routes articles
+    app.route('/articles')
+      .get(this.articlesController.getAllArticles)
+      .post(this.articlesController.addArticle);
+    app.route('/articles/:_id')
+      .get(this.articlesController.getArticle)
+      .put(this.articlesController.updateArticle)
+      .delete(this.articlesController.deleteArticle);
 
-    app.get('/users', userController.getUsers);
-    app.get('/users/:id', controller.getCommand);
-    app.put('/users/:id', controller.updateCommand);
-    app.delete('/users/:id', controller.deleteCommand);
-    app.post('/users', controller.addCommand);
+//Routes addresses
+      app.route('/addresses')
+        .get(this.addressesController.getAllAddresses)
+        .post(this.addressesController.addAddress);
+      app.route('/addresses/:_id')
+        .get(this.addressesController.getAddress)
+        .put(this.addressesController.updateAddress)
+        .delete(this.addressesController.deleteAddress);
 
-    app.get('/sensors', this.ws3Controller.test);
-    app.get('/allsensors', this.ws3Controller.getAllSensors);
-    app.get('/sensors/:id', this.ws3Controller.getSensorByID);
+//Routes menus
+      app.route('/menus')
+        .get(this.menusController.getAllMenus)
+        .post(this.menusController.addMenu);
+      app.route('/menus/:_id')
+        .get(this.menusController.getMenu)
+        .put(this.menusController.updateMenu)
+        .delete(this.menusController.deleteMenu);
 
-    app.post('/addSensor', this.ws3Controller.addSensor);
+//Routes restaurants Restaurant
+      app.route('/restaurants')
+        .get(this.restaurantsController.getAllRestaurants)
+        .post(this.restaurantsController.addRestaurant);
+      app.route('/restaurants/:_id')
+        .get(this.restaurantsController.getRestaurant)
+        .put(this.restaurantsController.updateRestaurant)
+        .delete(this.restaurantsController.deleteRestaurant);
 
   }
 }

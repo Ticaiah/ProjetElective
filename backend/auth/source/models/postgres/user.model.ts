@@ -10,7 +10,7 @@ export class User extends Model {
   public is_verified!: boolean;
   public user_phone_number!: number;
   public address_id!: number;
-  //TODO: public type!: ???? ;
+  public type!: string ;
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
 }
