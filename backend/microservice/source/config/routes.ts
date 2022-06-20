@@ -2,9 +2,9 @@
 import {Express}            from "express";
 import {OrdersController}   from '../controllers/orders.controller';
 import {ArticlesController}   from '../controllers/articles.controller';
-import {AddressesController}   from '../controllers/addresses.Controller';
+import {AddressesController}   from '../controllers/addresses.controller';
 import {MenusController}   from '../controllers/menus.controller';
-import {RestaurantsController}   from '../controllers/restaurants.Controller';
+import {RestaurantsController}   from '../controllers/restaurants.controller';
 import userController       from '../controllers/userController';
 
 export class Routes {
