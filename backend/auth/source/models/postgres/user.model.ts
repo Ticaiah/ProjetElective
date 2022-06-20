@@ -21,6 +21,7 @@ User.init({
 
   id: {
     type: DataTypes.INTEGER,
+    primaryKey: true,
     allowNull: false,
     autoIncrement: true
 
@@ -70,4 +71,4 @@ User.init({
   sequelize: postgres, 
 });
 
-// User.sync({alter: true}).then(() => console.log("User table created/updated!"));
+User.sync({force: true}).then(() => console.log("User table created/updated!"));
