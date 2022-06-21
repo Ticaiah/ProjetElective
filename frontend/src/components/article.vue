@@ -1,13 +1,10 @@
 <template>
     <div>
         <h1>{{ article.titreArticle }}</h1>
-        <img v-bind:src="article.img">
+        <img :src="article.img"/>
         <h2>Quantité : {{article.Quantité}} 
         <br>Prix : {{article.Prix}}</h2>
-        <button type="button" class="btn btn-primary" v-on:click="ajouterArticle(article)">Ajouter cet article</button>
-        <v-btn
-  elevation="2"
-></v-btn>
+        <v-btn elevation="2" v-on:click="ajouterArticle(article)">Ajouter cet article</v-btn>
     </div>
 </template>
 <script lang="ts">
