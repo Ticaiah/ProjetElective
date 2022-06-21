@@ -77,18 +77,18 @@ services:
     image: cesi_logiciel_local_frontend
     container_name: frontend
     volumes:
-      - ./frontend:/app:z
+      - ./frontend:/app
       # http://jdlm.info/articles/2016/03/06/lessons-building-node-app-docker.html
-      - ./frontend/node_modules:/app/node_modules
+      - /app/node_modules
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.frontend.rule=Host(`appli.docker.localhost`)"
       - "traefik.http.routers.frontend.service=frontend"
       - "traefik.http.routers.frontend.tls=true"
       - "traefik.http.routers.frontend.entrypoints=websecure"
-      - "traefik.http.services.frontend.loadbalancer.server.port=3000"
+      - "traefik.http.services.frontend.loadbalancer.server.port=8080"
 
-    command: npm run dev
+    command: npm run serve
 
   mongo:
     container_name: mongo-dev
@@ -113,9 +113,9 @@ services:
       - mongo
       - postgres
     volumes:
-      - ./backend/auth:/app:z
+      - ./backend/auth:/app
       # http://jdlm.info/articles/2016/03/06/lessons-building-node-app-docker.html
-      - ./backend/auth/node_modules:/app/node_modules
+      - /app/node_modules
     env_file:
       - ./envs/local/.mongodb
     labels:
@@ -143,9 +143,9 @@ services:
       - mongo
       - postgres
     volumes:
-      - ./backend/microservice:/app:z
+      - ./backend/microservice:/app
       # http://jdlm.info/articles/2016/03/06/lessons-building-node-app-docker.html
-      - ./backend/microservice/node_modules:/app/node_modules
+      - /app/node_modules
     env_file:
       - ./envs/local/.mongodb
     labels:

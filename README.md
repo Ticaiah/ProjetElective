@@ -15,3 +15,8 @@ Starting server
 ```sh
 docker-compose -f local.yml up -d
 ```
+
+Get node dependencies for all projects
+```sh
+npm install
+```

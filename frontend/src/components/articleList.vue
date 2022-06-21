@@ -1,0 +1,22 @@
+<template>
+    <div>
+        <div v-for="article in articles">
+            <Article :article="article"></Article>
+        </div>
+    </div>
+</template>
+<script lang="ts">
+import { Vue, Component, Prop } from 'vue-property-decorator'
+import { articlesModel } from '@/model/articlesModel'
+import Article from './article.vue'
+@Component({
+    components: {
+        Article,
+    },
+})
+export default class ArticleList extends Vue {
+    @Prop() articles!: articlesModel[]
+}
+</script>
+<style>
+</style>
