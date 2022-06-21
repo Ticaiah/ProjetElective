@@ -1,0 +1,24 @@
+{
+  "name": "projetelective",
+  "version": "1.0.0",
+  "description": "Projet élective dev 2022",
+  "main": " ",
+  "scripts": {
+    "install:auth": "cd backend/auth && sudo npm install",
+    "install:microservice": "cd backend/microservice && sudo npm install",
+    "install:frontend": "cd frontend && sudo npm install",
+  
+    "postinstall": "npm run install:auth && npm run install:microservice && npm run install:frontend",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ticaiah/ProjetElective.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Ticaiah/ProjetElective/issues"
+  },
+  "homepage": "https://github.com/Ticaiah/ProjetElective#readme"
+}
