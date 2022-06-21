@@ -1,17 +1,25 @@
 <template>
   <div id="app">
-    <NavigationBars />
+    <Navigation />
   </div>
 </template>
 
 <script lang="ts">
-import NavigationBars from "@/components/navigationBars.vue";
+import Navigation from "@/components/navigation.vue";
 import { Vue, Component } from "vue-property-decorator";
 
 @Component({
   components: {
-    NavigationBars,
+    Navigation,
   },
 })
 export default class Test extends Vue {}
 </script>
+
+<style>
+#app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  text-align: center;
+  
+}
+</style>

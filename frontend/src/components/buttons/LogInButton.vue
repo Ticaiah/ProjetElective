@@ -1,5 +1,5 @@
 <template>
-  <v-btn id="connexion" elevation="1" rounded>
+  <v-btn id="connexion" elevation="1" rounded >
     <v-icon left> mdi-account </v-icon>
     Connexion
   </v-btn>
