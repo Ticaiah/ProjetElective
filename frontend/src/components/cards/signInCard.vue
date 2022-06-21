@@ -3,9 +3,7 @@
     <v-card max-width="600">
       <v-card-text>
         <v-form>
-            <v-card-title class="justify-center">
-                INSCRIPTION
-            </v-card-title>
+          <v-card-title class="justify-center"> INSCRIPTION </v-card-title>
           <v-row>
             <v-col>
               <v-card-action>
@@ -42,6 +40,23 @@
             <v-col>
               <v-card-action>
                 <v-text-field label="Ville"></v-text-field>
+              </v-card-action>
+            </v-col>
+          </v-row>
+
+          <v-row>
+            <v-col>
+              <v-card-action>
+                <v-btn class="mr-4" type="submit" rounded color="grey darken-2">
+                  S'inscrire
+                </v-btn>
+              </v-card-action>
+            </v-col>
+          </v-row>
+          <v-row>
+            <v-col>
+              <v-card-action>
+                <v-btn plain x-small>Déjà un compte ?</v-btn>
               </v-card-action>
             </v-col>
           </v-row>
