@@ -1,5 +1,5 @@
 <template>
-  <div class="coucou">
+  <div class="signCard">
     <v-card max-width="600">
       <v-card-text>
         <v-form>
@@ -73,10 +73,11 @@ import { Vue, Component } from "vue-property-decorator";
 export default class SignInCard extends Vue {}
 </script>
 
-<style>
-.coucou {
+<style scoped>
+.signCard {
   margin-top: 50px;
   margin-left: 100px;
+  opacity: 1 ;
 }
 </style>
 //TODO utiliser Vee Validate pour la validation du form

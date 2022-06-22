@@ -1,6 +1,6 @@
 <template>
-  <div class="coucou">
-    <v-card max-width="600">
+  <div > 
+    <v-card class="logCard" max-width="600">
       <v-card-text>
         <v-form>
           <v-card-title class="justify-center"> CONNEXION </v-card-title>
@@ -50,9 +50,9 @@ import { Vue, Component } from "vue-property-decorator";
 export default class LogInCard extends Vue {}
 </script>
 
-<style>
-.coucou {
-  margin-top: 50px;
+<style scoped>
+.logCard {
+  margin-top: 50px; 
   margin-left: 100px;
 }
 </style>
