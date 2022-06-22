@@ -13,7 +13,8 @@ export class Routes {
     // Test avec la route auth pour le middleware traefik
     app.route("/auth").get(this.authController.checkJWT);
     // TODO Réaliser la route login
-    // app.route("/auth/login").post();
+    app.route("/auth/login").post(this.authController.login);
+    app.route("/auth/register").post(this.authController.register);
     
   }
 }
