@@ -3,19 +3,6 @@ import userStore from "@/store/userStore";
 
 
 export default class UserService {
-    instance = axios.create({
-        baseURL: 'https://appli.docker.localhost/api',
-        timeout: 1000,
-        // headers: {'X-Custom-Header': 'foobar'}
-    });
-    // Add a request interceptor
-    // .interceptors.request.use(function (config:AxiosRequestConfig) {
-    //     const token = userStore.state.token;*
-    //     config.headers.Authorization = `Bearer ${token}`;
-
-    //     return config;
-    // });
-    
     public createUser(): void {
         axios.post('https://appli.docker.localhost/auth/register', {
                 first_name: userStore.state.user.first_name,
@@ -41,6 +28,20 @@ export default class UserService {
 
     public loginUser(): void{
         //TODO: faire la fonction
+        axios.post('https://appli.docker.localhost/auth/login', {
+                mail: userStore.state.login.login,
+                password: userStore.state.login.password
+            })
+            .then(function (response) {
+                //if response is ok, we save the token in the store
+                //TODO update token in store
+                // response.data.token
+                console.log(response);
+            }
+            ).catch(function (error) {
+                console.log(error);
+            }
+            );
     }
 }
 
