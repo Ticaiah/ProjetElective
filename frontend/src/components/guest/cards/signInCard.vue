@@ -15,7 +15,12 @@
           <v-col>
             <v-text-field v-model="mail" label="Adresse mail"></v-text-field>
 
-            <v-text-field v-model="password" label="Mot de passe"></v-text-field>
+            <v-text-field v-model="password" 
+            :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'" 
+            :type="show ? 'text' : 'password'"
+            label="Mot de passe"
+            @click:append="show = !show">
+            </v-text-field>
 
             <v-text-field label="Confirmez mot de passe"></v-text-field>
 
@@ -60,6 +65,8 @@ import UserService from "@/services/UserService";
 export default class SignInCard extends Vue {
 
   private userService:UserService = new UserService();
+
+  show = false;
 
   first_name= "";
   last_name = "";

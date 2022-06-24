@@ -3,7 +3,9 @@ import userStore from "@/store/userStore";
 
 
 export default class UserService {
+
     public createUser(): void {
+        
         axios.post('https://appli.docker.localhost/auth/register', {
                 first_name: userStore.state.user.first_name,
                 last_name: userStore.state.user.last_name,
@@ -26,17 +28,28 @@ export default class UserService {
             
     }
 
-    public loginUser(): void{
-        //TODO: faire la fonction
+    public loginUser(): void {
+
         axios.post('https://appli.docker.localhost/auth/login', {
                 mail: userStore.state.login.login,
                 password: userStore.state.login.password
             })
             .then(function (response) {
-                //if response is ok, we save the token in the store
-                //TODO update token in store
-                // response.data.token
+
+                if(response.data.token) {
+
+                    userStore.dispatch({
+                        type: "storeToken",
+                        token: response.data.token,
+                        islogged: true,
+                      })
+                }
+                else {
+                    console.log("pas de token reçu")
+                }
+
                 console.log(response);
+
             }
             ).catch(function (error) {
                 console.log(error);

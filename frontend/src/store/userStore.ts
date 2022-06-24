@@ -5,8 +5,12 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    token: null,
 
+    token:{
+      token: null,
+      islogged: false,
+    },
+    
     user:{
         first_name: "",
         last_name: "",
@@ -41,7 +45,11 @@ export default new Vuex.Store({
 
         state.login.login = payload.mail;
         state.login.password = payload.password;
-    
+    },
+
+    storeToken(state,payload){
+        state.token.token = payload.token;
+        state.token.islogged = payload.islogged
     }
     
   },
@@ -52,7 +60,13 @@ export default new Vuex.Store({
 
     loginUser(context, payload){
         context.commit("loginUser",payload)
+    },
+
+    storeToken(context, payload){
+      context.commit("storeToken",payload)  
     }
+
+
 
   },
   modules: {
