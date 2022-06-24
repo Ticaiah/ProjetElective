@@ -12,6 +12,8 @@ export class User extends Model {
 	public is_verified!: boolean;
 	public phone_number!: number;
 	public address!: string;
+	public postcode!: number;
+	public city!: string;
 	public type!: string;
 	public readonly createdAt!: Date;
 	public readonly updatedAt!: Date;
@@ -97,7 +99,14 @@ User.init(
 		address: {
 			type: DataTypes.STRING,
 			allowNull: true
-
+		},
+		postcode: {
+			type: DataTypes.INTEGER,
+			allowNull: true
+		},
+		city: {
+			type: DataTypes.STRING,
+			allowNull: true
 		},
 		type: {
 			type: DataTypes.ENUM("client", "livreur", "developpeurTier", "restaurateur"),
