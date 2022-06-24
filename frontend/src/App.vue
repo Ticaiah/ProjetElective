@@ -1,17 +1,50 @@
 <template>
-  <div id="app">
-    <NavigationBars />
-  </div>
+    <v-app>
+      <Navigation @DrawerToggled="onDrawerToggled($event)"/>
+      <SideBar :drawer="drawer"/>
+
+    <!-- TOUT LE CONTENU -->
+    <v-main class="homepage">
+      <router-view />
+    </v-main>
+    
+  </v-app>
 </template>
 
 <script lang="ts">
-import NavigationBars from "@/components/navigationBars.vue";
 import { Vue, Component } from "vue-property-decorator";
+import Navigation from "./components/guest/navigation/navigation.vue";
+import SideBar from "@/components/guest/navigation/sidebar.vue"
 
 @Component({
   components: {
-    NavigationBars,
+    Navigation,
+    SideBar,
   },
 })
-export default class Test extends Vue {}
+export default class Test extends Vue {
+  drawer = false;
+  public onDrawerToggled(drawer:boolean){
+      this.drawer = drawer;
+  }
+}
 </script>
+
+<style>
+#app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  text-align: center;
+  
+}
+   .homepage {
+
+  width: 100%;
+  background-image: url("@/../public/assets/pizza.jpg");
+  background-color: #cccccc;
+  height: 100vh;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+
+}
+</style>

@@ -1,6 +1,5 @@
 <template>
-  <v-btn id="connexion" elevation="1" rounded>
-    <v-icon left> mdi-account </v-icon>
+  <v-btn to="/log-in" id="connexion" elevation="1" tile width="100%">
     Connexion
   </v-btn>
 </template>

@@ -1,5 +1,5 @@
 <template>
-    <v-btn id="inscription" elevation="1" rounded color="black"> Inscription </v-btn>
+    <v-btn to="/register" id="inscription" elevation="1" tile color="black" width="100%"> Inscription </v-btn>
 </template>
 
 <script lang="ts">
