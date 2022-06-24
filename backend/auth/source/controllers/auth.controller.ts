@@ -45,29 +45,41 @@ export class AuthController {
 	}
 
 	public async register(req: Request, res: Response) {
-		//TODO : GERER LES DOUBLONS -> crash du serveur
-
 		const first_name = req.body.first_name;
 		const last_name = req.body.last_name;
 		const mail = req.body.mail;
 		const password = req.body.password;
 		const phone_number = req.body.phone_number;
 		const address = req.body.address;
+		const postcode = req.body.postcode;
+		const city = req.body.city;
 		const type = "client";
-		const user = await User.create({
-			first_name: first_name,
-			last_name: last_name,
-			mail: mail,
-			password: password,
-			phone_number: phone_number,
-			address: address,
-			type: type,
-			is_verified: true
+		const [user, created] = await User.findCreateFind({
+      where: {
+        mail: mail
+      },
+      defaults: {
+        first_name: first_name,
+        last_name: last_name,
+        mail: mail,
+        password: password,
+        phone_number: phone_number,
+        address: address,
+        postcode: postcode,
+        city: city,
+        type: type,
+        is_verified: true
+      }
 		});
-		if (user) {
+		if (created) {
 			// generate a signed json web token with the contents of user object and return it in the response
 			const token = User.generateJWT(user);
 			res.json({ token });
 		}
+    else {
+      return res.status(401).json({
+        message: "User already exists"
+      });
+    }
 	}
 }
