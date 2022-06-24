@@ -7,7 +7,7 @@
     <!-- LA BAR EN HAUT -->
     <v-app-bar app elevate-on-scroll>
       <v-btn icon @click="toggleDrawer()"><v-icon >{{iconLink}}</v-icon></v-btn>
-      <v-toolbar-title>CES'EAT</v-toolbar-title>
+      <router-link class="link" to="/"><v-toolbar-title class="title">CES'EAT</v-toolbar-title></router-link> 
       <v-spacer></v-spacer>
       <LogInButton />
       <SignInButton />
@@ -38,4 +38,13 @@ export default class NavigationBars extends Vue {
   }
 }
 </script>
-<style></style>
+<style>
+  .title{
+    color:black;
+  }
+  .link{
+    text-decoration: none;
+    
+  }
+  
+</style>

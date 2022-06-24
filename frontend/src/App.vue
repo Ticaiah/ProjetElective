@@ -13,8 +13,8 @@
 
 <script lang="ts">
 import { Vue, Component } from "vue-property-decorator";
-import Navigation from "./components/navigation/navigation.vue";
-import SideBar from "@/components/navigation/sidebar.vue"
+import Navigation from "./components/guest/navigation/navigation.vue";
+import SideBar from "@/components/guest/navigation/sidebar.vue"
 
 @Component({
   components: {

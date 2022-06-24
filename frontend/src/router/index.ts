@@ -6,9 +6,19 @@ Vue.use(VueRouter)
 
 const routes: Array<RouteConfig> = [
   {
+    path:'/register',
+    name: 'register',
+    component: () => import('../views/guestViews/SignInView.vue')
+  },
+  {
+    path:'/log-in',
+    name: 'login',
+    component: () => import('../views/guestViews/LogInView.vue')
+  },
+  {
     path:'/',
     name: 'home',
-    component: () => import('../views/HomeView.vue')
+    component: () => import('../views/guestViews/HomeView.vue')
   },
   {
     path:'/shop',

@@ -1,6 +1,6 @@
 <template>
 <div>
-    <v-row>
+    <!-- <v-row>
         <v-col v-for="n in 4">
             <v-card v-for="n in 10" :loading="loading" class="mx-auto my-12" max-width="374">
     <template slot="progress">
@@ -60,12 +60,12 @@
       </v-chip-group>
     </v-card-text>
 
-    <v-card-actions>
+    <v-card-actionss>
       <v-btn color="deep-purple lighten-2" text @click="jsp"> Reserve </v-btn>
-    </v-card-actions>
+    </v-card-actionss>
   </v-card>
         </v-col>
-    </v-row>
+    </v-row> -->
     
 </div>
   

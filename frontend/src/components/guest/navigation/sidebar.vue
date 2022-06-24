@@ -8,7 +8,7 @@
         <LogInButton2 />
       </v-list-item>
     </v-list-item-group>
-    <v-list-item-group v-for="link in links">
+    <v-list-item-group v-for="link in links" :key="link.route">
       <v-list-item :to="link.route">
         <v-list-item-title>{{ link.title }}</v-list-item-title>
       </v-list-item>
@@ -27,7 +27,7 @@
         LogInButton2,
     },
     })
-    export default class NavigationBars extends Vue {
+    export default class SideBars extends Vue {
     @Prop({default:false}) drawer!: boolean;
 
     links = [
