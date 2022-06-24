@@ -10,7 +10,7 @@ export class User extends Model {
 	public mail!: string;
 	public password!: string;
 	public is_verified!: boolean;
-	public phone_number!: number;
+	public phone_number!: string;
 	public address!: string;
 	public postcode!: number;
 	public city!: string;
@@ -92,8 +92,11 @@ User.init(
 
 		},
 		phone_number: {
-			type: DataTypes.INTEGER,
-			allowNull: true
+			type: DataTypes.STRING,
+			allowNull: true,
+			validate:{
+				is: /^\+?[0-9]{10,15}$/
+			}
 
 		},
 		address: {
