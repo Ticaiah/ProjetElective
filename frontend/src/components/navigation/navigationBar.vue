@@ -9,24 +9,24 @@
       <v-btn icon @click="toggleDrawer()"><v-icon >{{iconLink}}</v-icon></v-btn>
       <router-link class="link" to="/"><v-toolbar-title class="title">CES'EAT</v-toolbar-title></router-link> 
       <v-spacer></v-spacer>
-      <LogInButton />
-      <SignInButton />
+      <LoginButton />
+      <RegisterButton />
     </v-app-bar>
   </div>
 </template>
 
 <script lang="ts">
 import { Vue, Component } from "vue-property-decorator";
-import SignInButton from "../buttons/signInButton.vue";
-import LogInButton from "../buttons/LogInButton.vue";
+import RegisterButton from "../buttons/registerButton.vue";
+import LoginButton from "../buttons/loginButton.vue";
 
 @Component({
   components: {
-    SignInButton,
-    LogInButton,
+    RegisterButton,
+    LoginButton,
   },
 })
-export default class NavigationBars extends Vue {
+export default class NavigationBar extends Vue {
   drawer = false;
   get iconLink(){
     return this.drawer ? "mdi-chevron-left" : "mdi-menu"

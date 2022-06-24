@@ -2,10 +2,10 @@
   <v-navigation-drawer v-model="drawer" app>
     <v-list-item-group>
       <v-list-item>
-        <SignInButton2 />
+        <RegisterButton2 />
       </v-list-item>
       <v-list-item>
-        <LogInButton2 />
+        <LoginButton2 />
       </v-list-item>
     </v-list-item-group>
     <v-list-item-group v-for="link in links" :key="link.route">
@@ -18,16 +18,17 @@
 
 <script lang="ts">
     import { Vue, Component, Prop } from "vue-property-decorator";
-    import SignInButton2 from "../buttons/signInButton2.vue";
-    import LogInButton2 from "../buttons/LogInButton2.vue";
+    import RegisterButton2 from "../buttons/registerButton2.vue";
+    import LoginButton2 from "../buttons/loginButton2.vue";
+    
 
     @Component({
     components: {
-        SignInButton2,
-        LogInButton2,
+        RegisterButton2,
+        LoginButton2,
     },
     })
-    export default class SideBars extends Vue {
+    export default class SideBar extends Vue {
     @Prop({default:false}) drawer!: boolean;
 
     links = [

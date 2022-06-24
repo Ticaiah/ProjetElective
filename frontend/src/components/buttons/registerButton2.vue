@@ -6,7 +6,7 @@
 import { Vue, Component } from 'vue-property-decorator'
 
 @Component
-export default class SignInButton extends Vue {
+export default class RegisterButton2 extends Vue {
    
 }
 </script>

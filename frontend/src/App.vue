@@ -1,6 +1,6 @@
 <template>
     <v-app>
-      <Navigation @DrawerToggled="onDrawerToggled($event)"/>
+      <NavigationBar @DrawerToggled="onDrawerToggled($event)"/>
       <SideBar :drawer="drawer"/>
 
     <!-- TOUT LE CONTENU -->
@@ -13,12 +13,12 @@
 
 <script lang="ts">
 import { Vue, Component } from "vue-property-decorator";
-import Navigation from "./components/guest/navigation/navigation.vue";
-import SideBar from "@/components/guest/navigation/sidebar.vue"
+import NavigationBar from "./components/navigation/navigationBar.vue";
+import SideBar from "./components/navigation/sideBar.vue";
 
 @Component({
   components: {
-    Navigation,
+    NavigationBar,
     SideBar,
   },
 })

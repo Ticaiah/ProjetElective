@@ -50,7 +50,7 @@
 <script lang="ts">
 import { Vue, Component } from "vue-property-decorator";
 import userStore from "@/store/userStore";
-import UserService from "@/services/UserService";
+import UserService from "@/services/usersServices";
 
 @Component
 export default class LogInCard extends Vue {
