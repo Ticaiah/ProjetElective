@@ -5,6 +5,8 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    token: null,
+
     user:{
         first_name: "",
         last_name: "",
