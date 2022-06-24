@@ -2,6 +2,7 @@ version: "3"
 
 volumes:
   local_postgres_data: {}
+  local_minio_data: {}
   local_mongo_data: {}
   local_postgres_data_backups: {}
   node_modules: {}
@@ -178,3 +179,18 @@ services:
 
       # Authentication middleware
       - "traefik.http.routers.protected.middlewares=apiprotect"
+
+
+  minio:
+    image: minio/minio
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    volumes:
+      - local_minio_data:/data
+    environment:
+      MINIO_ROOT_USER: minioadmin
+      MINIO_ROOT_PASSWORD: minioadmin
+      MINIO_ACCESS_KEY: minio_access_key
+      MINIO_SECRET_KEY: minio_secret_key
+    command: server /data --console-address ":9001"
