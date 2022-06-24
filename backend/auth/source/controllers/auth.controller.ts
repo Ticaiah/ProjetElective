@@ -27,14 +27,17 @@ export class AuthController {
 				mail: mail
 			}
 		});
-		if (user) {
-			// check if password matches
-			if (await user.checkPassword(password)) {
-				// generate a signed json web token with the contents of user object and return it in the response
-				const token = User.generateJWT(user);
-				res.json({ token });
-			}
+		if (!user) {
+			return res.status(401).json({
+				message: "Invalid credentials"
+			});
+		}
 
+		// check if password matches
+		if (await user.checkPassword(password)) {
+			// generate a signed json web token with the contents of user object and return it in the response
+			const token = User.generateJWT(user);
+			res.json({ token });
 		}
 		else
 		{
