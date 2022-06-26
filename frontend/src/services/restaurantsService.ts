@@ -8,7 +8,7 @@ export default class RestaurantsService {
     public createRestaurant(restaurant : restaurantsModel): void {
         console.log(JSON.stringify(restaurant))
         
-        axios.post('http://localhost:3000/restaurants', JSON.stringify(restaurant))
+        axios.post('https://appli.docker.localhost/microservices/restaurants', JSON.stringify(restaurant))
             .then(function (response) {
                 //if response is ok, we save the token in the store
                 console.log(response);
