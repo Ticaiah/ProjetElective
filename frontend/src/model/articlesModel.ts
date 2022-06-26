@@ -1,4 +1,4 @@
-export interface article {
+export interface IArticle {
     titreArticle: string
     Prix: Number
     Quantité: Number

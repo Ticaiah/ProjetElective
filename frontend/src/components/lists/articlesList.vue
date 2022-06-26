@@ -8,13 +8,13 @@
 <script lang="ts">
 import { Vue, Component, Prop } from 'vue-property-decorator'
 import { articlesModel } from '@/model/articlesModel'
-import Article from './article.vue'
+import Article from '@/components/cards/article.vue'
 @Component({
     components: {
         Article,
     },
 })
-export default class ArticleList extends Vue {
+export default class ArticlesList extends Vue {
     @Prop() articles!: articlesModel[]
 }
 </script>

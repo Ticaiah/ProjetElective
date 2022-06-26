@@ -10,7 +10,7 @@
 <script lang="ts">
 
 import { Vue, Component, Prop } from 'vue-property-decorator'
-import {articlesModel} from '../model/articlesModel'
+import {articlesModel} from '@/model/articlesModel'
 @Component
 export default class Article extends Vue {
     @Prop() article!:articlesModel

@@ -1,17 +1,20 @@
 <template>
   <div class="home">
-    <ArticleList :articles="articles"></ArticleList>
+    <ArticlesList :articles="articles"></ArticlesList>
+    <ArticleForm :articles="articles[0]"></ArticleForm>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import ArticleList from '@/components/articleList.vue'
+import ArticlesList from '@/components/lists/articlesList.vue'
 import { articlesModel} from '@/model/articlesModel';
+import ArticleForm from '../components/forms/articleForm.vue';
 
 @Component({
   components: {
-    ArticleList,
+    ArticlesList,
+    ArticleForm
   },
 })
 export default class shopView extends Vue {

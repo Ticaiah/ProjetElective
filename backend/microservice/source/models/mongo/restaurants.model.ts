@@ -7,9 +7,7 @@ export interface IRestaurant {
     description:string;
     user_id: number;
     address_id: IAddress;
-    phone_number: number;
-  
-    
+    phone_number: string;
 }
 
 export const restaurantSchema = new Schema<IRestaurant>({
@@ -17,7 +15,7 @@ export const restaurantSchema = new Schema<IRestaurant>({
     description:{type: String},
     user_id:{type: Number, required: true}, //TODO: qui, parmis les user restaurateur a créé ce restaurant
     address_id:{type : Schema.Types.ObjectId, ref: "Address", required: true},
-    phone_number:{type: Number}
+    phone_number:{type: String}
 });
 
 export const Restaurant = mongo.model<IRestaurant>('Restaurant', restaurantSchema);
