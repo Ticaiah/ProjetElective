@@ -1,9 +1,10 @@
 import { Schema } from 'mongoose';
 import { mongo } from "../../config/mongo"
+import { IArticle } from './articles.model';
 
 
 export interface IOrder {
-    menus_list: Number;
+    articles_list: IArticle[];
     total_price: Number;
     delivery_price: Number;
     delivery_user_id: Number;
@@ -14,7 +15,7 @@ export interface IOrder {
 }
 
 export const orderSchema = new Schema<IOrder>({
-    menus_list: {type: Number, required: true}, //TODO: liste des meuns/produits
+    articles_list: [{type : Schema.Types.ObjectId, ref:'Article', required: true}],
     total_price: {type: Number, required: true}, 
     delivery_price: {type: Number, required: true},
     delivery_user_id: {type: Number, required: true}, //TODO: id de l'utilisateur de type livreur qui a pris en charge la commande

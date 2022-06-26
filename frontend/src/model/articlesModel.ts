@@ -13,7 +13,7 @@ export class articlesModel {
     public Couleur: string
     public img: string
 
-    public constructor (titreArticle:string, Prix:Number, Quantité:Number, Couleur:string, img:string) {
+    public constructor (titreArticle:string = "Title", Prix:Number=0, Quantité:Number=0, Couleur:string="", img:string="") {
         this.titreArticle= titreArticle
         this.Prix=Prix
         this.Quantité=Quantité

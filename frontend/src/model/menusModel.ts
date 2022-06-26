@@ -1,22 +1,22 @@
-import {IArticle} from './articlesModel'
-import { IRestaurant } from './restaurantsModel'
+import {articlesModel} from './articlesModel'
+import {restaurantsModel } from './restaurantsModel'
 
 export interface IMenu {
     name:string;
-    article_list:IArticle[];
+    article_list:articlesModel[];
     description:string;
     price:number;
-    restaurant_id:IRestaurant;    
+    restaurant_id:restaurantsModel;    
 }
 
 export class menusModel {
     public name:string;
-    public article_list:IArticle[];
+    public article_list:articlesModel[];
     public description:string;
     public price:number;
-    public restaurant_id:IRestaurant;    
+    public restaurant_id:restaurantsModel;    
 
-    public constructor (name:string, article_list:IArticle[], description:string, price:number, restaurant_id:IRestaurant) {
+    public constructor (name:string="Menu", article_list:articlesModel[], description:string="Description", price:number=0, restaurant_id:restaurantsModel) {
         this.name= name
         this.article_list= article_list
         this.description=description

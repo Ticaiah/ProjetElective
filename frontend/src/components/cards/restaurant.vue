@@ -14,7 +14,8 @@
         <div>{{restaurant.description}}</div>
     </v-card-text>
     <v-card-text>
-        <div>{{restaurant.address_id}}</div>
+        <div>{{restaurant.address}} , {{restaurant.cp}} {{restaurant.city}}</div>
+
     </v-card-text>
     <!--
       TODO : faire des boutons qui seront affichés seulement en cas de modification par le restaurateur

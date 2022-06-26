@@ -44,6 +44,14 @@
         route: "/shop",
         title: "Shop",
         },
+        {
+          route:'/create-restaurant',
+          title:'Créer restaurant'
+        },
+        {
+          route:'/restaurants',
+          title:'Liste des restaurants'
+        }
     ];
     }
 </script>

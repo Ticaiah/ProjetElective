@@ -21,6 +21,16 @@ const routes: Array<RouteConfig> = [
     component: () => import('../views/guestViews/HomeView.vue')
   },
   {
+    path:'/create-restaurant',
+    name: 'Créer un restaurant',
+    component: () => import('../views/guestViews/CreateRestaurantView.vue')
+  },
+  {
+    path:'/restaurants',
+    name: 'Liste des restaurants',
+    component: () => import('../views/guestViews/RestaurantsView.vue')
+  },
+  {
     path:'/shop',
     name: 'shop',
     component: shop
