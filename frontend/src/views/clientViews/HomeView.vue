@@ -6,7 +6,7 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-import store from "@/store/index";
+
 
 @Component({
   components: {
@@ -14,7 +14,7 @@ import store from "@/store/index";
   },
 })
 export default class HomeView extends Vue {
-  logInCardisShown = store.state.logInCardisShown;
+  
 }
 </script>
 <style></style>

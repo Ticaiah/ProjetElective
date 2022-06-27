@@ -16,7 +16,7 @@ export default class UserService {
                 // TODO récupérer depuis le store
                 postcode: 4300,
                 city: "TEst",
-                type: userStore.state.user.type
+                type: userStore.state.user.role
             })
             .then(function (response) {
                 //if response is ok, we save the token in the store

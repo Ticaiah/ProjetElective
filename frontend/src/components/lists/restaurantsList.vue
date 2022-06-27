@@ -8,7 +8,7 @@
 <script lang="ts">
 import { Vue, Component, Prop } from 'vue-property-decorator'
 import { restaurantsModel } from '@/model/restaurantsModel'
-import Restaurant from '@/components/cards/restaurant.vue'
+import Restaurant from '@/components/cards/restaurantCard.vue'
 @Component({
     components: {
         Restaurant,
