@@ -77,7 +77,7 @@ export class AuthController {
 			});
 		}
 		catch (e) {
-			return res.status(504).json({
+			return res.status(400).json({
 				message: `validation error ${e}`
 			});
 		}
