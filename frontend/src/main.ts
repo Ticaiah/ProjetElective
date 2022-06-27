@@ -3,6 +3,8 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import vuetify from './plugins/vuetify' // path to vuetify export
+import './plugins/vee-validate' // path to vuetify export
+
 
 Vue.config.productionTip = false
 
