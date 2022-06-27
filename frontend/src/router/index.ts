@@ -8,7 +8,7 @@ const routes: Array<RouteConfig> = [
   {
     path:'/',
     name: 'home',
-    component: () => import('../views/clientViews/HomeView.vue')
+    component: () => import('../views/HomeView.vue')
   },
   {
     path:'/register',
@@ -39,6 +39,21 @@ const routes: Array<RouteConfig> = [
     path:'/restaurants',
     name: 'Liste des restaurants',
     component: () => import('../views/guestViews/RestaurantsView.vue')
+  },
+  {
+    path:'/:id',
+    name: 'client-home',
+    component: () => import('../views/clientViews/ClientHomeView.vue')
+  },
+  {
+    path:'/restaurant/:id',
+    name: 'restaurant-home',
+    component: () => import('../views/restaurantViews/RestaurantHomeView.vue')
+  },
+  {
+    path:'/delivery/:id',
+    name: 'delivery-home',
+    component: () => import('../views/deliveryViews/DeliveryHomeView.vue')
   },
   {
     path:'/shop',

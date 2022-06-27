@@ -54,7 +54,7 @@ export class AuthController {
 		const address = req.body.address;
 		const postcode = req.body.postcode;
 		const city = req.body.city;
-		const type = "client";
+		const type = req.body.role;
 
 		var user: User;
 		var created = false;

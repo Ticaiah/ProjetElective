@@ -97,6 +97,8 @@ export default class RegisterCard extends Vue {
     })
     
     this.userService.createUser();
+
+    this.$router.push({ path: "/login" }); //TODO seulement si l'inscription a
     
   }
 }

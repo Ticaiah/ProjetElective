@@ -14,7 +14,7 @@ export default class ApiService {
         });
         // Add a request interceptor
         this.instance.interceptors.request.use(function (config:AxiosRequestConfig) {
-            const token = userStore.state.token;
+            const token = userStore.state.auth;
             if (config.headers)
             {
                 config.headers.Authorization = `Bearer ${token}`;   

@@ -1,8 +1,19 @@
 import axios, { AxiosRequestConfig } from "axios";
 import userStore from "@/store/userStore";
-
+import jwt, { decode } from "jsonwebtoken";
 
 export default class UserService {
+
+    public static parseJwt (token:String) {
+        var base64Url = token.split('.')[1];
+        var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+        var jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function(c) {
+            return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+        }).join(''));
+    
+        return JSON.parse(jsonPayload);
+
+    };
 
     public createUser(): void {
         
@@ -16,10 +27,10 @@ export default class UserService {
                 // TODO récupérer depuis le store
                 postcode: 4300,
                 city: "TEst",
-                type: userStore.state.user.role
+                role: userStore.state.user.role
             })
             .then(function (response) {
-                //if response is ok, we save the token in the store
+                
                 console.log(response);
             })
             .catch(function (error) {
@@ -28,21 +39,26 @@ export default class UserService {
             
     }
 
-    public loginUser(): void {
+    public async loginUser() {
 
-        axios.post('https://appli.docker.localhost/auth/login', {
+        await axios.post('https://appli.docker.localhost/auth/login', {
                 mail: userStore.state.login.login,
                 password: userStore.state.login.password
             })
             .then(function (response) {
 
                 if(response.data.token) {
-
+                  
+                    let decoded = UserService.parseJwt(response.data.token);
+                    
                     userStore.dispatch({
                         type: "storeToken",
                         token: response.data.token,
-                        islogged: true,
-                      })
+                        id : decoded.id,
+                        role: decoded.type
+                    })
+                    
+
                 }
                 else {
                     console.log("pas de token reçu")
@@ -56,6 +72,8 @@ export default class UserService {
             }
             );
     }
+
+    
 }
 
  

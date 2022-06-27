@@ -61,25 +61,69 @@ export default class LoginCard extends Vue {
   mail = "";
   password = "";
 
-  public loginUser(){
+// on submit, log the user
+  public async loginUser(){
 
+    //set user credentials in the store so we can sent them to the API
     userStore.dispatch({
       type: "loginUser",
       mail: this.mail,
       password: this.password
     })
     
-    this.userService.loginUser();
+    //send credentials to the API
+    await this.userService.loginUser();
+    console.log(userStore.state.auth.token);
 
-    if(userStore.state.token.islogged){
-      this.$router.push("/restaurant-list");
+    //if user is logged (has a token) we store the token in the cookies
+    //then it goes to the home page of the user (id)
+    if(userStore.state.auth.token){
+
+      this.storeJwtInCookies();
+
+      if(userStore.state.auth.role = "client"){
+        this.$router.push({name: 'client-home', params: { id: userStore.state.auth.id }})
+      }
+      else if(userStore.state.auth.role = "restaurantOwner"){
+        this.$router.push({name: 'restaurant-home', params: { id: userStore.state.auth.id }})
+      }
+      else{
+        this.$router.push({name: 'delivery-home', params: { id: userStore.state.auth.id }})
+      }
+    
+      ;
+      
     }
     else{
       //afficher "probleme de connexion survenu"
+      console.log("ouiu8")
     }
     
   }
 
+  //function that stores the token in the cookies
+  public storeJwtInCookies(){
+    document.cookie = "token=" + userStore.state.auth.token +";"
+                    + "id="+userStore.state.auth.id +";"
+                    + "role=" + userStore.state.auth.role +";";
+    
+  }
+
+  public getCookie(cname:String) {
+  let name = cname + "=";
+  let decodedCookie = decodeURIComponent(document.cookie);
+  let ca = decodedCookie.split(';');
+  for(let i = 0; i <ca.length; i++) {
+    let c = ca[i];
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length);
+    }
+  }
+  return "";
+}
 
 }
 </script>

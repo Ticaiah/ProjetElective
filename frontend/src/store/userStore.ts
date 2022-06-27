@@ -8,9 +8,10 @@ export default new Vuex.Store({
 
     role: "guest",
 
-    token:{
-      token: null,
-      islogged: false,
+    auth:{
+      token: "",
+      id : "",
+      role : ""
     },
     
     user:{
@@ -50,8 +51,9 @@ export default new Vuex.Store({
     },
 
     storeToken(state,payload){
-        state.token.token = payload.token;
-        state.token.islogged = payload.islogged
+        state.auth.token = payload.token;
+        state.auth.id = payload.id;
+        state.auth.role = payload.role;
     }
     
   },
