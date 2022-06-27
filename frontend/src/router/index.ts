@@ -6,19 +6,29 @@ Vue.use(VueRouter)
 
 const routes: Array<RouteConfig> = [
   {
-    path:'/register',
-    name: 'register',
-    component: () => import('../views/guestViews/SignInView.vue')
-  },
-  {
-    path:'/log-in',
-    name: 'login',
-    component: () => import('../views/guestViews/LogInView.vue')
-  },
-  {
     path:'/',
     name: 'home',
-    component: () => import('../views/guestViews/HomeView.vue')
+    component: () => import('../views/clientViews/HomeView.vue')
+  },
+  {
+    path:'/register',
+    name: 'register',
+    component: () => import('../views/clientViews/RegisterView.vue')
+  },
+  {
+    path:'/login',
+    name: 'login',
+    component: () => import('../views/clientViews/LoginView.vue')
+  },
+  {
+    path:'/restaurant/register',
+    name: 'restaurant-register',
+    component: () => import('../views/restaurantViews/RegisterView.vue')
+  },
+  {
+    path:'/restaurant/login',
+    name: 'restaurant-login',
+    component: () => import('../views/restaurantViews/LoginView.vue')
   },
   {
     path:'/shop',

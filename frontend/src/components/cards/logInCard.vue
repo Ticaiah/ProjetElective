@@ -53,7 +53,7 @@ import userStore from "@/store/userStore";
 import UserService from "@/services/usersServices";
 
 @Component
-export default class LogInCard extends Vue {
+export default class LoginCard extends Vue {
 
   private userService:UserService = new UserService();
 

@@ -33,17 +33,17 @@
 
     links = [
         {
-        route: "/",
-        title: "Home",
+        route: "/restaurant/register",
+        title: "Devenir restaurateur",
         },
         {
         route: "/about",
-        title: "About",
+        title: "Devenir coursier/livreur",
         },
-        {
-        route: "/shop",
-        title: "Shop",
-        },
+        // {
+        // route: "/shop",
+        // title: "Shop",
+        // },
     ];
     }
 </script>

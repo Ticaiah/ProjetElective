@@ -1,5 +1,5 @@
 <template>
-  <v-btn to="/log-in" id="connexion" elevation="1" tile width="100%">
+  <v-btn to="/login" id="connexion" elevation="1" tile width="100%">
     Connexion
   </v-btn>
 </template>

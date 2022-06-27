@@ -1,5 +1,5 @@
 <template>
-  <v-btn to="/log-in" id="connexion" elevation="1" rounded>
+  <v-btn to="/login" id="connexion" elevation="1" rounded>
     <v-icon left> mdi-account </v-icon>
     Connexion
   </v-btn>
