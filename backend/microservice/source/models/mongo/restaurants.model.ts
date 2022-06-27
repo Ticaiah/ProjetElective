@@ -11,6 +11,7 @@ export interface IRestaurant {
     user_id: number;
     address_id: IAddress;
     phone_number: string;
+    img: string;
 }
 
 export const restaurantSchema = new Schema<IRestaurant>({
@@ -20,7 +21,8 @@ export const restaurantSchema = new Schema<IRestaurant>({
     address:{type : String, required: true},
     cp:{type : Number, required: true},
     city:{type : String, required: true},
-    phone_number:{type: String}
+    phone_number:{type: String},
+    img:{type: String, required: true},
 });
 
 export const Restaurant = mongo.model<IRestaurant>('Restaurant', restaurantSchema);

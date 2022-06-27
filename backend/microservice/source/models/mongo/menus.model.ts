@@ -8,7 +8,8 @@ export interface IMenu {
     article_list:IArticle[];
     description:string;
     price:number;
-    restaurant_id:IRestaurant;    
+    restaurant_id:IRestaurant;
+    img:string;    
 }
 
 export const menuSchema = new Schema<IMenu>({
@@ -17,6 +18,7 @@ export const menuSchema = new Schema<IMenu>({
     description:{type: String},
     price: {type: Number, required: true},
     restaurant_id:{type : Schema.Types.ObjectId, ref:'Restaurant', required: true},
+    img:{type: String, required: true},
 });
 
 export const Menu = mongo.model<IMenu>('Menu', menuSchema);

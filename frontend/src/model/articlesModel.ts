@@ -4,6 +4,7 @@ export interface IArticle {
     Quantité: Number
     Couleur: string
     img: string
+    _id : string
 }
 export class articlesModel {
     
@@ -12,6 +13,7 @@ export class articlesModel {
     public Quantité: string | Number
     public Couleur: string
     public img: string
+    public _id !: string
 
     public constructor (titreArticle:string = "Title", Prix:Number=0, Quantité:Number=0, Couleur:string="", img:string="") {
         this.titreArticle= titreArticle

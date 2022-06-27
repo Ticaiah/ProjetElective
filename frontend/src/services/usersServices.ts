@@ -1,7 +1,5 @@
 import axios, { AxiosRequestConfig } from "axios";
 import userStore from "@/store/userStore";
-import jwt, { decode } from "jsonwebtoken";
-
 export default class UserService {
 
     public static parseJwt (token:String) {

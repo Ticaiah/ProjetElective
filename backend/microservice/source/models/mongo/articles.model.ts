@@ -10,6 +10,7 @@ export interface IArticle {
     price:number;
     restaurant_id:IRestaurant;
     stock:number;
+    img:string
     
 }
 
@@ -19,7 +20,8 @@ export const articleSchema = new Schema<IArticle>({
     description:{type: String},
     price: {type: Number, required: true},
     restaurant_id:{type : Schema.Types.ObjectId, ref:'Restaurant', required: true},
-    stock:{type: Number, required: true}
+    stock:{type: Number, required: true},
+    img:{type: String, required: true},
 });
 
 export const Article = mongo.model<IArticle>('Article', articleSchema);

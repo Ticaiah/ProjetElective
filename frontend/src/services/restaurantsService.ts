@@ -8,7 +8,7 @@ export default class RestaurantsService {
     public createRestaurant(restaurant : restaurantsModel): void {
         console.log(JSON.stringify(restaurant))
         
-        axios.post('https://appli.docker.localhost/microservices/restaurants', JSON.stringify(restaurant))
+        axios.post('https://appli.docker.localhost/api/restaurants', JSON.stringify(restaurant))
             .then(function (response) {
                 //if response is ok, we save the token in the store
                 console.log(response);
@@ -21,7 +21,7 @@ export default class RestaurantsService {
 
     public modifyRestaurant(restaurant : restaurantsModel): void {
 
-        axios.put('https://appli.docker.localhost/microservices/restaurants/'+restaurant._id, JSON.stringify(restaurant))
+        axios.put('https://appli.docker.localhost/api/restaurants/'+restaurant._id, JSON.stringify(restaurant))
             .then(function (response) {
                 console.log(response);
             }
@@ -32,7 +32,7 @@ export default class RestaurantsService {
     }
     public getRestaurants(user_id : number) : any {
         let restaurants !: IRestaurant []
-        axios.get('https://appli.docker.localhost/microservices/restaurants/'+user_id)
+        axios.get('https://appli.docker.localhost/api/restaurants/'+user_id)
         .then(function (response) {
             console.log("ok")
             restaurants = [<IRestaurant>response.data]
