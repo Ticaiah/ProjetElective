@@ -13,7 +13,7 @@ import LoginCard from "@/components/cards/loginCard.vue";
     LoginCard,
   },
 })
-export default class HomeView extends Vue {
+export default class LoginView extends Vue {
 }
 </script>
 <style></style>
