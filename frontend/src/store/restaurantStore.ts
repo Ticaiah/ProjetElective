@@ -13,7 +13,7 @@ export default new Vuex.Store({
       islogged: false,
     },
 
-    restaurant: new restaurantsModel("","",0,"",0,"",""),
+    restaurant: new restaurantsModel(),
   
   },
   getters: {

@@ -9,16 +9,16 @@
 
           <v-row>
             <v-col>
-              <v-text-field v-model="first_name" label="Nom"></v-text-field>
+              <v-text-field v-model="user.first_name" label="Nom"></v-text-field>
             </v-col>
             <v-col>
-              <v-text-field v-model="last_name" label="Prénom"></v-text-field>
+              <v-text-field v-model="user.last_name" label="Prénom"></v-text-field>
             </v-col>
           </v-row>
           <v-col>
-            <v-text-field v-model="mail" label="Adresse mail"></v-text-field>
+            <v-text-field v-model="user.mail" label="Adresse mail"></v-text-field>
 
-            <v-text-field v-model="password" 
+            <v-text-field v-model="user.password" 
             :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'" 
             :type="show ? 'text' : 'password'"
             label="Mot de passe"
@@ -27,12 +27,12 @@
 
             <v-text-field label="Confirmez mot de passe"></v-text-field>
 
-            <v-autocomplete v-model="address" :items="items" label="Adresse postale"></v-autocomplete>
+            <v-autocomplete v-model="user.address" :items="items" label="Adresse postale"></v-autocomplete>
           </v-col>
           <v-row>
             <v-col>
               <v-card-actions>
-                <v-text-field v-model="phone_number" label="Numéros de téléphone"></v-text-field>
+                <v-text-field v-model="user.phone_number" label="Numéros de téléphone"></v-text-field>
               </v-card-actions>
             </v-col>
           </v-row>
@@ -61,8 +61,8 @@
 <script lang="ts">
 
 import { Vue, Component, Prop } from "vue-property-decorator";
-import userStore from "@/store/userStore";
 import UserService from "@/services/usersServices";
+import { usersModel } from "@/model/usersModel";
 
 @Component
 export default class RegisterCard extends Vue {
@@ -70,36 +70,13 @@ export default class RegisterCard extends Vue {
   @Prop() role!: String;
 
   private userService:UserService = new UserService();
-
+  public user:usersModel = new usersModel();
   show = false;
-
-  first_name= "";
-  last_name = "";
-  mail = "";
-  password = "";
-  phone_number = "";
-  address = "";
-
   items = ["coucou","hello", "bye"];
 
   public createUser(){
-
-    userStore.dispatch({
-      type: "createUser",
-      first_name: this.first_name,
-      last_name: this.last_name,
-      mail: this.mail,
-      password: this.password,
-      phone_number: this.phone_number,
-      address: this.address,
-      role :this.role,
-
-    })
-    
-    this.userService.createUser();
-
+    this.userService.createUser(this.user);
     this.$router.push({ path: "/login" }); //TODO seulement si l'inscription a
-    
   }
 }
 </script>

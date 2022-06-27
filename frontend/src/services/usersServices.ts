@@ -1,7 +1,20 @@
 import axios, { AxiosRequestConfig } from "axios";
 import userStore from "@/store/userStore";
+import { usersModel } from "@/model/usersModel";
 export default class UserService {
 
+    /*TODO : faire en sorte de pouvoir accéder aux attributs du token de partout (pour rappel, c'est un ptn de string stocké dans document.cookie)
+    dans la vue, on aura un truc du style :   /*beforeCreate() {
+    if (this.usersServices.get_jwt().type !=='client') {
+      // ntr retourne au lobby
+      //on fait un redirect vers l'accueil ou la page de connexion
+    }
+    else{//on charge la page }
+        }
+    et ici on aura une fonction du style :    
+    public get_jwt() {
+        return UserService.parseJwt(document.cookie) 
+    }*/
     public static parseJwt (token:String) {
         var base64Url = token.split('.')[1];
         var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
@@ -13,20 +26,9 @@ export default class UserService {
 
     };
 
-    public createUser(): void {
+    public createUser(user:usersModel): void {
         
-        axios.post('https://appli.docker.localhost/auth/register', {
-                first_name: userStore.state.user.first_name,
-                last_name: userStore.state.user.last_name,
-                mail: userStore.state.user.mail,
-                password: userStore.state.user.password,
-                phone_number: userStore.state.user.phone_number,
-                address: userStore.state.user.address,
-                // TODO récupérer depuis le store
-                postcode: 4300,
-                city: "TEst",
-                role: userStore.state.user.role
-            })
+        axios.post('https://appli.docker.localhost/auth/register',JSON.stringify(user))
             .then(function (response) {
                 
                 console.log(response);
@@ -37,12 +39,9 @@ export default class UserService {
             
     }
 
-    public async loginUser() {
+    public async loginUser(user:usersModel) {
 
-        await axios.post('https://appli.docker.localhost/auth/login', {
-                mail: userStore.state.login.login,
-                password: userStore.state.login.password
-            })
+        await axios.post('https://appli.docker.localhost/auth/login', JSON.stringify(user))
             .then(function (response) {
 
                 if(response.data.token) {

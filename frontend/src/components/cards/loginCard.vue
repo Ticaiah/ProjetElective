@@ -7,10 +7,10 @@
 
           <v-col>
             <v-card-actions>
-              <v-text-field v-model="mail" label="Adresse mail"></v-text-field>
+              <v-text-field v-model="user.mail" label="Adresse mail"></v-text-field>
             </v-card-actions>
             <v-card-actions>
-               <v-text-field v-model="password" 
+               <v-text-field v-model="user.password" 
             :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'" 
             :type="show ? 'text' : 'password'"
             label="Mot de passe"
@@ -51,28 +51,20 @@
 import { Vue, Component } from "vue-property-decorator";
 import userStore from "@/store/userStore";
 import UserService from "@/services/usersServices";
+import { usersModel } from "@/model/usersModel";
 
 @Component
 export default class LoginCard extends Vue {
 
   private userService:UserService = new UserService();
-
+  public user:usersModel = new usersModel();
   show = false;
-  mail = "";
-  password = "";
 
 // on submit, log the user
   public async loginUser(){
 
-    //set user credentials in the store so we can sent them to the API
-    userStore.dispatch({
-      type: "loginUser",
-      mail: this.mail,
-      password: this.password
-    })
-    
     //send credentials to the API
-    await this.userService.loginUser();
+    await this.userService.loginUser(this.user);
     console.log(userStore.state.auth.token);
 
     //if user is logged (has a token) we store the token in the cookies

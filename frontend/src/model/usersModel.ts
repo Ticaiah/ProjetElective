@@ -24,16 +24,4 @@ export class usersModel implements IUser{
 	public postcode!: number;
 	public city!: string;
 	public type!: string;
-
-    public constructor (first_name:string="Prénom", last_name:string="Nom", mail:string="mail@mail.mail", password:string="", phone_number:string="+33000000000", address : string="Addresse", postcode:number=0, city:string="Ville", type:string) {
-        this.first_name= first_name
-        this.last_name=last_name
-        this.mail=mail
-        this.password=password
-        this.phone_number=phone_number
-        this.address=address
-        this.postcode=postcode
-        this.city=city
-        this.type=type
-    }
 }

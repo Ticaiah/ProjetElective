@@ -43,7 +43,7 @@ import { restaurantsModel } from "@/model/restaurantsModel";
 export default class RestaurantForm extends Vue {
 
     private restaurantService: RestaurantsService = new RestaurantsService();
-    public restaurant: restaurantsModel = new restaurantsModel("", "", 0, "", 0, "");
+    public restaurant: restaurantsModel = new restaurantsModel();
 
     public createRestaurant() {
         this.restaurantService.createRestaurant(this.restaurant);
