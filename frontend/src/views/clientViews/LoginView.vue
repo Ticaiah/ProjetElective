@@ -1,6 +1,6 @@
 <template>
   <div>
-    <LogInCard/>
+    <LoginCard/>
   </div>
 </template>
 

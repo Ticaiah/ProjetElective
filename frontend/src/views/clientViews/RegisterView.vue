@@ -1,21 +1,22 @@
 <template>
   <div>
     
-    <SignInCard/>
+    <RegisterCard :role="role"/>
 
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-import SignInCard from "@/components/cards/signInCard.vue";
+import RegisterCard from "@/components/cards/registerCard.vue";
 
 @Component({
   components: {
-    SignInCard,
+    RegisterCard,
   },
 })
-export default class HomeView extends Vue {
+export default class RegisterView extends Vue {
+  role = "client";
 }
 </script>
 <style></style>

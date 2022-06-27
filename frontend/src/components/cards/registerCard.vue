@@ -3,7 +3,10 @@
     <v-card max-width="600">
       <v-card-text>
         <v-form @submit.prevent="createUser">
-          <v-card-title class="justify-center"> INSCRIPTION </v-card-title>
+          <v-card-title v-if="role = 'client' " class="justify-center"> INSCRIPTION </v-card-title>
+          <v-card-title v-else-if="role = 'restaurantOwner' " class="justify-center"> Devenir restaurateur </v-card-title>
+          <v-card-title v-else-if="role = 'deliveryman' " class="justify-center"> Devenir coursier-livreur </v-card-title>
+
           <v-row>
             <v-col>
               <v-text-field v-model="first_name" label="Nom"></v-text-field>
@@ -57,12 +60,14 @@
 
 <script lang="ts">
 
-import { Vue, Component } from "vue-property-decorator";
+import { Vue, Component, Prop } from "vue-property-decorator";
 import userStore from "@/store/userStore";
 import UserService from "@/services/usersServices";
 
 @Component
-export default class SignInCard extends Vue {
+export default class RegisterCard extends Vue {
+
+  @Prop() role!: String;
 
   private userService:UserService = new UserService();
 
@@ -74,7 +79,6 @@ export default class SignInCard extends Vue {
   password = "";
   phone_number = "";
   address = "";
-  type = "client";
 
   items = ["coucou","hello", "bye"];
 
@@ -88,7 +92,7 @@ export default class SignInCard extends Vue {
       password: this.password,
       phone_number: this.phone_number,
       address: this.address,
-      type2 :this.type,
+      role :this.role,
 
     })
     
