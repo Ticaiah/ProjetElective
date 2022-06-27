@@ -18,7 +18,7 @@ export default new Vuex.Store({
         password: "",
         phone_number: "",
         address: "",
-        type: ""
+        role: ""
     },
     
     login:{
@@ -38,7 +38,7 @@ export default new Vuex.Store({
         state.user.password = payload.password;
         state.user.phone_number = payload.phone_number;
         state.user.address = payload.address;
-        state.user.type = payload.type;
+        state.user.role = payload.role;
     },
 
     loginUser(state, payload){

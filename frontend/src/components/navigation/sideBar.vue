@@ -33,16 +33,12 @@
 
     links = [
         {
-        route: "/",
-        title: "Home",
+        route: "/restaurant/register",
+        title: "Devenir restaurateur",
         },
         {
         route: "/about",
-        title: "About",
-        },
-        {
-        route: "/shop",
-        title: "Shop",
+        title: "Devenir coursier/livreur",
         },
         {
           route:'/create-restaurant',
@@ -52,6 +48,10 @@
           route:'/restaurants',
           title:'Liste des restaurants'
         }
+        // {
+        // route: "/shop",
+        // title: "Shop",
+        // },
     ];
     }
 </script>
