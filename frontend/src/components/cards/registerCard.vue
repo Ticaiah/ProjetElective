@@ -67,7 +67,7 @@ import { usersModel } from "@/model/usersModel";
 @Component
 export default class RegisterCard extends Vue {
 
-  @Prop() role!: String;
+  @Prop() role!: string;
 
   private userService:UserService = new UserService();
   public user:usersModel = new usersModel();
@@ -75,6 +75,7 @@ export default class RegisterCard extends Vue {
   items = ["coucou","hello", "bye"];
 
   public createUser(){
+    this.user.type=this.role
     this.userService.createUser(this.user);
     this.$router.push({ path: "/login" }); //TODO seulement si l'inscription a
   }

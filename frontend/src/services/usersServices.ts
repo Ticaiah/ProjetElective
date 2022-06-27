@@ -1,6 +1,7 @@
 import axios, { AxiosRequestConfig } from "axios";
 import userStore from "@/store/userStore";
 import { usersModel } from "@/model/usersModel";
+import qs from "qs"
 export default class UserService {
 
     /*TODO : faire en sorte de pouvoir accéder aux attributs du token de partout (pour rappel, c'est un ptn de string stocké dans document.cookie)
@@ -27,8 +28,8 @@ export default class UserService {
     };
 
     public createUser(user:usersModel): void {
-        
-        axios.post('https://appli.docker.localhost/auth/register',JSON.stringify(user))
+        console.log(JSON.stringify(user))
+        axios.post('https://appli.docker.localhost/auth/register',qs.stringify(user), {headers: { 'content-type': 'application/x-www-form-urlencoded' }})
             .then(function (response) {
                 
                 console.log(response);
@@ -41,7 +42,8 @@ export default class UserService {
 
     public async loginUser(user:usersModel) {
 
-        await axios.post('https://appli.docker.localhost/auth/login', JSON.stringify(user))
+        console.log(JSON.stringify(user))
+        await axios.post('https://appli.docker.localhost/auth/login', qs.stringify(user))
             .then(function (response) {
 
                 if(response.data.token) {

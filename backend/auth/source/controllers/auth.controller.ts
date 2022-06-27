@@ -54,8 +54,7 @@ export class AuthController {
 		const address = req.body.address;
 		const postcode = req.body.postcode;
 		const city = req.body.city;
-		const type = req.body.role;
-
+		const type = req.body.type;
 		var user: User;
 		var created = false;
 		try {
@@ -78,7 +77,7 @@ export class AuthController {
 			});
 		}
 		catch (e) {
-			return res.status(400).json({
+			return res.status(504).json({
 				message: `validation error ${e}`
 			});
 		}
