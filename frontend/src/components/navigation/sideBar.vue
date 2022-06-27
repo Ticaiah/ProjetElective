@@ -37,7 +37,7 @@
         title: "Devenir restaurateur",
         },
         {
-        route: "/about",
+        route: "/delivery/register",
         title: "Devenir coursier/livreur",
         },
         {

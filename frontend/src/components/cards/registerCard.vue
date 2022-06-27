@@ -3,9 +3,9 @@
     <v-card max-width="600">
       <v-card-text>
         <v-form @submit.prevent="createUser">
-          <v-card-title v-if="role = 'client' " class="justify-center"> INSCRIPTION </v-card-title>
-          <v-card-title v-else-if="role = 'restaurantOwner' " class="justify-center"> Devenir restaurateur </v-card-title>
-          <v-card-title v-else-if="role = 'deliveryman' " class="justify-center"> Devenir coursier-livreur </v-card-title>
+          <v-card-title v-if="role === 'client' " class="justify-center"> INSCRIPTION </v-card-title>
+          <v-card-title v-else-if="role ==='restaurantOwner' " class="justify-center"> Devenir restaurateur </v-card-title>
+          <v-card-title v-else-if="role === 'deliveryman' " class="justify-center"> Devenir coursier-livreur </v-card-title>
 
           <v-row>
             <v-col>
