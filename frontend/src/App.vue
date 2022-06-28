@@ -4,7 +4,10 @@
       <SideBar/>
 
     <!-- TOUT LE CONTENU -->
-    <v-main class="homepage">
+    <v-main v-if="!$store.state.userStore.auth.connected" class="homepage">
+      <router-view />
+    </v-main>
+    <v-main v-else class="homepage-connected">
       <router-view />
     </v-main>
     
@@ -33,9 +36,19 @@ export default class Test extends Vue {
   
 }
    .homepage {
-
   width: 100%;
   background-image: url("@/../public/assets/pizza.jpg");
+  background-color: #cccccc;
+  height: 100vh;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+
+}
+
+.homepage-connected{
+  width: 100%;
+  background-image: url("@/../public/assets/italian.jpg");
   background-color: #cccccc;
   height: 100vh;
   background-repeat: no-repeat;
