@@ -4,20 +4,7 @@ import CookieUtils from "@/utils/cookieUtils";
 import TokenUtils from "@/utils/tokenUtils";
 
 export default class UserService {
-
-    /*TODO : faire en sorte de pouvoir accéder aux attributs du token de partout (pour rappel, c'est un ptn de string stocké dans document.cookie)
-    dans la vue, on aura un truc du style :   /*beforeCreate() {
-    if (this.usersServices.get_jwt().type !=='client') {
-      // ntr retourne au lobby
-      //on fait un redirect vers l'accueil ou la page de connexion
-    }
-    else{//on charge la page }
-        }
-    et ici on aura une fonction du style :    
-    public get_jwt() {
-        return UserService.parseJwt(document.cookie) 
-    }*/
-    
+  
     //create a user
     public createUser(user:usersModel): void {
         console.log(JSON.stringify(user))
@@ -56,6 +43,7 @@ export default class UserService {
                     else{
                         router.push({name: 'delivery-home', params: { id: id }})
                     }
+                    
                 }
                 else {
                     console.log("pas de token reçu")

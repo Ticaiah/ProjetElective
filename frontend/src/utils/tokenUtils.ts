@@ -32,4 +32,14 @@ export default class TokenUtils {
             }
         
     }
+
+    //check user type, better to use it in beforeMouted, and as router param, put this.$router in a component
+    public static checkUserType(type:string, router:any){
+        if (TokenUtils.getValueFromTokenFromCookie("type") !== type) {
+            router.push({name: 'home'})
+          }
+          else{
+               //on charge la page    
+            }
+    }   
 }
