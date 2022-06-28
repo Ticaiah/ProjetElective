@@ -22,7 +22,7 @@ export default class TokenUtils {
 
     //get a value which is in the payload of a token which is stored in cookies
     public static getValueFromTokenFromCookie(name:string){
-        let token = CookieUtils.getCookie(name);
+        let token = CookieUtils.getCookie("token");
             if(token){
                 let decoded = this.parseJwt(token);
                 return decoded[name];
@@ -33,7 +33,8 @@ export default class TokenUtils {
         
     }
 
-    //check user type, better to use it in beforeMouted, and as router param, put this.$router in a component
+    //check user type, better to use it in beforeMouted otherwise cant access cookies
+    //and as router param, put this.$router in a component
     public static checkUserType(type:string, router:any){
         if (TokenUtils.getValueFromTokenFromCookie("type") !== type) {
             router.push({name: 'home'})
