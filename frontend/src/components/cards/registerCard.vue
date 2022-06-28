@@ -9,14 +9,14 @@
 
           <v-row>
             <v-col>
-              <v-text-field v-model="user.first_name" label="Nom"></v-text-field>
+              <v-text-field :rules="nameRules" v-model="user.first_name" label="Nom"></v-text-field>
             </v-col>
             <v-col>
               <v-text-field v-model="user.last_name" label="Prénom"></v-text-field>
             </v-col>
           </v-row>
           <v-col>
-            <v-text-field v-model="user.mail" label="Adresse mail"></v-text-field>
+            <v-text-field :rules="emailRules" v-model="user.mail" label="Adresse mail"></v-text-field>
 
             <v-text-field v-model="user.password" 
             :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'" 
@@ -73,6 +73,15 @@ export default class RegisterCard extends Vue {
   public user:usersModel = new usersModel();
   show = false;
   items = ["coucou","hello", "bye"];
+  nameRules = [
+        (v:string) => !!v || 'Required',
+        (v:string) => v?.length <= 10 || 'Name must be less than 10 characters',
+      ];
+      
+  emailRules = [
+        (v:string) => !!v || 'Required',
+        (v:string) =>  v?.match(/^[a-z0-9._-]+@[a-z0-9._-]+\.[a-z]{2,6}$/i) != null || 'Email invalide'
+      ];
 
   public createUser(){
     this.user.type=this.role
