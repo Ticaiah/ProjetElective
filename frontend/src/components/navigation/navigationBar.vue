@@ -9,24 +9,37 @@
       <v-btn icon @click="toggleDrawer()"><v-icon >{{iconLink}}</v-icon></v-btn>
       <router-link class="link" to="/"><v-toolbar-title class="title">CES'EAT</v-toolbar-title></router-link> 
       <v-spacer></v-spacer>
-      <LoginButton />
-      <RegisterButton />
+      
+      <DisconnectButton v-if="type='restaurantOwner'"/>
+      <div v-else>
+        <LoginButton/>
+        <RegisterButton/>
+      </div>
+      
     </v-app-bar>
   </div>
 </template>
 
 <script lang="ts">
 import { Vue, Component } from "vue-property-decorator";
+import TokenUtils from "@/utils/tokenUtils";
 import RegisterButton from "../buttons/registerButton.vue";
 import LoginButton from "../buttons/loginButton.vue";
+import DisconnectButton from "../buttons/disconnectButton.vue"
+
 
 @Component({
   components: {
     RegisterButton,
     LoginButton,
+    DisconnectButton
   },
 })
 export default class NavigationBar extends Vue {
+
+  type = TokenUtils.getValueFromTokenFromCookie("type");
+
+  drawer = false;
   get iconLink(){
     return this.$store.state.sidebarStore.toggled ? "mdi-chevron-left" : "mdi-menu"
   }
