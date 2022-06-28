@@ -9,10 +9,10 @@
 
           <v-row>
             <v-col>
-              <v-text-field :rules="nameRules" v-model="user.first_name" label="Nom"></v-text-field>
+              <v-text-field :rules="nameRules" v-model="user.last_name" label="Nom"></v-text-field>
             </v-col>
             <v-col>
-              <v-text-field v-model="user.last_name" label="Prénom"></v-text-field>
+              <v-text-field v-model="user.first_name" label="Prénom"></v-text-field>
             </v-col>
           </v-row>
           <v-col>
