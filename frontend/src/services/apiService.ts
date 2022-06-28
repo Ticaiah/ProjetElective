@@ -9,6 +9,10 @@ export default class ApiService {
         this.instance = axios.create({
             baseURL: 'https://appli.docker.localhost/api',
             timeout: 1000,
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json",
+            }
             // headers: {'X-Custom-Header': 'foobar'}
         });
         // Add a request interceptor
