@@ -69,6 +69,11 @@ const routes: Array<RouteConfig> = [
     path:'/orders',
     name: 'orders',
     component: () => import('@/views/orderView/OrderView.vue')
+  },
+  {
+    path: '/my-account',
+    name: 'myAccount',
+    component: () => import('../views/UserAccountView.vue')
   }
 ]
 
