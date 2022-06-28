@@ -22,11 +22,9 @@
 
 <script lang="ts">
 import { Vue, Component } from "vue-property-decorator";
-import TokenUtils from "@/utils/tokenUtils";
 import RegisterButton from "../buttons/registerButton.vue";
 import LoginButton from "../buttons/loginButton.vue";
 import DisconnectButton from "../buttons/disconnectButton.vue"
-import CookieUtils from "@/utils/cookieUtils";
 
 
 @Component({
