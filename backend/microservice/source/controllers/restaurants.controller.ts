@@ -1,7 +1,8 @@
 /** source/controllers/commands.ts */
 import { Request, Response, NextFunction } from 'express';
-import {Restaurant} from '../models/mongo/restaurants.model'
-import TokenUtils from '../utils/tokenUtils';
+import {Restaurant} from '../models/mongo/restaurants.model';
+import jwt from 'jsonwebtoken';
+import { JwtPayload} from 'jsonwebtoken';
 
 export class RestaurantsController {
 
@@ -37,9 +38,9 @@ public async addRestaurant(req: Request, res: Response) {
     let user_id: number = -1;
     if (req.headers.authorization) {
       const token = req.headers.authorization.split(' ')[1];
-      const decoded = TokenUtils.parseJwt(token);
+      const decoded = jwt.decode(token, { json: true });
       if (decoded) {
-        user_id = TokenUtils.getValueFromToken(decoded, 'id');
+        user_id = decoded.id;
       }
     }
 
