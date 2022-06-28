@@ -12,6 +12,9 @@ export interface IOrder {
     is_validated: boolean;
     payment_type_id: Number;
     transaction_id: Number;
+    address: string;
+    cp : number;
+    city : string
 }
 
 export const orderSchema = new Schema<IOrder>({
@@ -23,6 +26,10 @@ export const orderSchema = new Schema<IOrder>({
     is_validated: {type: Boolean, required: true},
     payment_type_id: {type: Number, required: true}, //TODO: A voir
     transaction_id: {type: Number, required: true}, //TODO: A voir
+    cp: {type: Number, required: true}, 
+    address: {type: String, required: true}, 
+    city: {type: String, required: true}, 
+
 });
 
 export const Order = mongo.model<IOrder>('Order', orderSchema);

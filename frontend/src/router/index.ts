@@ -8,52 +8,52 @@ const routes: Array<RouteConfig> = [
   {
     path:'/',
     name: 'home',
-    component: () => import('../views/HomeView.vue')
+    component: () => import('@/views/HomeView.vue')
   },
   {
     path:'/register',
     name: 'register',
-    component: () => import('../views/clientViews/RegisterView.vue')
+    component: () => import('@/views/clientViews/RegisterView.vue')
   },
   {
     path:'/login',
     name: 'login',
-    component: () => import('../views/clientViews/LoginView.vue')
+    component: () => import('@/views/clientViews/LoginView.vue')
   },
   {
     path:'/restaurant/register',
     name: 'restaurant-register',
-    component: () => import('../views/restaurantViews/RegisterView.vue')
+    component: () => import('@/views/restaurantViews/RegisterView.vue')
   },
   {
     path:'/restaurant/login',
     name: 'restaurant-login',
-    component: () => import('../views/restaurantViews/LoginView.vue')
+    component: () => import('@/views/restaurantViews/LoginView.vue')
   },
   {
     path:'/create-restaurant',
     name: 'create-restaurant',
-    component: () => import('../views/guestViews/CreateRestaurantView.vue')
+    component: () => import('@/views/guestViews/CreateRestaurantView.vue')
   },
   {
     path:'/restaurants-list',
     name: 'restaurants-list',
-    component: () => import('../views/guestViews/RestaurantsView.vue')
+    component: () => import('@/views/guestViews/RestaurantsView.vue')
   },
   {
-    path:'/:id',
+    path:'/client/:id',
     name: 'client-home',
-    component: () => import('../views/clientViews/ClientHomeView.vue')
+    component: () => import('@/views/clientViews/ClientHomeView.vue')
   },
   {
     path:'/restaurant/:id',
     name: 'restaurant-home',
-    component: () => import('../views/restaurantViews/RestaurantHomeView.vue')
+    component: () => import('@/views/restaurantViews/RestaurantHomeView.vue')
   },
   {
     path:'/delivery/:id',
     name: 'delivery-home',
-    component: () => import('../views/deliveryViews/DeliveryHomeView.vue')
+    component: () => import('@/views/deliveryViews/DeliveryHomeView.vue')
   },
   {
     path:'/shop',
@@ -63,7 +63,12 @@ const routes: Array<RouteConfig> = [
   {
     path: '/delivery/register',
     name: '/delivery-register',
-    component: () => import('../views/deliveryViews/RegisterView.vue')
+    component: () => import('@/views/deliveryViews/RegisterView.vue')
+  },
+  {
+    path:'/orders',
+    name: 'orders',
+    component: () => import('@/views/orderView/OrderView.vue')
   }
 ]
 

@@ -9,7 +9,7 @@ export class RestaurantsController {
 /* get all objects with mongoose */
 public async getAllRestaurants(req: Request, res: Response) {
   try {
-    const Restaurants = await Restaurant.find().populate('address_id');
+    const Restaurants = await Restaurant.find()
     res.json(Restaurants);
   }
   catch(err)
@@ -21,7 +21,7 @@ public async getAllRestaurants(req: Request, res: Response) {
 /* get single Restaurant mongo*/
 public async getRestaurant(req : Request, res: Response) {
   try {
-    const rest = await Restaurant.findOne({"_id": req.params._id}).populate('address_id')
+    const rest = await Restaurant.findOne({"_id": req.params._id})
       if (rest) {
         res.json(rest)}
       else res.status(404).send({ error: 'Not found' });

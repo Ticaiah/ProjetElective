@@ -1,8 +1,10 @@
 <template>
     <div>
-        <div v-for="order in orders" :key="order">
-            <Order :order="order"></Order>
-        </div>
+        <v-data-table
+        :headers="headers"
+        :items="orders"
+        class="elevation-1">
+        </v-data-table>
     </div>
 </template>
 <script lang="ts">
@@ -16,6 +18,16 @@ import Order from '@/components/cards/order.vue'
 })
 export default class OrdersList extends Vue {
     @Prop() orders!: ordersModel[]
+    public headers= [
+        {
+          text: 'ID de la commande',
+          align: 'start',
+          sortable: false,
+          value: '_id',
+        },
+        { text: 'Addresse de livraison', value: 'address' },
+        { text: 'Prix total', value: 'price' },
+    ];
 }
 </script>
 <style>
