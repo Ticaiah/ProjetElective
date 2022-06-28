@@ -49,11 +49,8 @@
 
 <script lang="ts">
 import { Vue, Component } from "vue-property-decorator";
-import userStore from "@/store/userStore";
 import UserService from "@/services/usersServices";
 import { usersModel } from "@/model/usersModel";
-import { getCookie, setCookie } from 'typescript-cookie'
-import { set } from "vue/types/umd";
 
 @Component
 export default class LoginCard extends Vue {
@@ -66,35 +63,9 @@ export default class LoginCard extends Vue {
   public async loginUser(){
 
     //send credentials to the API
-    await this.userService.loginUser(this.user);
-    console.log(userStore.state.auth.token);
+    await this.userService.loginUser(this.user, this.$router);
 
-    //if user is logged (has a token) we store the token in the cookies
-    //then it goes to the home page of the user (id)
-    if(userStore.state.auth.token){
-
-      setCookie("token",userStore.state.auth.token);
-
-
-      if(userStore.state.auth.role = "client"){
-        this.$router.push({name: 'client-home', params: { id: userStore.state.auth.id }})
-      }
-      else if(userStore.state.auth.role = "restaurantOwner"){
-        this.$router.push({name: 'restaurant-home', params: { id: userStore.state.auth.id }})
-      }
-      else{
-        this.$router.push({name: 'delivery-home', params: { id: userStore.state.auth.id }})
-      }
-
-    }
-    else{
-      //afficher "probleme de connexion survenu"
-      console.log("Problème survenu, token manquant")
-    }
-    
   }
-
-
 }
 </script>
 
