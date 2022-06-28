@@ -8,20 +8,33 @@ export class RestaurantsController {
 
 /* get all objects with mongoose */
 public async getAllRestaurants(req: Request, res: Response) {
+  try {
     const Restaurants = await Restaurant.find().populate('address_id');
     res.json(Restaurants);
   }
+  catch(err)
+  {
+      res.status(400).json({message: err})
+  }
+}
 
 /* get single Restaurant mongo*/
 public async getRestaurant(req : Request, res: Response) {
+  try {
     const rest = await Restaurant.findOne({"_id": req.params._id}).populate('address_id')
       if (rest) {
         res.json(rest)}
       else res.status(404).send({ error: 'Not found' });
       }
+  catch(err)
+  {
+      res.status(400).json({message: err})
+  }
+}
 
 /* update a Restaurant*/
 public async updateRestaurant(req: Request,  res: Response) {
+  try {
     let RestaurantFromList = await Restaurant.findOneAndUpdate({"_id": req.params._id}, {$set :req.body}, {"upsert": true});
     if (!RestaurantFromList){
       res.status(404).json("Restaurant with this id doesn't exist");
@@ -29,7 +42,13 @@ public async updateRestaurant(req: Request,  res: Response) {
     }
     else  {
       (res.status(200).json(RestaurantFromList))
-      }
+    }
+  }
+  catch(err)
+  {
+      res.status(400).json({message: err})
+  }
+
   }   
 
 /* create a new Restaurant with mongoose*/
@@ -67,9 +86,16 @@ public async addRestaurant(req: Request, res: Response) {
 public async deleteRestaurant(req: Request, res: Response) {
     const rest = await Restaurant.findOne({"_id": req.params._id})
     if (rest) {
-        rest.delete();
-        res.status(201).json({rest});
+    try {        
+      rest.delete();
+      res.status(201).json({rest});
     }
+
+    catch(err)
+    {
+        res.status(400).json({message: err})
+    }
+  }
     else res.status(404).send({ error: 'Not found' })
     }
 }
