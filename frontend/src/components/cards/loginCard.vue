@@ -52,6 +52,8 @@ import { Vue, Component } from "vue-property-decorator";
 import userStore from "@/store/userStore";
 import UserService from "@/services/usersServices";
 import { usersModel } from "@/model/usersModel";
+import { getCookie, setCookie } from 'typescript-cookie'
+import { set } from "vue/types/umd";
 
 @Component
 export default class LoginCard extends Vue {
@@ -71,7 +73,8 @@ export default class LoginCard extends Vue {
     //then it goes to the home page of the user (id)
     if(userStore.state.auth.token){
 
-      this.storeJwtInCookies();
+      setCookie("token",userStore.state.auth.token);
+
 
       if(userStore.state.auth.role = "client"){
         this.$router.push({name: 'client-home', params: { id: userStore.state.auth.id }})
@@ -82,40 +85,15 @@ export default class LoginCard extends Vue {
       else{
         this.$router.push({name: 'delivery-home', params: { id: userStore.state.auth.id }})
       }
-    
-      ;
-      
+
     }
     else{
       //afficher "probleme de connexion survenu"
-      console.log("ouiu8")
+      console.log("Problème survenu, token manquant")
     }
     
   }
 
-  //function that stores the token in the cookies
-  public storeJwtInCookies(){
-    document.cookie = "token=" + userStore.state.auth.token +";"
-                    + "id="+userStore.state.auth.id +";"
-                    + "role=" + userStore.state.auth.role +";";
-    
-  }
-
-  public getCookie(cname:String) {
-  let name = cname + "=";
-  let decodedCookie = decodeURIComponent(document.cookie);
-  let ca = decodedCookie.split(';');
-  for(let i = 0; i <ca.length; i++) {
-    let c = ca[i];
-    while (c.charAt(0) == ' ') {
-      c = c.substring(1);
-    }
-    if (c.indexOf(name) == 0) {
-      return c.substring(name.length, c.length);
-    }
-  }
-  return "";
-}
 
 }
 </script>
