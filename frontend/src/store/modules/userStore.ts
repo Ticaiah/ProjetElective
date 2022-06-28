@@ -7,7 +7,7 @@ const userStore: Module<any, any> = {
     auth:{
       token: CookieUtils.getCookie("token") || "",
       id : TokenUtils.getValueFromToken(CookieUtils.getCookie("token") || "", "id") || "",
-      role : TokenUtils.getValueFromToken(CookieUtils.getCookie("token") || "", "role") || "guest",
+      role : TokenUtils.getValueFromToken(CookieUtils.getCookie("token") || "", "type") || "guest",
       connected: CookieUtils.getCookie("token") ? true : false
     },
   },
