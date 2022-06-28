@@ -32,10 +32,17 @@ public async updateRestaurant(req: Request,  res: Response) {
 
 /* create a new Restaurant with mongoose*/
 public async addRestaurant(req: Request, res: Response) {
-    const rest = new Restaurant (req.body)
-         rest.save();
-        res.status(201).json({rest});
+    const rest = new Restaurant(req.body)
+    try
+    {
+        await rest.save()
+        res.status(201).json(rest)
     }
+    catch(err)
+    {
+        res.status(400).json({message: err})
+    }
+  }
 
 public async deleteRestaurant(req: Request, res: Response) {
     const rest = await Restaurant.findOne({"_id": req.params._id})
