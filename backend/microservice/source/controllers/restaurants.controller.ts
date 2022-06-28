@@ -1,6 +1,8 @@
 /** source/controllers/commands.ts */
 import { Request, Response, NextFunction } from 'express';
 import {Restaurant} from '../models/mongo/restaurants.model'
+import jwt from 'jsonwebtoken';
+import TokenUtils from '../utils/tokenUtils';
 
 export class RestaurantsController {
 
@@ -28,11 +30,29 @@ public async updateRestaurant(req: Request,  res: Response) {
     else  {
       (res.status(200).json(RestaurantFromList))
       }
-  }      
+  }   
 
 /* create a new Restaurant with mongoose*/
 public async addRestaurant(req: Request, res: Response) {
+    // decode jwt from bearer
+    let user_id: number = -1;
+    if (req.headers.authorization) {
+      const token = req.headers.authorization.split(' ')[1];
+      const decoded = TokenUtils.parseJwt(token);
+      if (decoded) {
+        user_id = TokenUtils.getValueFromToken(decoded, 'id');
+      }
+    }
+
+    if (user_id == -1) {
+      res.status(401).json({
+        message: "No token provided"
+      });
+      return;
+    }
+    
     const rest = new Restaurant(req.body)
+    rest.user_id = user_id;
     try
     {
         await rest.save()
