@@ -20,7 +20,7 @@ export default class shopView extends Vue {
     public restaurants!:restaurantsModel[]
     beforeCreate() {
         this.restaurantsService = new RestaurantsService();
-        this.restaurants = this.restaurantsService.getRestaurants(0);//le paramètre est l'user_id
+        this.restaurants = this.restaurantsService.getRestaurants(this.$store.state.userStore.auth.id);
     }
  }
 </script>

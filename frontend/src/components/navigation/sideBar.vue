@@ -55,7 +55,7 @@ export default class SideBar extends Vue {
       userType: "restaurantOwner"
     },
     {
-      route: "/restaurants",
+      route: "/restaurants-list",
       title: "Liste des restaurants",
       userType: "restaurantOwner"
     },

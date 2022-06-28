@@ -32,12 +32,12 @@ const routes: Array<RouteConfig> = [
   },
   {
     path:'/create-restaurant',
-    name: 'Créer un restaurant',
+    name: 'create-restaurant',
     component: () => import('../views/guestViews/CreateRestaurantView.vue')
   },
   {
-    path:'/restaurants',
-    name: 'Liste des restaurants',
+    path:'/restaurants-list',
+    name: 'restaurants-list',
     component: () => import('../views/guestViews/RestaurantsView.vue')
   },
   {
