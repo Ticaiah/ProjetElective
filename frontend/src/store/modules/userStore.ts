@@ -1,56 +1,36 @@
 import { Module } from "vuex";
+import CookieUtils from "@/utils/cookieUtils";
+import TokenUtils from "@/utils/tokenUtils";
 
 const userStore: Module<any, any> = {
   state: {
-
-    role: "guest",
-
     auth:{
-      token: "",
-      id : "",
-      role : ""
+      token: CookieUtils.getCookie("token") || "",
+      id : TokenUtils.getValueFromToken(CookieUtils.getCookie("token") || "", "id") || "",
+      role : TokenUtils.getValueFromToken(CookieUtils.getCookie("token") || "", "role") || "guest",
+      connected: CookieUtils.getCookie("token") ? true : false
     },
-    
-    user:{
-        first_name: "",
-        last_name: "",
-        mail: "",
-        password: "",
-        phone_number: "",
-        address: "",
-        role: ""
-    },
-    
-    login:{
-        login:"",
-        password:""
-    }
-  
   },
   getters: {
   },
   mutations: {
-    createUser(state, payload){
-
-        state.user.first_name = payload.first_name;
-        state.user.last_name = payload.last_name;
-        state.user.mail = payload.mail;
-        state.user.password = payload.password;
-        state.user.phone_number = payload.phone_number;
-        state.user.address = payload.address;
-        state.user.role = payload.role;
-    },
-
     loginUser(state, payload){
 
         state.login.login = payload.mail;
         state.login.password = payload.password;
     },
 
-    storeToken(state,payload){
+    setToken(state,payload){
         state.auth.token = payload.token;
         state.auth.id = payload.id;
         state.auth.role = payload.role;
+        state.auth.connected = true;
+    },
+    disconnectUser(state){
+        state.auth.token = "";
+        state.auth.id = "";
+        state.auth.role = "guest";
+        state.auth.connected = false;
     }
     
   },
@@ -63,8 +43,11 @@ const userStore: Module<any, any> = {
         context.commit("loginUser",payload)
     },
 
-    storeToken(context, payload){
-      context.commit("storeToken",payload)  
+    setToken(context, payload){
+      context.commit("setToken",payload)  
+    },
+    disconnectUser(context){
+      context.commit("disconnectUser");
     }
 
 

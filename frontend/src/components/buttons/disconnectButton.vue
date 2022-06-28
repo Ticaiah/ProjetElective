@@ -9,14 +9,13 @@
 import { Vue, Component } from "vue-property-decorator";
 import CookieUtils from "@/utils/cookieUtils";
 
-
 @Component
 export default class DisconnectButton extends Vue {
-    public disconnect(){
-        CookieUtils.deleteCookie("token");
-        this.$router.push("/");
-    }
- 
+  public disconnect() {
+    CookieUtils.deleteCookie("token");
+    this.$store.dispatch("disconnectUser");
+    this.$router.push("/");
+  }
 }
 </script>
 

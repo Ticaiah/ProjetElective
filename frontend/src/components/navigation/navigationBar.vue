@@ -10,7 +10,7 @@
       <router-link class="link" to="/"><v-toolbar-title class="title">CES'EAT</v-toolbar-title></router-link> 
       <v-spacer></v-spacer>
       
-      <DisconnectButton v-if="type='restaurantOwner'"/>
+      <DisconnectButton v-if="$store.state.userStore.auth.connected"/>
       <div v-else>
         <LoginButton/>
         <RegisterButton/>
@@ -26,6 +26,7 @@ import TokenUtils from "@/utils/tokenUtils";
 import RegisterButton from "../buttons/registerButton.vue";
 import LoginButton from "../buttons/loginButton.vue";
 import DisconnectButton from "../buttons/disconnectButton.vue"
+import CookieUtils from "@/utils/cookieUtils";
 
 
 @Component({
@@ -36,8 +37,6 @@ import DisconnectButton from "../buttons/disconnectButton.vue"
   },
 })
 export default class NavigationBar extends Vue {
-
-  type = TokenUtils.getValueFromTokenFromCookie("type");
 
   drawer = false;
   get iconLink(){

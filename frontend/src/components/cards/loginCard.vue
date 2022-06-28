@@ -1,5 +1,5 @@
 <template>
-  <div > 
+  <div>
     <v-card class="logCard" max-width="600">
       <v-card-text>
         <v-form @submit.prevent="loginUser">
@@ -7,15 +7,20 @@
 
           <v-col>
             <v-card-actions>
-              <v-text-field v-model="user.mail" label="Adresse mail"></v-text-field>
+              <v-text-field
+                v-model="user.mail"
+                label="Adresse mail"
+              ></v-text-field>
             </v-card-actions>
             <v-card-actions>
-               <v-text-field v-model="user.password" 
-            :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'" 
-            :type="show ? 'text' : 'password'"
-            label="Mot de passe"
-            @click:append="show = !show">
-            </v-text-field>
+              <v-text-field
+                v-model="user.password"
+                :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
+                :type="show ? 'text' : 'password'"
+                label="Mot de passe"
+                @click:append="show = !show"
+              >
+              </v-text-field>
             </v-card-actions>
           </v-col>
           <v-row>
@@ -37,7 +42,9 @@
           <v-row>
             <v-col>
               <v-card-actions>
-                <v-btn to="/register" plain x-small>Toujours pas de compte ?</v-btn>
+                <v-btn to="/register" plain x-small
+                  >Toujours pas de compte ?</v-btn
+                >
               </v-card-actions>
             </v-col>
           </v-row>
@@ -51,27 +58,47 @@
 import { Vue, Component } from "vue-property-decorator";
 import UserService from "@/services/usersServices";
 import { usersModel } from "@/model/usersModel";
+import CookieUtils from "@/utils/cookieUtils";
+import TokenUtils from "@/utils/tokenUtils";
 
 @Component
 export default class LoginCard extends Vue {
-
-  private userService:UserService = new UserService();
-  public user:usersModel = new usersModel();
+  private userService: UserService = new UserService();
+  public user: usersModel = new usersModel();
   show = false;
 
-// on submit, log the user
-  public async loginUser(){
-
+  // on submit, log the user
+  public async loginUser() {
     //send credentials to the API
-    await this.userService.loginUser(this.user, this.$router);
+    let token:string = await this.userService.loginUser(this.user);
+    //store the sent token in cookies
+    if (token)
+    {
+      this.$store.dispatch("setToken", token);
+      CookieUtils.setCookie("token", token);
 
+      //redirect user to the right page accordinf to his user type
+      let type = TokenUtils.getValueFromToken(token, "type");
+      let id = TokenUtils.getValueFromToken(token, "id");
+
+      
+      if(type == "client"){
+          this.$router.push({name: 'client-home', params: { id: id }})
+      }
+      else if(type == "restaurantOwner"){
+          this.$router.push({name: 'restaurant-home', params: { id: id}})
+      }
+      else{
+          this.$router.push({name: 'delivery-home', params: { id: id }})
+      }
+    }
   }
 }
 </script>
 
 <style scoped>
 .logCard {
-  margin-top: 50px; 
+  margin-top: 50px;
   margin-left: 100px;
 }
 .mr-4{

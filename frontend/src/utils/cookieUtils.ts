@@ -22,6 +22,9 @@ export default class CookieUtils{
             }
             
         }
+        else {
+            return null;
+        }
     }
     
     public static deleteCookie(name: string) {
