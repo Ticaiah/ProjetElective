@@ -1,7 +1,6 @@
 /** source/controllers/commands.ts */
 import { Request, Response, NextFunction } from 'express';
 import {Restaurant} from '../models/mongo/restaurants.model'
-import jwt from 'jsonwebtoken';
 import TokenUtils from '../utils/tokenUtils';
 
 export class RestaurantsController {
@@ -50,7 +49,7 @@ public async addRestaurant(req: Request, res: Response) {
       });
       return;
     }
-    
+
     const rest = new Restaurant(req.body)
     rest.user_id = user_id;
     try
