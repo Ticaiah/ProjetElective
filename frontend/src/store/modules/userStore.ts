@@ -21,10 +21,10 @@ const userStore: Module<any, any> = {
     },
 
     setToken(state,payload){
-        state.auth.token = payload.token;
-        state.auth.id = payload.id;
-        state.auth.role = payload.role;
-        state.auth.connected = true;
+        state.auth.token = payload;
+        state.auth.id = TokenUtils.getValueFromToken(payload, "id");
+        state.auth.role = TokenUtils.getValueFromToken(payload, "type");
+        state.auth.connected = payload ? true : false;
     },
     disconnectUser(state){
         state.auth.token = "";
