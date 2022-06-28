@@ -1,9 +1,6 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
+import { Module } from "vuex";
 
-Vue.use(Vuex)
-
-export default new Vuex.Store({
+const userStore: Module<any, any> = {
   state: {
 
     role: "guest",
@@ -75,6 +72,6 @@ export default new Vuex.Store({
   },
   modules: {
   }
-})
+}
 
-
+export default userStore;

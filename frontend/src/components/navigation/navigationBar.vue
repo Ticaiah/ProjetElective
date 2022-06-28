@@ -27,14 +27,13 @@ import LoginButton from "../buttons/loginButton.vue";
   },
 })
 export default class NavigationBar extends Vue {
-  drawer = false;
   get iconLink(){
-    return this.drawer ? "mdi-chevron-left" : "mdi-menu"
+    return this.$store.state.sidebarStore.toggled ? "mdi-chevron-left" : "mdi-menu"
   }
 
   public toggleDrawer() {
-    this.drawer = !this.drawer;
-    this.$emit("DrawerToggled", this.drawer);
+    this.$store.dispatch("toggleSidebar", !this.$store.state.sidebarStore.toggled);
+    // this.$emit("DrawerToggled", !sidebarStore.state.sidebar.toggled);
   }
 }
 </script>

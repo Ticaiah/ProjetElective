@@ -1,7 +1,7 @@
 <template>
     <v-app>
-      <NavigationBar @DrawerToggled="onDrawerToggled($event)"/>
-      <SideBar :drawer="drawer"/>
+      <NavigationBar/>
+      <SideBar/>
 
     <!-- TOUT LE CONTENU -->
     <v-main class="homepage">
@@ -23,10 +23,6 @@ import SideBar from "./components/navigation/sideBar.vue";
   },
 })
 export default class Test extends Vue {
-  drawer = false;
-  public onDrawerToggled(drawer:boolean){
-      this.drawer = drawer;
-  }
 }
 </script>
 

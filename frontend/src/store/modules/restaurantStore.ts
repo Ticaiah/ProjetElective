@@ -1,11 +1,8 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
 import { restaurantsModel } from "@/model/restaurantsModel";
 import { addressesModel } from '@/model/addressesModel';
+import { Module } from "vuex";
 
-Vue.use(Vuex)
-
-export default new Vuex.Store({
+const restaurantStore: Module<any, any> = {
   state: {
 
     token:{
@@ -37,6 +34,7 @@ export default new Vuex.Store({
   },
   modules: {
   }
-})
+};
 
+export default restaurantStore;
 

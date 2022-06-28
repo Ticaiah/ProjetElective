@@ -1,9 +1,6 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
+import { Module } from "vuex";
 
-Vue.use(Vuex)
-
-export default new Vuex.Store({
+const addressStore: Module<any, any> = {
   state: {
     user:{
         first_name: "",
@@ -55,7 +52,6 @@ export default new Vuex.Store({
   },
   modules: {
   }
-})
+};
 
-//TODO
-
+export default addressStore;

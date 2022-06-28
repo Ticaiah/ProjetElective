@@ -17,41 +17,45 @@
 </template>
 
 <script lang="ts">
-    import { Vue, Component, Prop } from "vue-property-decorator";
-    import RegisterButton2 from "../buttons/registerButton2.vue";
-    import LoginButton2 from "../buttons/loginButton2.vue";
-    
+import { Vue, Component, Prop } from "vue-property-decorator";
+import RegisterButton2 from "../buttons/registerButton2.vue";
+import LoginButton2 from "../buttons/loginButton2.vue";
 
-    @Component({
-    components: {
-        RegisterButton2,
-        LoginButton2,
+@Component({
+  components: {
+    RegisterButton2,
+    LoginButton2,
+  },
+})
+export default class SideBar extends Vue {
+  get drawer() {
+    return this.$store.state.sidebarStore.toggled;
+  }
+  set drawer(value) {
+    this.$store.dispatch("toggleSidebar", value);
+  }
+
+  links = [
+    {
+      route: "/restaurant/register",
+      title: "Devenir restaurateur",
     },
-    })
-    export default class SideBar extends Vue {
-    @Prop({default:false}) drawer!: boolean;
-
-    links = [
-        {
-        route: "/restaurant/register",
-        title: "Devenir restaurateur",
-        },
-        {
-        route: "/delivery/register",
-        title: "Devenir coursier/livreur",
-        },
-        {
-          route:'/create-restaurant',
-          title:'Créer restaurant'
-        },
-        {
-          route:'/restaurants',
-          title:'Liste des restaurants'
-        }
-        // {
-        // route: "/shop",
-        // title: "Shop",
-        // },
-    ];
-    }
+    {
+      route: "/delivery/register",
+      title: "Devenir coursier/livreur",
+    },
+    {
+      route: "/create-restaurant",
+      title: "Créer restaurant",
+    },
+    {
+      route: "/restaurants",
+      title: "Liste des restaurants",
+    },
+    // {
+    // route: "/shop",
+    // title: "Shop",
+    // },
+  ];
+}
 </script>
