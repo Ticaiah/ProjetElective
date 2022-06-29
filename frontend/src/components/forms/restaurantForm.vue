@@ -2,21 +2,21 @@
     <div class="signCard">
         <v-card max-width="600">
             <v-card-text>
-                <v-form @submit.prevent="createRestaurant">
+                <v-form ref="form" @submit.prevent="createRestaurant">
                     <v-card-title class="justify-center"> Création du restaurant </v-card-title>
                     <v-row>
                         <v-col>
-                            <v-text-field v-model="restaurant.name" label="Nom du restaurant"></v-text-field>
+                            <v-text-field :rules="requiredRules" v-model="restaurant.name" label="Nom du restaurant"></v-text-field>
                         </v-col>
                         <v-col>
-                            <v-text-field v-model="restaurant.description" label="Description"></v-text-field>
+                            <v-text-field :rules="requiredRules" v-model="restaurant.description" label="Description"></v-text-field>
                         </v-col>
                     </v-row>
                     <v-col>
-                        <v-text-field v-model="restaurant.address" label="Adresse du restaurant">
+                        <v-text-field :rules="requiredRules" v-model="restaurant.address" label="Adresse du restaurant">
                         </v-text-field>
-                        <v-text-field v-model="restaurant.cp" type="number" label="Code postal"></v-text-field>
-                        <v-text-field v-model="restaurant.city" label="Ville"></v-text-field>
+                        <v-text-field :rules="postcodeRules" v-model="restaurant.cp" type="number" label="Code postal"></v-text-field>
+                        <v-text-field :rules="requiredRules" v-model="restaurant.city" label="Ville"></v-text-field>
                     </v-col>
                     <v-row>
                         <v-col>
@@ -41,12 +41,23 @@ import { restaurantsModel } from "@/model/restaurantsModel";
 
 @Component
 export default class RestaurantForm extends Vue {
+    requiredRules = [
+        (v:string) => !!v || 'Requis',
+        (v:string) => v?.length <= 50 || 'Must be less than 50 characters',
+    ];
+
+    postcodeRules = [
+        (v:string) => !!v || 'Requis',
+        (v:string) => v?.length === 5 || 'Must be 5 characters',
+    ];
 
     private restaurantService: RestaurantsService = new RestaurantsService();
     public restaurant: restaurantsModel = new restaurantsModel();
 
     public createRestaurant() {
-        this.restaurantService.createRestaurant(this.restaurant);
+        if((this.$refs.form as Vue & { validate: () => boolean }).validate()) {
+            this.restaurantService.createRestaurant(this.restaurant);   
+        }
     }
 }
 </script>
