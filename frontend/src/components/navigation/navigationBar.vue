@@ -10,7 +10,13 @@
       <router-link class="link" to="/"><v-toolbar-title class="title">CES'EAT</v-toolbar-title></router-link> 
       <v-spacer></v-spacer>
       
-      <DisconnectButton v-if="$store.state.userStore.auth.connected"/>
+      <div v-if="$store.state.userStore.auth.connected">
+        <v-row> 
+          <CartButton/>
+          <DisconnectButton />
+        </v-row>
+      </div>
+      
       <div v-else>
         <LoginButton/>
         <RegisterButton/>
@@ -24,14 +30,16 @@
 import { Vue, Component } from "vue-property-decorator";
 import RegisterButton from "../buttons/registerButton.vue";
 import LoginButton from "../buttons/loginButton.vue";
-import DisconnectButton from "../buttons/disconnectButton.vue"
+import DisconnectButton from "../buttons/disconnectButton.vue";
+import CartButton from "../buttons/cartButton.vue"
 
 
 @Component({
   components: {
     RegisterButton,
     LoginButton,
-    DisconnectButton
+    DisconnectButton,
+    CartButton
   },
 })
 export default class NavigationBar extends Vue {
