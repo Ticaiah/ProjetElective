@@ -26,6 +26,12 @@
         Supprimer
       </v-btn>
     </v-card-actions>
+        <v-card-actions
+      v-if="$store.state.userStore.auth.role == 'client'">
+      <v-btn color="indigo" text @click="reserve">
+        Voir restaurant
+      </v-btn>
+    </v-card-actions>
   </v-card>
 </template>
 
