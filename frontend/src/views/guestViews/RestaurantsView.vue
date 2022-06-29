@@ -7,7 +7,7 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import RestaurantList from '@/components/lists/restaurantsList.vue'
-import { restaurantsModel} from '@/model/restaurantsModel';
+import { IRestaurant, restaurantsModel} from '@/model/restaurantsModel';
 import RestaurantsService from '@/services/restaurantsService';
 
 @Component({
@@ -17,10 +17,12 @@ import RestaurantsService from '@/services/restaurantsService';
 })
 export default class shopView extends Vue {
     private restaurantsService!: RestaurantsService;
-    public restaurants!:restaurantsModel[]
-    beforeCreate() {
+    public restaurants!:IRestaurant[]
+    
+    async beforeMount() {
         this.restaurantsService = new RestaurantsService();
-        this.restaurants = this.restaurantsService.getRestaurants(this.$store.state.userStore.auth.id);
+        this.restaurants = await this.restaurantsService.getRestaurants();
+        console.log("cousdioh" + this.restaurants);
     }
  }
 </script>

@@ -68,6 +68,8 @@ export class Routes {
         .get(this.restaurantsController.getRestaurant)
         .put(this.restaurantsController.updateRestaurant)
         .delete(this.restaurantsController.deleteRestaurant);
+      app.route('/my-restaurants')
+         .get(this.restaurantsController.getRestaurantsByUser);
 
   }
 }

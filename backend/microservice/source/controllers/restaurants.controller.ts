@@ -32,6 +32,36 @@ public async getRestaurant(req : Request, res: Response) {
   }
 }
 
+public async getRestaurantsByUser(req : Request, res: Response) {
+  // decode jwt from bearer
+  let user_id: number = -1;
+  if (req.headers.authorization) {
+    const token = req.headers.authorization.split(' ')[1];
+    const decoded = jwt.decode(token, { json: true });
+    if (decoded) {
+      user_id = decoded.id;
+    }
+  }
+
+  if (user_id == -1) {
+    res.status(401).json({
+      message: "No token provided"
+    });
+    return;
+  }
+
+  try {
+    const rest = await Restaurant.find({user_id: user_id })
+      if (rest) {
+        res.json(rest)}
+      else res.status(404).send({ error: 'Not found' });
+      }
+  catch(err)
+  {
+      res.status(400).json({message: err})
+  }
+}
+
 /* update a Restaurant*/
 public async updateRestaurant(req: Request,  res: Response) {
   try {

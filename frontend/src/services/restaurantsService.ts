@@ -31,17 +31,18 @@ export default class RestaurantsService extends ApiService {
             }
             );
     }
-    public getRestaurants(user_id : number) : any {
+    public async getRestaurants() :Promise<IRestaurant[]>{
         let restaurants !: IRestaurant []
-        this.instance.get('https://appli.docker.localhost/api/restaurants/', { params: { _id: user_id } })
-        .then(function (response) {
-            console.log("ok")
+        try{
+            let response = await this.instance.get('https://appli.docker.localhost/api/my-restaurants/')
             restaurants = [<IRestaurant>response.data]
             console.log(restaurants);
-        })
-        .catch(function (error) {
+
+        }
+        catch(error){
             console.log(error);
-        })
+        }
+
         return restaurants
     }
 }
