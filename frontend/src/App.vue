@@ -1,16 +1,18 @@
 <template>
-    <v-app>
-      <NavigationBar/>
-      <SideBar/>
+  <v-app>
+    <NavigationBar />
+    <SideBar />
 
     <!-- TOUT LE CONTENU -->
-    <v-main v-if="!$store.state.userStore.auth.connected" class="homepage">
+    <v-main
+      :class="
+        $store.state.userStore.auth.connected
+          ? 'homepage-connected'
+          : 'homepage'
+      "
+    >
       <router-view />
     </v-main>
-    <v-main v-else class="homepage-connected">
-      <router-view />
-    </v-main>
-    
   </v-app>
 </template>
 
@@ -25,35 +27,31 @@ import SideBar from "./components/navigation/sideBar.vue";
     SideBar,
   },
 })
-export default class Test extends Vue {
-}
+export default class Test extends Vue {}
 </script>
 
 <style>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   text-align: center;
-  
 }
-   .homepage {
+.homepage {
   width: 100%;
   background-image: url("@/../public/assets/pizza.jpg");
   background-color: #cccccc;
-  height: 100vh;
+  background-attachment: fixed;
   background-repeat: no-repeat;
   background-size: cover;
   position: relative;
-
 }
 
-.homepage-connected{
+.homepage-connected {
   width: 100%;
   background-image: url("@/../public/assets/italian.jpg");
   background-color: #cccccc;
-  height: 100vh;
+  background-attachment: fixed;
   background-repeat: no-repeat;
   background-size: cover;
   position: relative;
-
 }
 </style>

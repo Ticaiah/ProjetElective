@@ -1,5 +1,6 @@
 <template>
   <div class="home">
+    
     <RestaurantList :restaurants="restaurants"></RestaurantList>
   </div>
 </template>
@@ -17,11 +18,14 @@ import RestaurantsService from '@/services/restaurantsService';
 })
 export default class shopView extends Vue {
     private restaurantsService!: RestaurantsService;
-    public restaurants!:IRestaurant[]
+    public restaurants:restaurantsModel[] = new Array<restaurantsModel>();
     
-    async beforeMount() {
+    async mounted() {
         this.restaurantsService = new RestaurantsService();
-        this.restaurants = await this.restaurantsService.getRestaurants();
+        var restaurants = await this.restaurantsService.getRestauratorRestaurants();
+        if (restaurants) {
+            this.restaurants = restaurants;
+        }
         console.log("cousdioh" + this.restaurants);
     }
  }

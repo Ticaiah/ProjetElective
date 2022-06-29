@@ -4,7 +4,6 @@ import { IArticle, articlesModel } from "@/model/articlesModel";
 
 
 export default class ArticlesService {
-//TODO : voir les erreurs niveau CORS lors de la saisie du nouveau Article
     public createArticle(Article : articlesModel): void {
         console.log(JSON.stringify(Article))
         
@@ -30,6 +29,7 @@ export default class ArticlesService {
             }
             );
     }
+    
     public getArticles(user_id : number) : any {
         let Articles !: IArticle []
         axios.get('https://appli.docker.localhost/api/Articles/'+user_id)

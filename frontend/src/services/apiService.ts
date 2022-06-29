@@ -12,6 +12,9 @@ export default class ApiService {
             headers: {
                 "Content-Type": "application/json",
                 "Accept": "application/json",
+            },
+            validateStatus: () => {
+                return true;
             }
             // headers: {'X-Custom-Header': 'foobar'}
         });

@@ -9,6 +9,7 @@ export interface IRestaurant {
     cp : number;
     city : string;
     phone_number: string;
+    img: string;
 }
 
 export class restaurantsModel implements IRestaurant {
@@ -20,4 +21,5 @@ export class restaurantsModel implements IRestaurant {
     public cp !: number;
     public city !: string
     public phone_number!: string;
+    public img!: string;
 }

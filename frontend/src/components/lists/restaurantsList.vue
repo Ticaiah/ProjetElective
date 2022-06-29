@@ -1,6 +1,6 @@
 <template>
-    <v-layout wrap justify-space-around>
-        <v-flex class="pa-6" v-for="restaurant in restaurants" :key="restaurant">
+    <v-layout v-if="restaurants" wrap justify-space-around>
+        <v-flex class="pa-6" v-for="restaurant in restaurants" :key="restaurant._id">
             <Restaurant :restaurant="restaurant"></Restaurant>
         </v-flex>
     </v-layout>

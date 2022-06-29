@@ -51,6 +51,11 @@ const routes: Array<RouteConfig> = [
     component: () => import('@/views/restaurantViews/RestaurantHomeView.vue')
   },
   {
+    path:'/restaurant/:id',
+    name: 'restaurant-view',
+    component: () => import('@/views/restaurantViews/RestaurantView.vue')
+  },
+  {
     path:'/delivery',
     name: 'delivery-home',
     component: () => import('@/views/deliveryViews/DeliveryHomeView.vue')
