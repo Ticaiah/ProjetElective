@@ -1,6 +1,6 @@
 <template>
   <div>
-    <p> Hello restaurant {{id}} </p>
+    <p> Hello restaurant </p>
  
   </div>
 </template>
@@ -16,7 +16,6 @@ import { Component, Vue } from "vue-property-decorator";
 })
 export default class RestaurantHomeView extends Vue {
 
-    id = this.$route.params;
 
   
 }

@@ -79,17 +79,15 @@ export default class LoginCard extends Vue {
 
       //redirect user to the right page accordinf to his user type
       let type = TokenUtils.getValueFromToken(token, "type");
-      let id = TokenUtils.getValueFromToken(token, "id");
-
       
       if(type == "client"){
-          this.$router.push({name: 'client-home', params: { id: id }})
+          this.$router.push({name: 'client-home'})
       }
       else if(type == "restaurantOwner"){
-          this.$router.push({name: 'restaurant-home', params: { id: id}})
+          this.$router.push({name: 'restaurant-home'})
       }
       else{
-          this.$router.push({name: 'delivery-home', params: { id: id }})
+          this.$router.push({name: 'delivery-home'})
       }
     }
   }
