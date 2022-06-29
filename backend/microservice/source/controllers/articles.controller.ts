@@ -4,10 +4,10 @@ import {Article} from '../models/mongo/articles.model'
 
 export class ArticlesController {
 
-/* get all objects with mongoose */
+// get all articles from a restaurant
 public async getAllArticles(req: Request, res: Response) {
   try {
-    const Articles = await Article.find().populate("restaurant_id");
+    const Articles = await Article.find({restaurant_id: req.query.restaurant_id})
     res.json(Articles);
   }
     catch(err)
@@ -52,8 +52,8 @@ public async updateArticle(req: Request,  res: Response) {
 /* create a new Article with mongoose*/
 public async addArticle(req: Request, res: Response) {
     try {
-      const art = new Article (req.body)
-      art.save();
+      const art = new Article(req.body);
+      await art.save();
       res.status(201).json({art});
     }
     catch(err)

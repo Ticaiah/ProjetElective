@@ -1,21 +1,23 @@
 import axios, { AxiosRequestConfig } from "axios";
 //import userStore from "@/store/userStore";
 import { IArticle, articlesModel } from "@/model/articlesModel";
+import ApiService from "./apiService";
 
 
-export default class ArticlesService {
-    public createArticle(Article : articlesModel): void {
-        console.log(JSON.stringify(Article))
-        
-        axios.post('https://appli.docker.localhost/api/Articles', JSON.stringify(Article))
-            .then(function (response) {
-                //if response is ok, we save the token in the store
-                console.log(response);
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
-            
+export default class ArticlesService extends ApiService {
+    public async createArticle(article : articlesModel) {
+        console.log(JSON.stringify(article))
+        //TODO retirer l'img quand le systeme d'upload est pret
+        article.img = "https://picsum.photos/200/300"
+        try
+        {
+            return await this.instance.post('/articles', JSON.stringify(article));
+        }
+        catch (e)
+        {
+            console.log(e);
+            return undefined;
+        }
     }
 
     public modifyArticle(Article : articlesModel): void {
@@ -30,17 +32,16 @@ export default class ArticlesService {
             );
     }
     
-    public getArticles(user_id : number) : any {
-        let Articles !: IArticle []
-        axios.get('https://appli.docker.localhost/api/Articles/'+user_id)
-        .then(function (response) {
-            console.log("ok")
-            Articles = [<IArticle>response.data]
-            console.log(Articles);
-        })
-        .catch(function (error) {
+    public async getArticles(restaurant_id : string) {
+        try{
+            let response = await this.instance.get('articles/', {params: {restaurant_id: restaurant_id}})
+            console.log(response.data);
+            return <articlesModel[]>response.data
+
+        }
+        catch(error){
             console.log(error);
-        })
-        return Articles
+            return undefined;
+        }
     }
 }

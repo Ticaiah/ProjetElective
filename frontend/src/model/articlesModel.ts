@@ -1,22 +1,20 @@
 export interface IArticle {
-    titreArticle: string;
-    Prix: Number;
-    Quantité: Number;
+    name: string;
+    type:string;
+    price: Number;
+    stock: Number;
+    description:string;
+    restaurant_id: string;
     img: string;
     _id : string;
 }
-export class articlesModel {
-    
-    public titreArticle: string;
-    public Prix: string | Number;
-    public Quantité: string | Number;
-    public img: string;
-    public _id !: string;
-
-    public constructor (titreArticle:string = "Title", Prix:Number=0, Quantité:Number=0, Couleur:string="", img:string="") {
-        this.titreArticle= titreArticle
-        this.Prix=Prix
-        this.Quantité=Quantité
-        this.img=img
-    }
+export class articlesModel implements IArticle{
+    public name!: string;
+    public type!:string;
+    public price!: Number;
+    public stock!: Number;
+    public description!:string;
+    public restaurant_id!: string;
+    public img!: string;
+    public _id! : string;
 }

@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import VueRouter, { RouteConfig } from 'vue-router'
-import shop from '../views/shopView.vue'
 
 Vue.use(VueRouter)
 
@@ -53,17 +52,17 @@ const routes: Array<RouteConfig> = [
   {
     path:'/restaurant/:id',
     name: 'restaurant-view',
-    component: () => import('@/views/restaurantViews/RestaurantView.vue')
+    component: () => import('@/views/restaurantViews/RestaurantView.vue'),
+  },
+  {
+    path:'/restaurant/:id/add-articles',
+    name: 'restaurant-add-articles',
+    component: () => import('@/views/restaurantViews/ArticleAdd.vue')
   },
   {
     path:'/delivery',
     name: 'delivery-home',
     component: () => import('@/views/deliveryViews/DeliveryHomeView.vue')
-  },
-  {
-    path:'/shop',
-    name: 'shop',
-    component: shop
   },
   {
     path: '/delivery/register',
