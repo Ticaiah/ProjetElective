@@ -15,7 +15,7 @@
                     <v-col>
                         <v-text-field v-model="restaurant.address" label="Adresse du restaurant">
                         </v-text-field>
-                        <v-text-field v-model="restaurant.cp" label="Code postal"></v-text-field>
+                        <v-text-field v-model="restaurant.cp" type="number" label="Code postal"></v-text-field>
                         <v-text-field v-model="restaurant.city" label="Ville"></v-text-field>
                     </v-col>
                     <v-row>
