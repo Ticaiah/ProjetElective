@@ -1,9 +1,9 @@
 <template>
-    <div>
-        <div v-for="restaurant in restaurants" :key="restaurant">
+    <v-layout wrap justify-space-around>
+        <v-flex class="pa-6" v-for="restaurant in restaurants" :key="restaurant">
             <Restaurant :restaurant="restaurant"></Restaurant>
-        </div>
-    </div>
+        </v-flex>
+    </v-layout>
 </template>
 <script lang="ts">
 import { Vue, Component, Prop } from 'vue-property-decorator'
