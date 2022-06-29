@@ -9,7 +9,7 @@
                             <v-text-field :rules="requiredRules" v-model="restaurant.name" label="Nom du restaurant"></v-text-field>
                         </v-col>
                         <v-col>
-                            <v-text-field :rules="requiredRules" v-model="restaurant.description" label="Description"></v-text-field>
+                            <v-textarea :rules="requiredRules" v-model="restaurant.description" label="Description"></v-textarea>
                         </v-col>
                     </v-row>
                     <v-col>

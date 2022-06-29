@@ -32,12 +32,12 @@ const routes: Array<RouteConfig> = [
   {
     path:'/create-restaurant',
     name: 'create-restaurant',
-    component: () => import('@/views/guestViews/CreateRestaurantView.vue')
+    component: () => import('@/views/restaurantViews/CreateRestaurantView.vue')
   },
   {
     path:'/restaurants-list',
     name: 'restaurants-list',
-    component: () => import('@/views/guestViews/RestaurantsView.vue')
+    component: () => import('@/views/restaurantViews/RestaurantsView.vue')
   },
   {
     path:'/client',
@@ -78,6 +78,11 @@ const routes: Array<RouteConfig> = [
     path: '/my-account',
     name: 'myAccount',
     component: () => import('../views/UserAccountView.vue')
+  },
+  {
+    path: '/my-cart',
+    name: 'myCart',
+    component: () => import('../views/clientViews/CartView.vue')
   }
 ]
 

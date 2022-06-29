@@ -2,10 +2,9 @@
   <v-menu bottom min-width="200px" rounded offset-y>
     <template v-slot:activator="{ on }">
       <div>
-        <v-btn icon class="avatar" x-large v-on="on">
-          <v-avatar  color="green darken-1" size="48">
-            <span class="white--text text-h5"><v-icon>mdi-account</v-icon></span>
-          </v-avatar>
+          <v-btn  elevation="1" class="avatar" rounded  v-on="on">
+          <v-icon left> mdi-account </v-icon>
+          Mon compte
         </v-btn>
       </div>  
     </template>
@@ -48,8 +47,7 @@ export default class DisconnectButton extends Vue {
 <style>
 .avatar{
   margin-right: 100px;
+  margin-left: 10px;
 }
-#connexion {
-  margin: 5px;
-}
+
 </style>

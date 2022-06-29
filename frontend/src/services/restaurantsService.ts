@@ -34,6 +34,24 @@ export default class RestaurantsService extends ApiService {
         }
     }
 
+    public async getAllRestaurants(){
+        let restaurants !: IRestaurant []
+        try{
+            let response = await this.instance.get('https://appli.docker.localhost/api/restaurants/')
+            console.log(response.data);
+            restaurants = <restaurantsModel[]>response.data
+            console.log("restaurants");
+            console.log(restaurants);
+
+            return restaurants;
+
+        }
+        catch(error){
+            console.log(error);
+            return undefined;
+        }
+    }
+
 
     public async getRestauratorRestaurants(){
         // NOTE : Les restaurants renvoyés sont ceux de l'utilisateur connecté (user_id récupéré par le back depuis le token)
@@ -53,6 +71,8 @@ export default class RestaurantsService extends ApiService {
             return undefined;
         }
     }
+
+
 }
 
  
