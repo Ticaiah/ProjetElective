@@ -4,10 +4,10 @@ import {Order} from '../models/mongo/orders.model'
 
 export class OrdersController {
 
-/* get all objects with mongoose */
+/* get all orders from a user */
 public async getAllOrders(req: Request, res: Response) {
   try{
-    const Orders = await Order.find();
+    const Orders = await Order.find({user_id: req.query.user_id}).populate('articles_list');
     res.json(Orders);
   }
   catch(err)

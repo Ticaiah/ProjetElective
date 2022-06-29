@@ -20,15 +20,15 @@ export interface IOrder {
 export const orderSchema = new Schema<IOrder>({
     articles_list: [{type : Schema.Types.ObjectId, ref:'Article', required: true}],
     total_price: {type: Number, required: true}, 
-    delivery_price: {type: Number, required: true},
-    delivery_user_id: {type: Number, required: true}, //TODO: id de l'utilisateur de type livreur qui a pris en charge la commande
+    delivery_price: {type: Number},
+    delivery_user_id: {type: Number}, //TODO: id de l'utilisateur de type livreur qui a pris en charge la commande
     user_id: {type: Number, required: true}, //TODO: id de l'utilisateur qui a effectué la commande
-    is_validated: {type: Boolean, required: true},
-    payment_type_id: {type: Number, required: true}, //TODO: A voir
-    transaction_id: {type: Number, required: true}, //TODO: A voir
-    cp: {type: Number, required: true}, 
-    address: {type: String, required: true}, 
-    city: {type: String, required: true}, 
+    is_validated: {type: Boolean},
+    payment_type_id: {type: Number}, //TODO: A voir
+    transaction_id: {type: Number}, //TODO: A voir
+    cp: {type: Number}, 
+    address: {type: String}, 
+    city: {type: String}, 
 
 });
 
