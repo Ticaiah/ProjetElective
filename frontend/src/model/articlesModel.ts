@@ -1,7 +1,7 @@
 export interface IArticle {
     name: string;
     type:string;
-    price: Number;
+    price: number;
     stock: Number;
     description:string;
     restaurant_id: string;
@@ -11,7 +11,7 @@ export interface IArticle {
 export class articlesModel implements IArticle{
     public name!: string;
     public type!:string;
-    public price!: Number;
+    public price!: number;
     public stock!: Number;
     public description!:string;
     public restaurant_id!: string;
