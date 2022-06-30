@@ -1,46 +1,47 @@
 import axios, { AxiosRequestConfig } from "axios";
-//import userStore from "@/store/userStore";
 import { IOrder, ordersModel } from "@/model/ordersModel";
+import ApiService from "./apiService";
 
 
-export default class OrdersService {
-//TODO : voir les erreurs niveau CORS lors de la saisie du nouveau Order
-    public createOrder(Order : ordersModel): void {
+export default class OrdersService extends ApiService {
+    public async createOrder(Order : ordersModel) {
         console.log(JSON.stringify(Order))
         
-        axios.post('https://appli.docker.localhost/api/Orders', JSON.stringify(Order))
-            .then(function (response) {
-                //if response is ok, we save the token in the store
-                console.log(response);
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
+        try 
+        {
+            await this.instance.post('https://appli.docker.localhost/api/Orders', JSON.stringify(Order))
+        }
+        catch (e) 
+        {
+            console.log(e)
+            return undefined
+        }
             
     }
 
-    public modifyOrder(Order : ordersModel): void {
-
-        axios.put('https://appli.docker.localhost/api/Orders/'+Order._id, JSON.stringify(Order))
-            .then(function (response) {
-                console.log(response);
-            }
-            ).catch(function (error) {
-                console.log(error);
-            }
-            );
+    public async modifyOrder(Order : ordersModel) {
+        try {
+            await this.instance.put('https://appli.docker.localhost/api/Orders/'+Order._id, JSON.stringify(Order))
+        }
+        catch (e) {
+            console.log(e)
+        }
     }
-    public getOrders(user_id : number) : any {
+
+    public async getUserOrders(){
         let Orders !: IOrder []
-        axios.get('https://appli.docker.localhost/api/Orders/'+user_id)
-        .then(function (response) {
-            console.log("ok")
-            Orders = [<IOrder>response.data]
+        try {
+            let response = await this.instance.get('https://appli.docker.localhost/api/Orders/')
+            console.log(response.data);
+            Orders = <IOrder[]>response.data
+            console.log("restaurants");
             console.log(Orders);
-        })
-        .catch(function (error) {
-            console.log(error);
-        })
-        return Orders
+
+            return Orders;
+        }
+        catch(e){
+            console.log(e);
+            return undefined;
+        }
     }
 }

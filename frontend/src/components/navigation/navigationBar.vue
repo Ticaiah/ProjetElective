@@ -10,13 +10,18 @@
       <router-link class="link" to="/"><v-toolbar-title class="title">CES'EAT</v-toolbar-title></router-link> 
       <v-spacer></v-spacer>
       
-      <div v-if="$store.state.userStore.auth.connected">
+      <div v-if="$store.state.userStore.auth.role == 'client'">
         <v-row> 
-          <CartButton/>
-          <DisconnectButton />
+          <CartButton/>   
         </v-row>
       </div>
       
+      <div v-if="$store.state.userStore.auth.connected">
+        <v-row> 
+          <DisconnectButton />
+        </v-row>
+      </div>
+
       <div v-else>
         <LoginButton/>
         <RegisterButton/>

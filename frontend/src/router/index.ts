@@ -77,13 +77,14 @@ const routes: Array<RouteConfig> = [
   {
     path: '/my-account',
     name: 'myAccount',
-    component: () => import('../views/UserAccountView.vue')
+    component: () => import('@/views/UserAccountView.vue')
   },
   {
     path: '/my-cart',
     name: 'myCart',
-    component: () => import('../views/clientViews/CartView.vue')
-  }
+    component: () => import('@/views/clientViews/CartView.vue')
+  },
+
 ]
 
 const router = new VueRouter({
