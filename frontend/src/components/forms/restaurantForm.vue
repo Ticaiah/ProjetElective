@@ -17,6 +17,7 @@
                         </v-text-field>
                         <v-text-field :rules="postcodeRules" v-model="restaurant.cp" type="number" label="Code postal"></v-text-field>
                         <v-text-field :rules="requiredRules" v-model="restaurant.city" label="Ville"></v-text-field>
+                        <v-file-input accept="image/*" v-model="image" show-size truncate-length="20" label="Image du restaurant"></v-file-input>
                     </v-col>
                     <v-row>
                         <v-col>
@@ -53,10 +54,11 @@ export default class RestaurantForm extends Vue {
 
     private restaurantService: RestaurantsService = new RestaurantsService();
     public restaurant: restaurantsModel = new restaurantsModel();
+    public image = new File([], '');
 
     public createRestaurant() {
         if((this.$refs.form as Vue & { validate: () => boolean }).validate()) {
-            this.restaurantService.createRestaurant(this.restaurant);   
+            this.restaurantService.createRestaurant(this.restaurant, this.image);
         }
     }
 }

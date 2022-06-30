@@ -1,4 +1,4 @@
-import axios, { AxiosRequestConfig } from "axios";
+import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
 //import userStore from "@/store/userStore";
 import { IRestaurant, restaurantsModel } from "@/model/restaurantsModel";
 import ApiService from "./apiService";
@@ -6,10 +6,29 @@ import ApiService from "./apiService";
 
 export default class RestaurantsService extends ApiService {
 //TODO : voir les erreurs niveau CORS lors de la saisie du nouveau restaurant
-    public async createRestaurant(restaurant : restaurantsModel) {
+    public async createRestaurant(restaurant : restaurantsModel, image : File) {
         console.log(JSON.stringify(restaurant))
         //TODO retirer l'img quand le systeme d'upload est pret
-        restaurant.img = "https://picsum.photos/200/300"
+        
+        //send image
+        var imageURL!:AxiosResponse;
+        try
+        {
+            var formData = new FormData();
+            formData.append('file', image);
+            imageURL = await this.instance.post('https://appli.docker.localhost/api/restaurants/upload', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            });
+        }
+        catch (e)
+        {
+            console.log(e);
+        }
+
+        restaurant.img = imageURL ? imageURL.data.url : "https://picsum.photos/200/300"
+        
         try
         {
             return await this.instance.post('https://appli.docker.localhost/api/restaurants', JSON.stringify(restaurant));

@@ -154,9 +154,9 @@ export class RestaurantsController {
       // get extention from filename
       const ext = req.file.originalname.split('.').pop();
       const fileName = uuidv4() + "." + ext;
-      const filePath = `https://data.docker.localhost/${bucket}/${fileName}`;
+      const url = `https://data.docker.localhost/${bucket}/${fileName}`;
       await minioClient.putObject(bucket, fileName, req.file.buffer);
-      return res.json({filePath});
+      return res.json({url});
     }
   }
 }
