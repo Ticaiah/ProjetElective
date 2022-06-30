@@ -194,3 +194,16 @@ services:
       MINIO_ACCESS_KEY: minio_access_key
       MINIO_SECRET_KEY: minio_secret_key
     command: server /data --console-address ":9001"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.minio.rule=Host(`data.docker.localhost`)"
+      - "traefik.http.routers.minio.service=minio"
+      - "traefik.http.routers.minio.tls=true"
+      - "traefik.http.routers.minio.entrypoints=websecure"
+      - "traefik.http.services.minio.loadbalancer.server.port=9000"
+
+      - "traefik.http.routers.minioui.rule=Host(`dataui.docker.localhost`)"
+      - "traefik.http.routers.minioui.service=minioui"
+      - "traefik.http.routers.minioui.tls=true"
+      - "traefik.http.routers.minioui.entrypoints=websecure"
+      - "traefik.http.services.minioui.loadbalancer.server.port=9001"

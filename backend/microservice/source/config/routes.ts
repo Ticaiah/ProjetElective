@@ -6,7 +6,7 @@ import {AddressesController}   from '../controllers/addresses.controller';
 import {MenusController}   from '../controllers/menus.controller';
 import {RestaurantsController}   from '../controllers/restaurants.controller';
 import { TestController } from "../controllers/test.controller";
-
+import Multer from "multer";
 export class Routes {
   public ordersController: OrdersController;
   public restaurantsController: RestaurantsController;
@@ -67,6 +67,9 @@ export class Routes {
       app.route('/restaurants')
         .get(this.restaurantsController.getAllRestaurants)
         .post(this.restaurantsController.addRestaurant);
+      
+      app.post("/restaurants/upload", Multer({storage: Multer.memoryStorage()}).single("file"), this.restaurantsController.uploadRestaurantImage);
+      
       app.route('/restaurants/:_id')
         .get(this.restaurantsController.getRestaurant)
         .put(this.restaurantsController.updateRestaurant)
