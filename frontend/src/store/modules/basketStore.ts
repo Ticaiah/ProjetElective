@@ -13,15 +13,19 @@ const basketStore: Module<any, any> = {
           console.log("coucou c'est ajouté")
           console.log(state.articles)
       },
-      deleteArticleToBasked(state, index:number) {
-        delete state.article[index]
+      deleteArticleToBasket(state, index:number) {
+        console.log("coucou" + index)
+        state.articles = state.articles.filter((e: any) => e !== state.articles[index]);
       }
     },
     actions: {
       addArticleToBasket(context, article:articlesModel) {
         context.commit("addArticleToBasket", article)
       },
-    },
+      deleteArticleToBasket(context, index:number) {
+        context.commit("deleteArticleToBasket", index)
+    }
+  },
     modules: {
     }
   };
