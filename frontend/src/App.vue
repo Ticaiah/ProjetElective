@@ -27,7 +27,11 @@ import SideBar from "./components/navigation/sideBar.vue";
     SideBar,
   },
 })
-export default class Test extends Vue {}
+export default class Test extends Vue {
+  beforeCreate() {
+		this.$store.commit('initialiseStore');
+	}
+}
 </script>
 
 <style>
