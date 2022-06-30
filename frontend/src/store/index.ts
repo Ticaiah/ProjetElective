@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import userStore from "./modules/userStore";
 import sidebarStore from "./modules/sidebarStore";
+import basketStore from "./modules/basketStore"
 
 Vue.use(Vuex)
 
@@ -30,6 +31,7 @@ var store = new Vuex.Store({
   modules: {
     userStore,
     sidebarStore,
+    basketStore
   }
 });
 
