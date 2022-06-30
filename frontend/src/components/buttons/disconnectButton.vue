@@ -19,6 +19,8 @@
           <v-divider class="my-3"></v-divider>
           <v-btn depressed rounded text to="/my-account"> Mon compte </v-btn>
           <v-divider class="my-3"></v-divider>
+          <v-btn depressed rounded text to="/orders"> Mon commandes </v-btn>
+          <v-divider class="my-3"></v-divider>
           <v-btn depressed rounded text @click="disconnect" color="red"> Se deconnecter </v-btn>
         </div>
       </v-list-item-content>
