@@ -15,8 +15,8 @@
           <CartButton/>   
         </v-row>
       </div>
-      
-      <div v-if="$store.state.userStore.auth.connected">
+
+      <div class="ml-6" v-if="$store.state.userStore.auth.connected">
         <v-row> 
           <DisconnectButton />
         </v-row>

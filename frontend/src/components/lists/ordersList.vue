@@ -26,6 +26,7 @@ export default class OrdersList extends Vue {
           value: '_id',
         },
         { text: 'Addresse de livraison', value: 'address' },
+        { text: 'Restaurant', value: 'restaurant' },
         { text: 'Prix total', value: 'price' },
     ];
 }
