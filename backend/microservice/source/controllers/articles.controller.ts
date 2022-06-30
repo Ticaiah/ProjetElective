@@ -1,6 +1,8 @@
 /** source/controllers/commands.ts */
 import { Request, Response, NextFunction } from 'express';
+import { minioClient } from '../config/minio';
 import {Article} from '../models/mongo/articles.model'
+import { v4 as uuidv4 } from 'uuid';
 
 export class ArticlesController {
 
@@ -76,4 +78,39 @@ public async deleteArticle(req: Request, res: Response) {
       res.status(400).json({message: err})
   }
   }
+  
+  public async uploadArticleImage(req: Request, res: Response) {
+    if (req.file) {
+      const bucket = 'articles-images';
+
+      if (!await minioClient.bucketExists(bucket)) {
+        await minioClient.makeBucket(bucket, "");
+        const bucketPolicy = {
+          "Version": "2012-10-17",
+          "Statement": [
+              {
+                  "Sid": "PublicRead",
+                  "Effect": "Allow",
+                  "Principal": "*",
+                  "Action": [
+                      "s3:GetObject",
+                      "s3:GetObjectVersion"
+                  ],
+                  "Resource": [
+                      `arn:aws:s3:::${bucket}/*`
+                  ]
+              }
+          ]
+        };
+        await minioClient.setBucketPolicy(bucket, JSON.stringify(bucketPolicy));
+      }
+      // get extention from filename
+      const ext = req.file.originalname.split('.').pop();
+      const fileName = uuidv4() + "." + ext;
+      const url = `https://data.docker.localhost/${bucket}/${fileName}`;
+      await minioClient.putObject(bucket, fileName, req.file.buffer);
+      return res.json({url});
+    }
+  }
+  
 }

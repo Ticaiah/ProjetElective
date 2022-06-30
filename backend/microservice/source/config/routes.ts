@@ -44,6 +44,9 @@ export class Routes {
       .get(this.articlesController.getArticle)
       .put(this.articlesController.updateArticle)
       .delete(this.articlesController.deleteArticle);
+    
+    app.post("/articles/upload", Multer({storage: Multer.memoryStorage()}).single("file"), this.articlesController.uploadArticleImage);
+
 
 //Routes addresses
     app.route('/addresses')
@@ -62,6 +65,7 @@ export class Routes {
       .get(this.menusController.getMenu)
       .put(this.menusController.updateMenu)
       .delete(this.menusController.deleteMenu);
+      
 
 //Routes restaurants Restaurant
       app.route('/restaurants')
@@ -76,8 +80,6 @@ export class Routes {
         .delete(this.restaurantsController.deleteRestaurant);
       app.route('/my-restaurants')
          .get(this.restaurantsController.getRestaurantsByUser);
-
-      app.route('/test').get(this.testController.test);
 
   }
 }

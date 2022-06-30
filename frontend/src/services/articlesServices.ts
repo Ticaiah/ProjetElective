@@ -1,14 +1,31 @@
-import axios, { AxiosRequestConfig } from "axios";
+import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
 //import userStore from "@/store/userStore";
 import { IArticle, articlesModel } from "@/model/articlesModel";
 import ApiService from "./apiService";
 
 
 export default class ArticlesService extends ApiService {
-    public async createArticle(article : articlesModel) {
+    public async createArticle(article : articlesModel, image : File) {
         console.log(JSON.stringify(article))
-        //TODO retirer l'img quand le systeme d'upload est pret
-        article.img = "https://picsum.photos/200/300"
+        //send image
+        var imageURL!:AxiosResponse;
+        try
+        {
+            var formData = new FormData();
+            formData.append('file', image);
+            imageURL = await this.instance.post('https://appli.docker.localhost/api/articles/upload', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            });
+        }
+        catch (e)
+        {
+            console.log(e);
+        }
+ 
+        article.img = imageURL ? imageURL.data.url : "https://picsum.photos/200/300"
+         
         try
         {
             return await this.instance.post('/articles', JSON.stringify(article));
