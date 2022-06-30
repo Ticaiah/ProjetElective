@@ -10,7 +10,7 @@
             </v-card-subtitle>
             <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn color="primary" @click="addArticleToCart(article)">
+                <v-btn color="primary" @click="addArticleToCart">
                     Ajouter au panier
                 </v-btn>
 
@@ -26,10 +26,10 @@ import {articlesModel} from '@/model/articlesModel'
 @Component
 export default class Article extends Vue {
     @Prop() article!:articlesModel
-    public addArticleToCart(article:articlesModel) {
-        window.alert("Article " + article.name +" a été ajouté")
-        //utiliser le local storage pour stocker le panier!
-        //Parce qu'on ne va pas emit et re-emit vu qu'on a deux composants
+    //Onclick, we will add the article in the basket
+    public addArticleToCart() {
+        window.alert("Article " + this.article.name +" a été ajouté")
+        this.$store.dispatch("addArticleToBasket", this.article);
     }
 }
 </script>
