@@ -10,6 +10,9 @@ export interface IOrder {
     is_validated: boolean;
     payment_type_id: Number;
     transaction_id: Number;
+    city: string;
+    address:string;
+    cp:Number;
 }
 export class ordersModel implements IOrder {
     
@@ -22,5 +25,8 @@ export class ordersModel implements IOrder {
     public is_validated!: boolean;
     public payment_type_id!: Number;
     public transaction_id!: Number;
+    public cp !: Number
+    public address !: string
+    public city !: string
 
 }
