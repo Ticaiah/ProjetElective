@@ -75,6 +75,11 @@ const routes: Array<RouteConfig> = [
     component: () => import('@/views/orderView/OrderView.vue')
   },
   {
+    path:'/order/:id',
+    name: 'order',
+    component: () => import('@/views/clientViews/ArticleView.vue')
+  },
+  {
     path: '/my-account',
     name: 'myAccount',
     component: () => import('@/views/UserAccountView.vue')

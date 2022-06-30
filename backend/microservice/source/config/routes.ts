@@ -28,7 +28,7 @@ export class Routes {
 
 //Routes orders
     app.route('/orders')
-      .get(this.ordersController.getAllOrders)
+      .get(this.ordersController.getAllUserOrders)
       .post(this.ordersController.addOrder);
     app.route('/orders/:_id')
       .get(this.ordersController.getOrder)

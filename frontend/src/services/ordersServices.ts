@@ -44,4 +44,20 @@ export default class OrdersService extends ApiService {
             return undefined;
         }
     }
+
+    public async getUserOrderById(order_id:string){
+        let order !: IOrder
+        try {
+            let response = await this.instance.get('https://appli.docker.localhost/api/Orders/'+order_id)
+            console.log(response.data);
+            order = <IOrder>response.data
+            console.log(order);
+
+            return order;
+        }
+        catch(e){
+            console.log(e);
+            return undefined;
+        }
+    }
 }

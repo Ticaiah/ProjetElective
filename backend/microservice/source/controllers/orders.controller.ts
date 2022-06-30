@@ -1,13 +1,30 @@
 
 import { Request, Response, NextFunction } from 'express';
 import {Order} from '../models/mongo/orders.model'
+import jwt from 'jsonwebtoken';
 
 export class OrdersController {
 
 /* get all orders from a user */
-public async getAllOrders(req: Request, res: Response) {
+public async getAllUserOrders(req: Request, res: Response) {
+  // decode jwt from bearer
+  let user_id: number = -1;
+  if (req.headers.authorization) {
+    const token = req.headers.authorization.split(' ')[1];
+    const decoded = jwt.decode(token, { json: true });
+    if (decoded) {
+      user_id = decoded.id;
+    }
+  }
+
+  if (user_id == -1) {
+    res.status(401).json({
+      message: "No token provided"
+    });
+    return;
+  }
   try{
-    const Orders = await Order.find({user_id: req.query.user_id}).populate('articles_list');
+    const Orders = await Order.find({user_id: user_id}).populate('articles_list');
     res.json(Orders);
   }
   catch(err)
@@ -16,10 +33,11 @@ public async getAllOrders(req: Request, res: Response) {
   }
   }
 
+
 /* get single Order mongo*/
 public async getOrder(req : Request, res: Response) {
   try {
-    const ord = await Order.findOne({"_id": req.params._id})
+    const ord = await Order.findOne({"_id": req.params._id}).populate("articles_list");
       if (ord) {
         res.json(ord)}
       else res.status(404).send({ error: 'Something failed!' });

@@ -24,10 +24,9 @@ export default class Order extends Vue {
         text: 'Nom de l\'article',
         align: 'start',
         sortable: false,
-        value: '_id',
+        value: 'name',
       },
-      { text: 'Prix', value: 'price' },
-      { text: 'Description', value: 'description' },
+      { text: 'Prix', value: 'price' }
   ];
 
 }
