@@ -39,6 +39,8 @@ export default class ApiService {
                 store.dispatch("disconnectUser");
                 router.push("/");
             }
+
+            return response;
         });
     }
 
