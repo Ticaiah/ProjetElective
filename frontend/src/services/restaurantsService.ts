@@ -8,9 +8,7 @@ export default class RestaurantsService extends ApiService {
 //TODO : voir les erreurs niveau CORS lors de la saisie du nouveau restaurant
     public async createRestaurant(restaurant : restaurantsModel, image : File) {
         console.log(JSON.stringify(restaurant))
-        //TODO retirer l'img quand le systeme d'upload est pret
         
-        //send image
         var imageURL!:AxiosResponse;
         try
         {

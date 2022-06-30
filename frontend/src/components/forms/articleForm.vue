@@ -32,6 +32,7 @@
               label="Nombre d'articles en stock"
               required
             ></v-text-field>
+            <v-file-input accept="image/*" v-model="image" show-size truncate-length="20" label="Image du produit"></v-file-input>
           </v-col>
           <v-btn color="success" class="mr-4" @click="create"> Create </v-btn>
           <!-- Mettre le path de l'image
@@ -63,6 +64,7 @@ import { articlesModel } from "../../model/articlesModel";
 export default class ArticleForm extends Vue {
   public articleService: ArticlesService = new ArticlesService();
   public article: articlesModel = new articlesModel();
+  public image = new File([], '');
 
   public types: string[] = ["Boisson", "Snacks", "Dessert", "Sauce", "Plat"];
 
@@ -70,7 +72,7 @@ export default class ArticleForm extends Vue {
     console.log("article btn");
     console.log(this.article);
     this.article.restaurant_id = this.$route.params.id;
-    var articles = await this.articleService.createArticle(this.article);
+    var articles = await this.articleService.createArticle(this.article, this.image);
     if (articles?.status === 200) {
       this.$router.push({
         name: "restaurant-view",
