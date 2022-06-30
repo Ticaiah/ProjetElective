@@ -1,4 +1,3 @@
-import restaurantStore from "@/store/modules/restaurantStore";
 import CookieUtils from "@/utils/cookieUtils";
 import router from '@/router'
 import store from '@/store'
@@ -40,6 +39,8 @@ export default class ApiService {
                 store.dispatch("disconnectUser");
                 router.push("/");
             }
+
+            return response;
         });
     }
 

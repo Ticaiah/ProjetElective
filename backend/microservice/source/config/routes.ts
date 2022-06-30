@@ -5,6 +5,7 @@ import {ArticlesController}   from '../controllers/articles.controller';
 import {AddressesController}   from '../controllers/addresses.controller';
 import {MenusController}   from '../controllers/menus.controller';
 import {RestaurantsController}   from '../controllers/restaurants.controller';
+import { TestController } from "../controllers/test.controller";
 
 export class Routes {
   public ordersController: OrdersController;
@@ -12,6 +13,7 @@ export class Routes {
   public articlesController: ArticlesController;
   public addressesController: AddressesController;
   public menusController: MenusController;
+  public testController: TestController;
 
   constructor(){
     this.ordersController = new OrdersController();
@@ -19,6 +21,7 @@ export class Routes {
     this.restaurantsController = new RestaurantsController();
     this.addressesController = new AddressesController();
     this.menusController = new MenusController();
+    this.testController = new TestController();
   }
 
   public routes(app:Express): void {
@@ -43,22 +46,22 @@ export class Routes {
       .delete(this.articlesController.deleteArticle);
 
 //Routes addresses
-      app.route('/addresses')
-        .get(this.addressesController.getAllAddresses)
-        .post(this.addressesController.addAddress);
-      app.route('/addresses/:_id')
-        .get(this.addressesController.getAddress)
-        .put(this.addressesController.updateAddress)
-        .delete(this.addressesController.deleteAddress);
+    app.route('/addresses')
+      .get(this.addressesController.getAllAddresses)
+      .post(this.addressesController.addAddress);
+    app.route('/addresses/:_id')
+      .get(this.addressesController.getAddress)
+      .put(this.addressesController.updateAddress)
+      .delete(this.addressesController.deleteAddress);
 
 //Routes menus
-      app.route('/menus')
-        .get(this.menusController.getAllMenus)
-        .post(this.menusController.addMenu);
-      app.route('/menus/:_id')
-        .get(this.menusController.getMenu)
-        .put(this.menusController.updateMenu)
-        .delete(this.menusController.deleteMenu);
+    app.route('/menus')
+      .get(this.menusController.getAllMenus)
+      .post(this.menusController.addMenu);
+    app.route('/menus/:_id')
+      .get(this.menusController.getMenu)
+      .put(this.menusController.updateMenu)
+      .delete(this.menusController.deleteMenu);
 
 //Routes restaurants Restaurant
       app.route('/restaurants')
@@ -70,6 +73,8 @@ export class Routes {
         .delete(this.restaurantsController.deleteRestaurant);
       app.route('/my-restaurants')
          .get(this.restaurantsController.getRestaurantsByUser);
+
+      app.route('/test').get(this.testController.test);
 
   }
 }
