@@ -1,0 +1,607 @@
+openapi: 3.0.1
+info:
+  title: Documentation API
+  description: Ceci est la documentation API des différents microservices. La partie routage et authentification sont gérés par Traefik, et l'accès aux différents services se fait en fonction du token envoyé dans la requête HTTP.
+  version: 1.0.0
+servers:
+- url: appli.docker.localhost/api
+tags:
+- name: user
+  description: Gestion des utilisateurs
+- name: article
+  description: Gestion des articles d'un restaurant
+- name: order
+  description: Gestion des commandes faites par un client
+- name: restaurant
+  description: Gestion des restaurants
+- name: menu
+  description: Gestion des menus composés d'articles
+paths:
+  /orders:
+    get:
+      tags:
+      - order
+      summary: Récupère toutes les commandes
+      operationId: getCommands
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Order'
+    post:
+      tags:
+      - order
+      summary: Crée une nouvelle commande
+      operationId: createOrder
+      requestBody:
+        description: Commande à créer
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Order'
+        required: true
+      responses:
+        400:
+          description: Invalid input
+          content: {}
+      x-codegen-request-body-name: body
+  /order/{orderId}:
+    get:
+      tags:
+      - order
+      summary: Récupérer une certaine commande en fonction de son id
+      operationId: getOrder
+      parameters:
+      - name: orderId
+        in: path
+        description: ID de la commande à mettre à jour
+        required: true
+        schema:
+          type: string
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
+    put:
+      tags:
+      - order
+      summary: Mettre à jour une commande
+      operationId: updateOrder
+      parameters:
+      - name: orderId
+        in: path
+        description: ID de la commande à mettre à jour
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: Commande à mettre à jour
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Order'
+        required: true
+      responses:
+        400:
+          description: Invalid ID supplied
+          content: {}
+      x-codegen-request-body-name: body
+    delete:
+      tags:
+      - order
+      summary: Supprime une commande
+      operationId: deleteOrder
+      parameters:
+      - name: orderId
+        in: path
+        description: ID de la commande à mettre à jour
+        required: true
+        schema:
+          type: string
+      responses:
+        200:
+          description: successful operation
+          content: {}
+  /restaurants:
+    get:
+      tags:
+      - restaurant
+      summary: Récupère tous les restaurants
+      operationId: getRestaurants
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Restaurant'
+    post:
+      tags:
+      - restaurant
+      summary: Crée un nouveau restaurant
+      operationId: createRestaurant
+      requestBody:
+        description: restaurant à créer
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Restaurant'
+        required: true
+      responses:
+        400:
+          description: Invalid input
+          content: {}
+      x-codegen-request-body-name: body
+  /restaurant/{restaurantId}:
+    get:
+      tags:
+      - restaurant
+      summary: Récupérer un certain restaurant en fonction de son id
+      operationId: getRestaurant
+      parameters:
+      - name: restaurantId
+        in: path
+        description: ID du restaurant à récupérer
+        required: true
+        schema:
+          type: string
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Restaurant'
+    put:
+      tags:
+      - restaurant
+      summary: Mettre à jour une commande
+      operationId: updateRestaurantr
+      parameters:
+      - name: restaurantId
+        in: path
+        description: ID du restaurant à mettre à jour
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: Restaurant à mettre à jour
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Restaurant'
+        required: true
+      responses:
+        400:
+          description: Invalid ID supplied
+          content: {}
+      x-codegen-request-body-name: body
+    delete:
+      tags:
+      - restaurant
+      summary: Supprime un restaurant
+      operationId: deleteRestaurant
+      parameters:
+      - name: restaurantId
+        in: path
+        description: ID du restaurant à supprimer
+        required: true
+        schema:
+          type: string
+      responses:
+        200:
+          description: successful operation
+          content: {}
+  /users:
+    get:
+      tags:
+      - user
+      summary: Récupère tous les users
+      operationId: getUsers
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+    post:
+      tags:
+      - user
+      summary: Crée un nouveau user
+      operationId: createUser
+      requestBody:
+        description: user à créer
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+        required: true
+      responses:
+        400:
+          description: Invalid input
+          content: {}
+      x-codegen-request-body-name: body
+  /user/{userId}:
+    get:
+      tags:
+      - user
+      summary: Récupérer un certain user en fonction de son id
+      operationId: getUser
+      parameters:
+      - name: userId
+        in: path
+        description: ID du user à récupérer
+        required: true
+        schema:
+          type: string
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+    put:
+      tags:
+      - user
+      summary: Mettre à jour un user
+      operationId: updateUser
+      parameters:
+      - name: userId
+        in: path
+        description: ID du user à mettre à jour
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: User à mettre à jour
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+        required: true
+      responses:
+        400:
+          description: Invalid ID supplied
+          content: {}
+      x-codegen-request-body-name: body
+    delete:
+      tags:
+      - user
+      summary: Supprime un user
+      operationId: deleteUser
+      parameters:
+      - name: userId
+        in: path
+        description: ID du user à supprimer
+        required: true
+        schema:
+          type: string
+      responses:
+        200:
+          description: successful operation
+          content: {}
+  /articles:
+    get:
+      tags:
+      - article
+      summary: Récupère tous les articles
+      operationId: getArticles
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Article'
+    post:
+      tags:
+      - article
+      summary: Crée un nouveal article
+      operationId: createArticle
+      requestBody:
+        description: article à créer
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Article'
+        required: true
+      responses:
+        400:
+          description: Invalid input
+          content: {}
+      x-codegen-request-body-name: body
+  /article/{articleId}:
+    get:
+      tags:
+      - article
+      summary: Récupérer un certain article en fonction de son id
+      operationId: getArticle
+      parameters:
+      - name: articleId
+        in: path
+        description: ID de l'article à récupérer
+        required: true
+        schema:
+          type: string
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Article'
+    put:
+      tags:
+      - article
+      summary: Mettre à jour un article
+      operationId: updateArticle
+      parameters:
+      - name: articleId
+        in: path
+        description: ID de l'article à mettre à jour
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: Article à mettre à jour
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Article'
+        required: true
+      responses:
+        400:
+          description: Invalid ID supplied
+          content: {}
+      x-codegen-request-body-name: body
+    delete:
+      tags:
+      - article
+      summary: Supprime un article
+      operationId: deleteArticle
+      parameters:
+      - name: articleId
+        in: path
+        description: ID de l'article à supprimer
+        required: true
+        schema:
+          type: string
+      responses:
+        200:
+          description: successful operation
+          content: {}
+  /menus:
+    get:
+      tags:
+      - menu
+      summary: Récupère tous les menus
+      operationId: getMenus
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Menu'
+    post:
+      tags:
+      - menu
+      summary: Crée un nouveau menu
+      operationId: createMenu
+      requestBody:
+        description: Menu à créer
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Menu'
+        required: true
+      responses:
+        400:
+          description: Invalid input
+          content: {}
+      x-codegen-request-body-name: body
+  /menu/{menuId}:
+    get:
+      tags:
+      - menu
+      summary: Récupérer un certain menu en fonction de son id
+      operationId: getMenu
+      parameters:
+      - name: menuId
+        in: path
+        description: ID du menu à récupérer
+        required: true
+        schema:
+          type: string
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Menu'
+    put:
+      tags:
+      - menu
+      summary: Mettre à jour un menu
+      operationId: updateMenu
+      parameters:
+      - name: menuId
+        in: path
+        description: ID du menu à mettre à jour
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: menu à mettre à jour
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Menu'
+        required: true
+      responses:
+        400:
+          description: Invalid ID supplied
+          content: {}
+      x-codegen-request-body-name: body
+    delete:
+      tags:
+      - menu
+      summary: Supprime un menu
+      operationId: deleteMenu
+      parameters:
+      - name: menuId
+        in: path
+        description: ID du menu à supprimer
+        required: true
+        schema:
+          type: string
+      responses:
+        200:
+          description: successful operation
+          content: {}
+components:
+  schemas:
+    Order:
+      type: object
+      properties:
+        _id:
+          type: string
+        articles_list:
+          type: array
+          items:
+            $ref: '#/components/schemas/Article'
+        total_price:
+          type: integer
+          format: int32
+        delivery_price:
+          type: integer
+          format: int32
+        user_id:
+          type: integer
+          format: int32
+        is_validated:
+          type: boolean
+        payment_type_id:
+          type: integer
+          format: int32
+        transaction_id:
+          type: integer
+          format: int32
+        address:
+          type: string
+        cp:
+          type: integer
+          format: int32
+        city:
+          type: string
+    Article:
+      type: object
+      properties:
+        _id:
+          type: string
+        name:
+          type: string
+        type:
+          type: string
+          enum:
+          - Boisson
+          - Snacks
+          - Dessert
+          - Sauce
+          - Plat
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        mail:
+          type: string
+        first_name:
+          type: string
+        last_name:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
+        phone_number:
+          type: string
+        type:
+          type: string
+          description: type de l'utilisateur (restaurateur, client, livreur,...)
+        address:
+          type: string
+        postcode:
+          type: integer
+          format: int32
+        city:
+          type: string
+        is_verified:
+          type: boolean
+    Restaurant:
+      type: object
+      properties:
+        _id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        img:
+          type: string
+        address:
+          type: string
+        cp:
+          type: integer
+          format: int32
+        city:
+          type: string
+        user_id:
+          type: integer
+          format: int64
+        phone_number:
+          type: string
+    Menu:
+      required:
+      - article_list
+      - img
+      - name
+      - price
+      - restaurant_id
+      type: object
+      properties:
+        _id:
+          type: string
+        article_list:
+          type: array
+          items:
+            $ref: '#/components/schemas/Article'
+        name:
+          type: string
+          example: menu
+        price:
+          type: integer
+          format: int32
+        restaurant_id:
+          type: string
+        img:
+          type: string
