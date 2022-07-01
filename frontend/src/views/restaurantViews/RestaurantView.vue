@@ -1,7 +1,8 @@
 <template>
   <div>
-    <div>
-        <h1>{{ restaurant.name }}</h1>
+    <div style="background-color: white">
+        <v-img max-height="150" :src="restaurant.img"><h1 style="background-color: rgba(255, 255, 255, 0.4);">{{ restaurant.name }}</h1></v-img>
+        
     </div>
     <!-- vuetify list -->
     <v-layout wrap justify-space-around>
