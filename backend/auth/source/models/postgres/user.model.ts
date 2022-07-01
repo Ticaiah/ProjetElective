@@ -30,7 +30,7 @@ export class User extends Model {
 
 	public static generateJWT(user:User): string {
 		// generate a signed json web token with the contents of user object and return it in the response
-		return jwt.sign({ id: user.id, first_name: user.first_name, last_name: user.last_name,mail: user.mail, type: user.type }, "TEST", { expiresIn: "1h" });
+		return jwt.sign({ id: user.id, first_name: user.first_name, last_name: user.last_name,mail: user.mail, type: user.type }, "TEST", { expiresIn: "2h" });
 	}
 
 	public static checkJwt(token:string): number {
