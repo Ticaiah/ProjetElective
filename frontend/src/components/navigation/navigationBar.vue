@@ -7,7 +7,7 @@
     <!-- LA BAR EN HAUT -->
     <v-app-bar app elevate-on-scroll>
       <v-btn icon @click="toggleDrawer()"><v-icon >{{iconLink}}</v-icon></v-btn>
-      <router-link class="link" to="/"><v-toolbar-title class="title">CES'<span style="font-weight:bold;color: #5fb709">EAT</span></v-toolbar-title></router-link> 
+      <router-link class="link" :to="homelink"><v-toolbar-title class="title">CES'<span style="font-weight:bold;color: #5fb709">EAT</span></v-toolbar-title></router-link> 
       <v-spacer></v-spacer>
       
       <div v-if="$store.state.userStore.auth.role == 'client'">
@@ -52,6 +52,17 @@ export default class NavigationBar extends Vue {
   drawer = false;
   get iconLink(){
     return this.$store.state.sidebarStore.toggled ? "mdi-chevron-left" : "mdi-menu"
+  }
+
+  get homelink(){
+    switch (this.$store.state.userStore.auth.role) {
+      case "client":
+        return "/client";
+      case "restaurantOwner":
+        return "/restaurants-list";
+      default:
+        return "/";
+    }
   }
 
   public toggleDrawer() {
