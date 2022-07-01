@@ -35,7 +35,7 @@ export default class ClientHomeView extends Vue {
   
 }
 </script>
-<style>
+<style scoped>
   .title{
     color:aliceblue;
   }
