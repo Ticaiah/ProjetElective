@@ -39,6 +39,20 @@ export default class RestaurantsService extends ApiService {
             
     }
 
+    public async getRestaurant(id : string){
+        try
+        {
+            var response = await this.instance.get('https://appli.docker.localhost/api/restaurants/', { params: { _id: id } });
+            return <restaurantsModel>response.data[0];
+        }
+        catch (e)
+        {
+            console.log(e);
+            return undefined;
+        }
+    }
+
+
     public async modifyRestaurant(restaurant : restaurantsModel) {
         try
         {

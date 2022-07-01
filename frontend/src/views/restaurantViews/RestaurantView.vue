@@ -1,6 +1,8 @@
 <template>
   <div>
-    <p> Hello restaurant {{ $route.params.id }}</p>
+    <div>
+        <h1>{{ restaurant.name }}</h1>
+    </div>
     <!-- vuetify list -->
     <v-layout wrap justify-space-around>
         <v-flex v-for="article in articles" :key="article._id" class="pa-6">
@@ -19,6 +21,8 @@ import { Component, Vue } from "vue-property-decorator";
 import Article from "@/components/cards/article.vue";
 import { articlesModel } from "@/model/articlesModel";
 import ArticlesService from "@/services/articlesServices";
+import RestaurantService from "@/services/restaurantsService";
+import { restaurantsModel } from "@/model/restaurantsModel";
 
 
 @Component({
@@ -27,65 +31,18 @@ import ArticlesService from "@/services/articlesServices";
   },
 })
 export default class RestaurantView extends Vue {
-  
-    articlesMock:Array<articlesModel> = [
-        {
-            _id: "1",
-            name: "Article 1",
-            description: "Description 1",
-            price: 1,
-            type: "Boisson",
-            stock: 1,
-            img: "https://picsum.photos/200/300",
-            restaurant_id: "1"
-        },
-        {
-            _id: "2",
-            name: "Article 2",
-            description: "Description 2",
-            price: 2,
-            type: "Snacks",
-            stock: 2,
-            img: "https://picsum.photos/200/300",
-            restaurant_id: "1"
-        },
-        {
-            _id: "3",
-            name: "Article 3",
-            description: "Description 3",
-            price: 3,
-            type: "Dessert",
-            stock: 3,
-            img: "https://picsum.photos/200/300",
-            restaurant_id: "1"
-        },
-        {
-            _id: "4",
-            name: "Article 4",
-            description: "Description 4",
-            price: 4,
-            type: "Sauce",
-            stock: 4,
-            img: "https://picsum.photos/200/300",
-            restaurant_id: "1"
-        },
-        {
-            _id: "5",
-            name: "Article 5",
-            description: "Description 5",
-            price: 5,
-            type: "Plat",
-            stock: 5,
-            img: "https://picsum.photos/200/300",
-            restaurant_id: "1"
-        }
-
-        ];
-
     public articles:articlesModel[] = new Array<articlesModel>();
+    public restaurant:restaurantsModel = new restaurantsModel();
     public articlesService = new ArticlesService();
+    public restaurantService = new RestaurantService();
     
     async mounted() {
+        var restaurant = await this.restaurantService.getRestaurant(this.$route.params.id);
+
+        if (restaurant) {
+            this.restaurant = restaurant;
+        }
+
         var articles = await this.articlesService.getArticles(this.$route.params.id);
         if (articles) {
             this.articles = articles;
