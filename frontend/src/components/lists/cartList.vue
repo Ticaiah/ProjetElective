@@ -1,9 +1,9 @@
 <template>
     <v-layout v-if="this.$store.state.basketStore.articles" wrap justify-space-around>
-        <v-flex class="pa-6" v-for="(article, index) in this.$store.state.basketStore.articles">
+        <v-flex class="pa-6" v-for="(article, index) in this.$store.state.basketStore.articles" :key="index">
             <ArticleCart :article="article" :index="index"></ArticleCart>
         </v-flex>
-    <v-btn depressed rounded text @click="validateCart" color="red">Valider le panier</v-btn>
+    <v-btn depressed rounded @click="validateCart" color="red">Valider le panier</v-btn>
     </v-layout>
 </template>
 
