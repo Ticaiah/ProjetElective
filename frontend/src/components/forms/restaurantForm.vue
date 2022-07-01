@@ -44,7 +44,7 @@ import { restaurantsModel } from "@/model/restaurantsModel";
 export default class RestaurantForm extends Vue {
     requiredRules = [
         (v:string) => !!v || 'Requis',
-        (v:string) => v?.length <= 50 || 'Must be less than 50 characters',
+        (v:string) => v?.length <= 100 || 'Must be less than 100 characters',
     ];
 
     postcodeRules = [
