@@ -1,7 +1,6 @@
 // lib/controllers/nodes.controller.ts
 import { Request, Response } from "express";
 import { User } from "../models/postgres/user.model";
-import jwt from "jsonwebtoken";
 
 export class AuthController {
 	public checkJWT(req: Request, res: Response) {
@@ -11,8 +10,7 @@ export class AuthController {
 			const bearer = token.replace(/^Bearer\s+/, "");
 			res.sendStatus(User.checkJwt(bearer));
 		}
-		else
-		{
+		else {
 			return res.status(401).json({
 				message: "No token provided"
 			});
@@ -27,17 +25,19 @@ export class AuthController {
 				mail: mail
 			}
 		});
-		if (user) {
-			// check if password matches
-			if (await user.checkPassword(password)) {
-				// generate a signed json web token with the contents of user object and return it in the response
-				const token = User.generateJWT(user);
-				res.json({ token });
-			}
-
+		if (!user) {
+			return res.status(401).json({
+				message: "Invalid credentials"
+			});
 		}
-		else
-		{
+
+		// check if password matches
+		if (await user.checkPassword(password)) {
+			// generate a signed json web token with the contents of user object and return it in the response
+			const token = User.generateJWT(user);
+			res.json({ token });
+		}
+		else {
 			return res.status(401).json({
 				message: "Invalid credentials"
 			});
@@ -53,33 +53,42 @@ export class AuthController {
 		const address = req.body.address;
 		const postcode = req.body.postcode;
 		const city = req.body.city;
-		const type = "client";
-		const [user, created] = await User.findCreateFind({
-      where: {
-        mail: mail
-      },
-      defaults: {
-        first_name: first_name,
-        last_name: last_name,
-        mail: mail,
-        password: password,
-        phone_number: phone_number,
-        address: address,
-        postcode: postcode,
-        city: city,
-        type: type,
-        is_verified: true
-      }
-		});
+		const type = req.body.type;
+		var user: User;
+		var created = false;
+		try {
+			[user, created] = await User.findCreateFind({
+				where: {
+					mail: mail
+				},
+				defaults: {
+					first_name: first_name,
+					last_name: last_name,
+					mail: mail,
+					password: password,
+					phone_number: phone_number,
+					address: address,
+					postcode: postcode,
+					city: city,
+					type: type,
+					is_verified: true
+				}
+			});
+		}
+		catch (e) {
+			return res.status(400).json({
+				message: `validation error ${e}`
+			});
+		}
 		if (created) {
 			// generate a signed json web token with the contents of user object and return it in the response
 			const token = User.generateJWT(user);
 			res.json({ token });
 		}
-    else {
-      return res.status(401).json({
-        message: "User already exists"
-      });
-    }
+		else {
+			return res.status(401).json({
+				message: "User already exists"
+			});
+		}
 	}
 }

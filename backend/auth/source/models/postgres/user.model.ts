@@ -10,7 +10,7 @@ export class User extends Model {
 	public mail!: string;
 	public password!: string;
 	public is_verified!: boolean;
-	public phone_number!: number;
+	public phone_number!: string;
 	public address!: string;
 	public postcode!: number;
 	public city!: string;
@@ -30,7 +30,7 @@ export class User extends Model {
 
 	public static generateJWT(user:User): string {
 		// generate a signed json web token with the contents of user object and return it in the response
-		return jwt.sign({ id: user.id, login: user.mail, type: user.type }, "TEST", { expiresIn: "1h" });
+		return jwt.sign({ id: user.id, first_name: user.first_name, last_name: user.last_name,mail: user.mail, type: user.type }, "TEST", { expiresIn: "1h" });
 	}
 
 	public static checkJwt(token:string): number {
@@ -92,8 +92,11 @@ User.init(
 
 		},
 		phone_number: {
-			type: DataTypes.INTEGER,
-			allowNull: true
+			type: DataTypes.STRING,
+			allowNull: true,
+			validate:{
+				is: /^\+?[0-9]{10,15}$/
+			}
 
 		},
 		address: {
@@ -109,7 +112,7 @@ User.init(
 			allowNull: true
 		},
 		type: {
-			type: DataTypes.ENUM("client", "livreur", "developpeurTier", "restaurateur"),
+			type: DataTypes.ENUM("client", "restaurantOwner", "deliveryman"),
 			allowNull: false
 
 		},

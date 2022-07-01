@@ -2,6 +2,7 @@ version: "3"
 
 volumes:
   local_postgres_data: {}
+  local_minio_data: {}
   local_mongo_data: {}
   local_postgres_data_backups: {}
   node_modules: {}
@@ -178,3 +179,46 @@ services:
 
       # Authentication middleware
       - "traefik.http.routers.protected.middlewares=apiprotect"
+
+
+  minio:
+    image: minio/minio
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    volumes:
+      - local_minio_data:/data
+    environment:
+      MINIO_ROOT_USER: minioadmin
+      MINIO_ROOT_PASSWORD: minioadmin
+      MINIO_ACCESS_KEY: minio_access_key
+      MINIO_SECRET_KEY: minio_secret_key
+    command: server /data --console-address ":9001"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.minio.rule=Host(`data.docker.localhost`)"
+      - "traefik.http.routers.minio.service=minio"
+      - "traefik.http.routers.minio.tls=true"
+      - "traefik.http.routers.minio.entrypoints=websecure"
+      - "traefik.http.services.minio.loadbalancer.server.port=9000"
+
+      - "traefik.http.routers.minioui.rule=Host(`dataui.docker.localhost`)"
+      - "traefik.http.routers.minioui.service=minioui"
+      - "traefik.http.routers.minioui.tls=true"
+      - "traefik.http.routers.minioui.entrypoints=websecure"
+      - "traefik.http.services.minioui.loadbalancer.server.port=9001"
+
+  swagger-ui:
+    image: swaggerapi/swagger-ui
+    container_name: "swagger-ui"
+    volumes:
+      - ./openapi.yaml:/openapi.yaml
+    environment:
+      SWAGGER_JSON: /openapi.yaml
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.doc.rule=Host(`docs.docker.localhost`)"
+      - "traefik.http.routers.doc.service=doc"
+      - "traefik.http.routers.doc.tls=true"
+      - "traefik.http.routers.doc.entrypoints=websecure"
+      - "traefik.http.services.doc.loadbalancer.server.port=8080"

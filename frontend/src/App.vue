@@ -1,32 +1,36 @@
 <template>
-    <v-app>
-      <Navigation @DrawerToggled="onDrawerToggled($event)"/>
-      <SideBar :drawer="drawer"/>
+  <v-app>
+    <NavigationBar />
+    <SideBar />
 
     <!-- TOUT LE CONTENU -->
-    <v-main class="homepage">
+    <v-main
+      :class="
+        $store.state.userStore.auth.connected
+          ? 'homepage-connected'
+          : 'homepage'
+      "
+    >
       <router-view />
     </v-main>
-    
   </v-app>
 </template>
 
 <script lang="ts">
 import { Vue, Component } from "vue-property-decorator";
-import Navigation from "./components/guest/navigation/navigation.vue";
-import SideBar from "@/components/guest/navigation/sidebar.vue"
+import NavigationBar from "./components/navigation/navigationBar.vue";
+import SideBar from "./components/navigation/sideBar.vue";
 
 @Component({
   components: {
-    Navigation,
+    NavigationBar,
     SideBar,
   },
 })
 export default class Test extends Vue {
-  drawer = false;
-  public onDrawerToggled(drawer:boolean){
-      this.drawer = drawer;
-  }
+  beforeCreate() {
+		this.$store.commit('initialiseStore');
+	}
 }
 </script>
 
@@ -34,17 +38,24 @@ export default class Test extends Vue {
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   text-align: center;
-  
 }
-   .homepage {
-
+.homepage {
   width: 100%;
   background-image: url("@/../public/assets/pizza.jpg");
   background-color: #cccccc;
-  height: 100vh;
+  background-attachment: fixed;
   background-repeat: no-repeat;
   background-size: cover;
   position: relative;
+}
 
+.homepage-connected {
+  width: 100%;
+  background-image: url("@/../public/assets/italian.jpg");
+  background-color: #cccccc;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
 }
 </style>
