@@ -207,3 +207,18 @@ services:
       - "traefik.http.routers.minioui.tls=true"
       - "traefik.http.routers.minioui.entrypoints=websecure"
       - "traefik.http.services.minioui.loadbalancer.server.port=9001"
+
+  swagger-ui:
+    image: swaggerapi/swagger-ui
+    container_name: "swagger-ui"
+    volumes:
+      - ./openapi.yaml:/openapi.yaml
+    environment:
+      SWAGGER_JSON: /openapi.yaml
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.doc.rule=Host(`docs.docker.localhost`)"
+      - "traefik.http.routers.doc.service=doc"
+      - "traefik.http.routers.doc.tls=true"
+      - "traefik.http.routers.doc.entrypoints=websecure"
+      - "traefik.http.services.doc.loadbalancer.server.port=8080"
