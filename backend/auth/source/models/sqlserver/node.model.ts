@@ -1,6 +1,6 @@
 // lib/models/node.model.ts
 import {Sequelize, Model, DataTypes, BuildOptions} from "sequelize";
-import {postgres} from "../../config/postgres";
+import {sqlserver} from "../../config/sqlserver";
 
 export class Node extends Model {
   public id!: number;
@@ -27,7 +27,7 @@ Node.init(
   },
   {
     tableName: "nodes",
-    sequelize: postgres, // this bit is important
+    sequelize: sqlserver, // this bit is important
   }
 );
 

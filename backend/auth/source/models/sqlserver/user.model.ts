@@ -1,6 +1,6 @@
 import argon2 from "argon2";
 import { Sequelize, Model, DataTypes, BuildOptions } from "sequelize";
-import { postgres } from "../../config/postgres";
+import { sqlserver } from "../../config/sqlserver";
 import jwt from "jsonwebtoken";
 
 export class User extends Model {
@@ -131,7 +131,7 @@ User.init(
 			}
 		},
 		tableName: "users",
-		sequelize: postgres,
+		sequelize: sqlserver,
 	});
 
 User.sync({ force: true }).then(() => console.log("User table created/updated!"));

@@ -1,6 +1,6 @@
 // lib/controllers/nodes.controller.ts
 import { Request, Response } from "express";
-import { User } from "../models/postgres/user.model";
+import { User } from "../models/sqlserver/user.model";
 
 export class AuthController {
 	public checkJWT(req: Request, res: Response) {

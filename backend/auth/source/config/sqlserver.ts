@@ -1,16 +1,16 @@
 // lib/config/database.ts
 import { Sequelize } from "sequelize";
 
-export const postgres = new Sequelize({
-  dialect: "postgres",
-  host: "postgres",
-  username: "cesi",
-  password: "cesi2022",
-  database: "cesilogiciel"
+export const sqlserver = new Sequelize({
+  dialect: "mssql",
+  host: "sql-server",
+  username: "sa",
+  password: "CESU_2024",
+  // database: "cyber-frizbee"
 });
 
 try {
-  postgres.authenticate();
+  sqlserver.authenticate();
   console.log('Connection has been established successfully.');
 } catch (error) {
   console.error('Unable to connect to the database:', error);

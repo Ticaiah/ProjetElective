@@ -29,14 +29,7 @@ services:
       - "traefik.enable=true"
       # Dashboard
       # - "traefik.docker.network=proxy"
-      - "traefik.http.routers.traefik.rule=Host(`traefik.docker.localhost`)"
-      - "traefik.http.routers.traefik.priority=255"
-      - "traefik.http.routers.traefik.service=api@internal"
-      - "traefik.http.routers.traefik.tls=true"
-      - "traefik.http.routers.traefik.entrypoints=websecure"
-      - "traefik.http.routers.traefik.middlewares=authtraefik"
       # - "traefik.http.middlewares.test-stripprefix.stripprefix.prefixes=/"
-      - "traefik.http.middlewares.authtraefik.basicauth.users=admin:$$apr1$$xPj12WiM$$hYFwvN4aD9A4sPD8ofcyv0" # user:admin, password:admin
       # # Dashboard private
       # - "traefik.http.routers.dashtr.service=api@internal"
       # - "traefik.http.routers.dashtr.entrypoints=metrics"
@@ -59,26 +52,6 @@ services:
       - "traefik.http.middlewares.stripprefix.stripprefix.prefixes=/api"
         # we chain rate limit with auth middleware
       - "traefik.http.middlewares.apiprotect.chain.middlewares=ratelimit-middleware,auth-middleware,stripprefix"
-
-  # postgres:
-  #   image: postgres
-  #   container_name: cesiPostgres
-  #   volumes:
-  #     - local_postgres_data:/var/lib/postgresql/data
-  #     - local_postgres_data_backups:/backups
-  #   env_file:
-  #     - ./envs/local/.postgres
-  #   ports:
-  #     - "5432:5432"
-
-  sql-server:
-    container_name: sql-server
-    image: mcr.microsoft.com/mssql/server
-    ports:
-      - "1433:1433"
-    environment:
-      MSSQL_SA_PASSWORD: "CESU_2024"
-      ACCEPT_EULA: "Y"
 
   frontend:
     build:
@@ -108,8 +81,8 @@ services:
       # Aujourd'hui nous n'avons qu'une seule database,
       # si nous en voulons plusieurs nous devons réaliser un script d'initialisation
       # Lien : https://onexlab-io.medium.com/docker-mongodb-multiple-databases-62a685c4352a
-    ports:
-      - "48151:27017"
+    # ports:
+    #   - "48151:27017"
     volumes:
       - local_mongo_data:/data/db
 
@@ -121,8 +94,6 @@ services:
     container_name: auth
     depends_on:
       - mongo
-      # - postgres
-      - sql-server
     volumes:
       - ./backend/auth:/app
       # http://jdlm.info/articles/2016/03/06/lessons-building-node-app-docker.html
@@ -131,7 +102,7 @@ services:
       - ./envs/local/.mongodb
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.auth.rule=Host(`appli.docker.localhost`) && PathPrefix(`/auth`)"
+      - "traefik.http.routers.auth.rule=PathPrefix(`/auth`)"
       - "traefik.http.routers.auth.service=auth"
       - "traefik.http.routers.auth.tls=true"
       - "traefik.http.routers.auth.entrypoints=websecure"
@@ -152,8 +123,6 @@ services:
     container_name: microservice
     depends_on:
       - mongo
-      # - postgres
-      - sql-server
     volumes:
       - ./backend/microservice:/app
       # http://jdlm.info/articles/2016/03/06/lessons-building-node-app-docker.html
@@ -162,7 +131,7 @@ services:
       - ./envs/local/.mongodb
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.microservice.rule=Host(`appli.docker.localhost`) && PathPrefix(`/api`)"
+      - "traefik.http.routers.microservice.rule=PathPrefix(`/api`)"
       - "traefik.http.routers.microservice.service=microservice"
       - "traefik.http.routers.microservice.tls=true"
       - "traefik.http.routers.microservice.entrypoints=websecure"
@@ -175,21 +144,20 @@ services:
     # ports:
     #   - "6060:6060"
 
-  # TODO Conteneur sécurisé par le middleware -> ici que pour le test
   whoami:
     image: containous/whoami:latest
     # ports:
     #   - 8000:80
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.protected.rule=Host(`appli.docker.localhost`) && PathPrefix(`/api/protected`)"
+      - "traefik.http.routers.protected.rule=PathPrefix(`/api/protected`)"
       - "traefik.http.routers.protected.service=protected"
       - "traefik.http.routers.protected.tls=true"
       - "traefik.http.routers.protected.entrypoints=websecure"
       - "traefik.http.services.protected.loadbalancer.server.port=80"
 
       # Authentication middleware
-      - "traefik.http.routers.protected.middlewares=apiprotect"
+      # - "traefik.http.routers.protected.middlewares=apiprotect"
 
 
   minio:
@@ -205,32 +173,3 @@ services:
       MINIO_ACCESS_KEY: minio_access_key
       MINIO_SECRET_KEY: minio_secret_key
     command: server /data --console-address ":9001"
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.minio.rule=Host(`data.docker.localhost`)"
-      - "traefik.http.routers.minio.service=minio"
-      - "traefik.http.routers.minio.tls=true"
-      - "traefik.http.routers.minio.entrypoints=websecure"
-      - "traefik.http.services.minio.loadbalancer.server.port=9000"
-
-      - "traefik.http.routers.minioui.rule=Host(`dataui.docker.localhost`)"
-      - "traefik.http.routers.minioui.service=minioui"
-      - "traefik.http.routers.minioui.tls=true"
-      - "traefik.http.routers.minioui.entrypoints=websecure"
-      - "traefik.http.services.minioui.loadbalancer.server.port=9001"
-
-  swagger-ui:
-    image: swaggerapi/swagger-ui
-    container_name: "swagger-ui"
-    volumes:
-      - ./openapi.yaml:/openapi.yaml
-    environment:
-      SWAGGER_JSON: /openapi.yaml
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.doc.rule=Host(`docs.docker.localhost`)"
-      - "traefik.http.routers.doc.service=doc"
-      - "traefik.http.routers.doc.tls=true"
-      - "traefik.http.routers.doc.entrypoints=websecure"
-      - "traefik.http.services.doc.loadbalancer.server.port=8080"
-  
