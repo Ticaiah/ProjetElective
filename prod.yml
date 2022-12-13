@@ -68,7 +68,7 @@ services:
       - /app/node_modules
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.frontend.rule=PathPrefix(`/`)"
+      - "traefik.http.routers.frontend.rule=Host(`webserver.cesu.local`) && PathPrefix(`/`)"
       - "traefik.http.routers.frontend.service=frontend"
       - "traefik.http.routers.frontend.tls=true"
       - "traefik.http.routers.frontend.entrypoints=websecure"
@@ -107,7 +107,7 @@ services:
       - ./envs/local/.mongodb
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.auth.rule=PathPrefix(`/auth`)"
+      - "traefik.http.routers.auth.rule=Host(`webserver.cesu.local`) && PathPrefix(`/auth`)"
       - "traefik.http.routers.auth.service=auth"
       - "traefik.http.routers.auth.tls=true"
       - "traefik.http.routers.auth.entrypoints=websecure"
@@ -137,7 +137,7 @@ services:
       - ./envs/local/.mongodb
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.microservice.rule=PathPrefix(`/api`)"
+      - "traefik.http.routers.microservice.rule=Host(`webserver.cesu.local`) && PathPrefix(`/api`)"
       - "traefik.http.routers.microservice.service=microservice"
       - "traefik.http.routers.microservice.tls=true"
       - "traefik.http.routers.microservice.entrypoints=websecure"
@@ -156,7 +156,7 @@ services:
     #   - 8000:80
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.protected.rule=PathPrefix(`/api/protected`)"
+      - "traefik.http.routers.protected.rule=Host(`webserver.cesu.local`) && PathPrefix(`/api/protected`)"
       - "traefik.http.routers.protected.service=protected"
       - "traefik.http.routers.protected.tls=true"
       - "traefik.http.routers.protected.entrypoints=websecure"
@@ -180,3 +180,10 @@ services:
       MINIO_ACCESS_KEY: minio_access_key
       MINIO_SECRET_KEY: minio_secret_key
     command: server /data --console-address ":9001"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.minio.rule=Host(`data.webserver.cesu.local`)"
+      - "traefik.http.routers.minio.service=minio"
+      - "traefik.http.routers.minio.tls=true"
+      - "traefik.http.routers.minio.entrypoints=websecure"
+      - "traefik.http.services.minio.loadbalancer.server.port=9000"

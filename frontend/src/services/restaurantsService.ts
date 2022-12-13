@@ -14,7 +14,7 @@ export default class RestaurantsService extends ApiService {
         {
             var formData = new FormData();
             formData.append('file', image);
-            imageURL = await this.instance.post('https://10.0.0.23/api/restaurants/upload', formData, {
+            imageURL = await this.instance.post('https://webserver.cesu.local/api/restaurants/upload', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }
@@ -29,7 +29,7 @@ export default class RestaurantsService extends ApiService {
         
         try
         {
-            return await this.instance.post('https://10.0.0.23/api/restaurants', JSON.stringify(restaurant));
+            return await this.instance.post('https://webserver.cesu.local/api/restaurants', JSON.stringify(restaurant));
         }
         catch (e)
         {
@@ -42,7 +42,7 @@ export default class RestaurantsService extends ApiService {
     public async getRestaurant(id : string){
         try
         {
-            var response = await this.instance.get('https://10.0.0.23/api/restaurants/', { params: { _id: id } });
+            var response = await this.instance.get('https://webserver.cesu.local/api/restaurants/', { params: { _id: id } });
             return <restaurantsModel>response.data[0];
         }
         catch (e)
@@ -56,7 +56,7 @@ export default class RestaurantsService extends ApiService {
     public async modifyRestaurant(restaurant : restaurantsModel) {
         try
         {
-            return await this.instance.put('https://10.0.0.23/api/restaurants/'+restaurant._id, JSON.stringify(restaurant));
+            return await this.instance.put('https://webserver.cesu.local/api/restaurants/'+restaurant._id, JSON.stringify(restaurant));
         }
         catch (e)
         {
@@ -68,7 +68,7 @@ export default class RestaurantsService extends ApiService {
     public async getAllRestaurants(){
         let restaurants !: IRestaurant []
         try{
-            let response = await this.instance.get('https://10.0.0.23/api/restaurants/')
+            let response = await this.instance.get('https://webserver.cesu.local/api/restaurants/')
             console.log(response.data);
             restaurants = <restaurantsModel[]>response.data
             console.log("restaurants");
@@ -88,7 +88,7 @@ export default class RestaurantsService extends ApiService {
         // NOTE : Les restaurants renvoyés sont ceux de l'utilisateur connecté (user_id récupéré par le back depuis le token)
         let restaurants !: IRestaurant []
         try{
-            let response = await this.instance.get('https://10.0.0.23/api/my-restaurants/')
+            let response = await this.instance.get('https://webserver.cesu.local/api/my-restaurants/')
             console.log(response.data);
             restaurants = <restaurantsModel[]>response.data
             console.log("restaurants");

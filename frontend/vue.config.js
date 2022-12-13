@@ -3,7 +3,7 @@ module.exports = defineConfig({
   transpileDependencies: true,
   devServer: {
     client: {
-      webSocketURL: 'wss://10.0.0.23/ws',
+      webSocketURL: 'wss://webserver.cesu.local/ws',
     },
     allowedHosts: "all"
   }

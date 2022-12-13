@@ -7,7 +7,7 @@ export default class UserService {
     public async createUser(user: usersModel) {
         console.log(JSON.stringify(user))
         try {
-            const response = await axios.post('https://10.0.0.23/auth/register', JSON.stringify(user), { headers: { 'Content-Type': 'application/json' } });
+            const response = await axios.post('https://webserver.cesu.local/auth/register', JSON.stringify(user), { headers: { 'Content-Type': 'application/json' } });
             return response;
         }
         catch (e) {
@@ -22,7 +22,7 @@ export default class UserService {
         //send credential to api
         console.log(JSON.stringify(user))
         try {
-            let response = await axios.post('https://10.0.0.23/auth/login', JSON.stringify(user), { headers: { 'Content-Type': 'application/json' } });
+            let response = await axios.post('https://webserver.cesu.local/auth/login', JSON.stringify(user), { headers: { 'Content-Type': 'application/json' } });
             let token: string = response.data.token;
             if (token) {
                 return token;
