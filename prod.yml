@@ -25,6 +25,7 @@ services:
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
       - "./letsencrypt:/letsencrypt"
+      - "/var/log/traefik/:/var/log/traefik/"
     labels:
       - "traefik.enable=true"
       # Dashboard
@@ -65,7 +66,7 @@ services:
       - /app/node_modules
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.frontend.rule=Host(`appli.docker.localhost`)"
+      - "traefik.http.routers.frontend.rule=PathPrefix(`/`)"
       - "traefik.http.routers.frontend.service=frontend"
       - "traefik.http.routers.frontend.tls=true"
       - "traefik.http.routers.frontend.entrypoints=websecure"

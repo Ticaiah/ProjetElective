@@ -3,7 +3,7 @@ import { Sequelize } from "sequelize";
 
 export const sqlserver = new Sequelize({
   dialect: "mssql",
-  host: "sql-server",
+  host: "10.0.10.1",
   username: "sa",
   password: "CESU_2024",
   // database: "cyber-frizbee"
