@@ -22,6 +22,7 @@ services:
     ports:
       - "80:80"
       - "443:443"
+    restart: always
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
       - "./letsencrypt:/letsencrypt"
@@ -60,6 +61,7 @@ services:
       dockerfile: ./Docker/local/frontend/Dockerfile
     image: cesi_logiciel_local_frontend
     container_name: frontend
+    restart: always
     volumes:
       - ./frontend:/app
       # http://jdlm.info/articles/2016/03/06/lessons-building-node-app-docker.html
@@ -77,6 +79,7 @@ services:
   mongo:
     container_name: mongo-dev
     image: mongo:latest
+    restart: always
     env_file:
       - ./envs/local/.mongodb
       # Aujourd'hui nous n'avons qu'une seule database,
@@ -93,6 +96,7 @@ services:
       dockerfile: ./Docker/local/auth/Dockerfile
     image: cesi_logiciel_local_auth
     container_name: auth
+    restart: always
     depends_on:
       - mongo
     volumes:
@@ -122,6 +126,7 @@ services:
       dockerfile: ./Docker/local/microservice/Dockerfile
     image: cesi_logiciel_local_microservice
     container_name: microservice
+    restart: always
     depends_on:
       - mongo
     volumes:
@@ -163,6 +168,7 @@ services:
 
   minio:
     image: minio/minio
+    restart: always
     ports:
       - "9000:9000"
       - "9001:9001"
