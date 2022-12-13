@@ -107,7 +107,7 @@ public async deleteArticle(req: Request, res: Response) {
       // get extention from filename
       const ext = req.file.originalname.split('.').pop();
       const fileName = uuidv4() + "." + ext;
-      const url = `https://data.docker.localhost/${bucket}/${fileName}`;
+      const url = `https://data.webserver.cesu.local/${bucket}/${fileName}`;
       await minioClient.putObject(bucket, fileName, req.file.buffer);
       return res.json({url});
     }
