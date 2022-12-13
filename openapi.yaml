@@ -4,7 +4,7 @@ info:
   description: Ceci est la documentation API des différents microservices. La partie routage et authentification sont gérés par Traefik, et l'accès aux différents services se fait en fonction du token envoyé dans la requête HTTP.
   version: 1.0.0
 servers:
-- url: appli.docker.localhost/api
+- url: 10.0.0.23/api
 tags:
 - name: user
   description: Gestion des utilisateurs

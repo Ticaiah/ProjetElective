@@ -9,7 +9,7 @@ export default class ApiService {
 
     constructor() {
         this.instance = axios.create({
-            baseURL: 'https://appli.docker.localhost/api',
+            baseURL: 'https://10.0.0.23/api',
             timeout: 1000,
             headers: {
                 "Content-Type": "application/json",

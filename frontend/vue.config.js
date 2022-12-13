@@ -3,7 +3,7 @@ module.exports = defineConfig({
   transpileDependencies: true,
   devServer: {
     client: {
-      webSocketURL: 'wss://appli.docker.localhost/ws',
+      webSocketURL: 'wss://10.0.0.23/ws',
     },
     allowedHosts: "all"
   }

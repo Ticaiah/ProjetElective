@@ -9,7 +9,7 @@ export default class OrdersService extends ApiService {
         
         try 
         {
-            await this.instance.post('https://appli.docker.localhost/api/Orders', JSON.stringify(Order))
+            await this.instance.post('https://10.0.0.23/api/Orders', JSON.stringify(Order))
         }
         catch (e) 
         {
@@ -21,7 +21,7 @@ export default class OrdersService extends ApiService {
 
     public async modifyOrder(Order : ordersModel) {
         try {
-            await this.instance.put('https://appli.docker.localhost/api/Orders/'+Order._id, JSON.stringify(Order))
+            await this.instance.put('https://10.0.0.23/api/Orders/'+Order._id, JSON.stringify(Order))
         }
         catch (e) {
             console.log(e)
@@ -31,7 +31,7 @@ export default class OrdersService extends ApiService {
     public async getUserOrders(){
         let Orders !: IOrder []
         try {
-            let response = await this.instance.get('https://appli.docker.localhost/api/Orders/')
+            let response = await this.instance.get('https://10.0.0.23/api/Orders/')
             console.log(response.data);
             Orders = <IOrder[]>response.data
             console.log("restaurants");
@@ -48,7 +48,7 @@ export default class OrdersService extends ApiService {
     public async getUserOrderById(order_id:string){
         let order !: IOrder
         try {
-            let response = await this.instance.get('https://appli.docker.localhost/api/Orders/'+order_id)
+            let response = await this.instance.get('https://10.0.0.23/api/Orders/'+order_id)
             console.log(response.data);
             order = <IOrder>response.data
             console.log(order);

@@ -13,7 +13,7 @@ export default class ArticlesService extends ApiService {
         {
             var formData = new FormData();
             formData.append('file', image);
-            imageURL = await this.instance.post('https://appli.docker.localhost/api/articles/upload', formData, {
+            imageURL = await this.instance.post('https://10.0.0.23/api/articles/upload', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }
@@ -39,7 +39,7 @@ export default class ArticlesService extends ApiService {
 
     public modifyArticle(Article : articlesModel): void {
 
-        axios.put('https://appli.docker.localhost/api/Articles/'+Article._id, JSON.stringify(Article))
+        axios.put('https://10.0.0.23/api/Articles/'+Article._id, JSON.stringify(Article))
             .then(function (response) {
                 console.log(response);
             }
