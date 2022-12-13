@@ -134,4 +134,5 @@ User.init(
 		sequelize: sqlserver,
 	});
 
-User.sync({ force: true }).then(() => console.log("User table created/updated!"));
+// User.sync({ force: true }).then(() => console.log("User table created/updated!"));
+User.sync().then(() => console.log("User table created/updated!"));
