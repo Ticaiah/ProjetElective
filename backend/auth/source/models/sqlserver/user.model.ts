@@ -35,19 +35,19 @@ export class User extends Model {
 
 	public static checkJwt(token:string): number {
 		// check if jwt is valid
-		try {
-			console.log(token);
-			const decoded = jwt.verify(token, "TEST");
-		}
-		catch (e) {
-			if (e instanceof jwt.JsonWebTokenError) {
-				// if the error thrown is because the JWT is unauthorized, return a 401 error
-				console.log(e)
-				return 401;
-			}
-			// otherwise, return a bad request error
-			return 400;
-		}
+		// try {
+		// 	console.log(token);
+		// 	const decoded = jwt.verify(token, "TEST");
+		// }
+		// catch (e) {
+		// 	if (e instanceof jwt.JsonWebTokenError) {
+		// 		// if the error thrown is because the JWT is unauthorized, return a 401 error
+		// 		console.log(e)
+		// 		return 401;
+		// 	}
+		// 	// otherwise, return a bad request error
+		// 	return 400;
+		// }
 		return 200;
 	}
 };

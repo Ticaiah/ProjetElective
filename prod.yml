@@ -187,3 +187,22 @@ services:
       - "traefik.http.routers.minio.tls=true"
       - "traefik.http.routers.minio.entrypoints=websecure"
       - "traefik.http.services.minio.loadbalancer.server.port=9000"
+
+#  doc pour le challenge cyber
+  swagger-ui:
+    image: swaggerapi/swagger-ui
+    container_name: "swagger-ui"
+    restart: always
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./openapi.yaml:/openapi.yaml
+    environment:
+      SWAGGER_JSON: /openapi.yaml
+    # labels:
+    #   - "traefik.enable=true"
+    #   - "traefik.http.routers.doc.rule=Host(`docs.docker.localhost`)"
+    #   - "traefik.http.routers.doc.service=doc"
+    #   - "traefik.http.routers.doc.tls=true"
+    #   - "traefik.http.routers.doc.entrypoints=websecure"
+    #   - "traefik.http.services.doc.loadbalancer.server.port=8080"
