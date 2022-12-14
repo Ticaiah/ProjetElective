@@ -186,7 +186,7 @@ paths:
                 type: string
                 example: This error occured
       x-codegen-request-body-name: body
-  /restaurant/{restaurantId}:
+  /restaurants/{restaurantId}:
     get:
       tags:
       - restaurant
