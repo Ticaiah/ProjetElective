@@ -199,6 +199,7 @@ services:
       - ./openapi.yaml:/openapi.yaml
     environment:
       SWAGGER_JSON: /openapi.yaml
+      NO_VERIFY_SSL: "true"
     # labels:
     #   - "traefik.enable=true"
     #   - "traefik.http.routers.doc.rule=Host(`docs.docker.localhost`)"
